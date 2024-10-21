@@ -14,6 +14,6 @@ Salla Närhi
 
 After you clone, run these commands in your terminal:
 
-- 1. lando composer install
-- 2. lando start
-- 3. lando db-import dump.sql (if there is a database)
+- lando composer install
+- lando start
+- lando db-import dump.sql (if there is a database)
