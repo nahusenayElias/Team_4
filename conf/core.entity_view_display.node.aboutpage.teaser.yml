@@ -1,0 +1,44 @@
+uuid: d4d770c3-4142-4241-8ff6-3c4802c2abb9
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.aboutpage.body
+    - field.field.node.aboutpage.field_image
+    - image.style.medium
+    - node.type.aboutpage
+  module:
+    - image
+    - text
+    - user
+id: node.aboutpage.teaser
+targetEntityType: node
+bundle: aboutpage
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_image:
+    type: image
+    label: hidden
+    settings:
+      image_link: content
+      image_style: medium
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: -1
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden: {  }
