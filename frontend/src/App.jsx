@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import About from "./components/About";
-import Layout from "./Layout";
-import Contact from "./components/Contact";
+import About from "./pages/About";
+import Layout from "./pages/Layout";
+import Contact from "./pages/Contact";
 import Services from "./pages/Services";
 import Jobs from "./pages/Jobs";
 import Blog from "./pages/Blog";
@@ -17,7 +17,7 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/jobs" element={<Jobs />} />
-          <Route path="/contact" element={<Blog />} />
+          <Route path="/blog" element={<Blog />} />
         </Route>
       </Routes>
     </Router>
