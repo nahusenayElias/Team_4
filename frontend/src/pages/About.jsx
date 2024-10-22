@@ -8,7 +8,7 @@ const About = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchContent("node/about?include=field_image")
+    fetchContent("node/aboutpage?include=field_image")
       .then((data) => {
         console.log("Fetched data:", data);
         setContent(data.data[0]); // Access the first item in the data array
