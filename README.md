@@ -1,8 +1,13 @@
 # Software Development Team Project 2
 
-Repository for our software team project
+Repository for our software team project to be more customer-friendly.
+The task is to create a new website for Druid Oy.
 
-## Team 4
+- Backend should be headless Drupal
+- Frontend in React
+- Mautic, marketing automation platform
+
+### Team 4
 
 Members:
 Dana Popa,

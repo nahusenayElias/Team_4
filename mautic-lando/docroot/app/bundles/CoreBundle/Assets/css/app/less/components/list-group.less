@@ -1,0 +1,100 @@
+//
+// List groups
+// --------------------------------------------------
+
+.list-group-item {
+  > a {
+    position: relative;
+    z-index: 1;
+    display: block;
+  }
+}
+
+// Linked list items
+//
+// Use anchor elements instead of `li`s or `div`s to create linked list items.
+// Includes an extra `.active` modifier class for showing selected items.
+
+a.list-group-item {
+  // Hover state
+  &:hover,
+  &:focus {
+    z-index: 2;
+  }
+}
+
+label.list-group-item {
+  color: @list-group-link-color;
+
+  .list-group-item-heading {
+    color: @list-group-link-heading-color;
+  }
+
+  // Hover state
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    color: @list-group-link-hover-color;
+    background-color: @list-group-hover-bg;
+  }
+}
+
+.ds-list-group {
+  counter-reset: item;
+  list-style-type: none;
+  padding-inline-start: 35px;
+
+  > li {
+    @list-padding: 10px;
+    counter-increment: item;
+    position: relative;
+    padding: @list-padding 0px;
+
+    &:not(:first-child) {
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    &:before {
+      @marker-size: 16px;
+      position: absolute;
+      background: var(--layer);
+      border-radius: 50%;
+      left: -35px;
+      width: @marker-size;
+      height: @marker-size;
+      text-align: center;
+      line-height: @marker-size;
+      font-size: calc(@marker-size - 5px);
+      color: var(--icon-secondary);
+      transition: var(--all);
+      top: 11.8px;
+      vertical-align: middle;
+    }
+
+    &:hover:before {
+      transform: scale(1.2);
+    }
+  }
+}
+
+.ds-list-alphabet {
+  > li:before {
+    content: counter(item, upper-alpha);
+  }
+}
+
+.ds-list-check {
+  > li:before {
+    content: "\EB7B";
+    font-family: 'remixicon';
+  }
+}
+
+.ds-list-none {
+  padding-inline-start: 0;
+}
+
+.ds-list-bullet {
+  list-style-type: disc;
+  padding-inline-start: 18px;
+}
