@@ -1,4 +1,4 @@
-.*
+
 !.github
 !.gitignore
 !.htaccess
@@ -144,3 +144,31 @@
 !/themes/blank-big.png
 
 /translations
+
+# Exclude all environment files
+.env*
+!/.env.*.dist
+
+# Exclude specific cache directories
+/var/cache/*
+!/var/cache/.gitkeep
+
+# Exclude specific log files
+/app/logs/*
+!/app/logs/.gitkeep
+
+# Exclude build artifacts
+/build/*
+!/build/packages/.placeholder
+
+# Exclude media files
+/media/libraries/ckeditor/*
+/media/bundles/*
+/media/files/*
+/media/assets/*
+/media/images/*
+
+.babelrc
+.eslintrc
+.prettierignore
+.prettierrc
