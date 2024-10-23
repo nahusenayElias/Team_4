@@ -1,8 +1,0 @@
-{
-  "name": "theme-legacy-email",
-  "author": "Test theme",
-  "authorUrl": "https://www.mautic.org",
-  "features": [
-    "email"
-  ]
-}
