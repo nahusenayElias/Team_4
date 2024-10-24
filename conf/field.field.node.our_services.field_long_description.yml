@@ -1,0 +1,22 @@
+uuid: bb261865-bd37-4ed8-b741-819b29cf32aa
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_long_description
+    - node.type.our_services
+  module:
+    - text
+id: node.our_services.field_long_description
+field_name: field_long_description
+entity_type: node
+bundle: our_services
+label: 'Long Description'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long
