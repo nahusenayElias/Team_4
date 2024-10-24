@@ -25,6 +25,8 @@ module:
   image: 0
   jsonapi: 0
   link: 0
+  mautic: 0
+  mautic_paragraph: 0
   menu_link_content: 0
   menu_ui: 0
   mysql: 0

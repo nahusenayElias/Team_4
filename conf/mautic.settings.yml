@@ -1,0 +1,9 @@
+_core:
+  default_config_hash: 57YHD-gK9YrCd4mfkPt3DuRirKm_ZMRh2ILuF6JpC44
+visibility:
+  request_path_mode: 1
+  request_path_pages: '/*'
+header: false
+lift_enable: null
+mautic_enable: true
+mautic_base_url: 'http://localhost:62015/mtc.js'

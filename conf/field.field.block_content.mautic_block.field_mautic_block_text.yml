@@ -1,0 +1,24 @@
+uuid: 1b20732f-54c0-444a-bab2-5f86aa2a7c5c
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.mautic_block
+    - field.storage.block_content.field_mautic_block_text
+  module:
+    - text
+_core:
+  default_config_hash: ifs_2IbUDfqqA8_uq-DSZUa85mQqZTzrtsxGVD2Ic4Y
+id: block_content.mautic_block.field_mautic_block_text
+field_name: field_mautic_block_text
+entity_type: block_content
+bundle: mautic_block
+label: Text
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

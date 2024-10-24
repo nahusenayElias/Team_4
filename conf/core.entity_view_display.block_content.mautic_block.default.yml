@@ -1,0 +1,43 @@
+uuid: bed019c8-dba1-4228-9ba6-9f65b50d24dc
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.mautic_block
+    - field.field.block_content.mautic_block.field_mautic_block_formid
+    - field.field.block_content.mautic_block.field_mautic_block_text
+    - field.field.block_content.mautic_block.field_mautic_block_title
+  module:
+    - mautic_paragraph
+    - text
+_core:
+  default_config_hash: gA79vsQ4qyiNGIM9zH1jDsiBc7m1P9STNV_UXs6oXqQ
+id: block_content.mautic_block.default
+targetEntityType: block_content
+bundle: mautic_block
+mode: default
+content:
+  field_mautic_block_formid:
+    weight: 2
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: mautic_form_list
+    region: right
+  field_mautic_block_text:
+    type: text_default
+    weight: 1
+    region: left
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_mautic_block_title:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: left
+hidden:
+  search_api_excerpt: true

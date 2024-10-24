@@ -1,0 +1,12 @@
+_core:
+  default_config_hash: _jBWHDxcUqiULjXJMHx8WwoT1VIODfJ3jsHA7pycQos
+connector: basic_auth
+limit: 100
+connector_config:
+  scheme: null
+  base_url: null
+  port: ''
+  path: null
+  username: null
+  password: null
+cache: '3600'
