@@ -1,3 +1,4 @@
+import mautic from "./services/mautic";
 import { Routes, Route, useLocation } from "react-router-dom";
 import About from "./pages/About";
 import Layout from "./pages/Layout";
@@ -6,16 +7,29 @@ import Services from "./pages/Services";
 import Jobs from "./pages/Jobs";
 import Blog from "./pages/Blog";
 import FrontPage from "./pages/FrontPage";
-import mautic from "./services/mautic";
 import { useEffect } from "react";
 
 const App = () => {
   const location = useLocation();
 
-  // Track page views whenever the route changes
   useEffect(() => {
-    // Track page views when the location changes
-    mautic.pageView({ path: location.pathname });
+    // Change page title according to path
+    const pageTitles = {
+      "/": "Homepage | Druid - Team 4",
+      "/services": "Our Services | Druid Team 4",
+      "/contact": "Contact | Druid Team 4",
+      "/about": "About Us | Druid Team 4",
+      "/blog": "Blog | Druid Team 4",
+      "/jobs": "Jobs | Druid Team 4",
+    };
+    const title = pageTitles[location.pathname] || "Druid - Team 4";
+    document.title = title;
+
+    // Track the page view
+    mautic.pageView({
+      path: location.pathname,
+      title: document.title,
+    });
   }, [location]);
 
   return (
