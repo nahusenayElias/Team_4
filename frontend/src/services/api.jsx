@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const localhostAddress = "http://localhost:56050"; // Update this if your localhost address changes. No trailing forward slash.
+const localhostAddress = "http://localhost:53144"; // Update this if your localhost address changes. No trailing forward slash.
 const API_URL = `${localhostAddress}/jsonapi`;
 
 export const fetchContent = async (contentType) => {

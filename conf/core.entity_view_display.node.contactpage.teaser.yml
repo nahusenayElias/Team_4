@@ -1,22 +1,20 @@
-uuid: 00b02e03-81a1-4d95-a190-b09f9d0b32c2
+uuid: 2b7d36ed-35aa-41ad-9518-b61a35f4cc91
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.page.body
-    - field.field.node.page.field_image
+    - field.field.node.contactpage.body
+    - field.field.node.contactpage.field_image
     - image.style.medium
-    - node.type.page
+    - node.type.contactpage
   module:
     - image
     - text
     - user
-_core:
-  default_config_hash: 8BgdRtLbtQ0F__o0FHSH0Mx5fvXOra9tfT1GmNKbRYw
-id: node.page.teaser
+id: node.contactpage.teaser
 targetEntityType: node
-bundle: page
+bundle: contactpage
 mode: teaser
 content:
   body:
@@ -25,7 +23,7 @@ content:
     settings:
       trim_length: 600
     third_party_settings: {  }
-    weight: 100
+    weight: 101
     region: content
   field_image:
     type: image
@@ -39,6 +37,8 @@ content:
     weight: -1
     region: content
   links:
-    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
     region: content
 hidden: {  }

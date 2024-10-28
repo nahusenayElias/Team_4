@@ -1,21 +1,19 @@
-uuid: 0d809b5f-0e0d-4597-a0e5-a9a6aa3f49f1
+uuid: d8ab0367-7a73-4510-a623-864232129bac
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.page.body
-    - field.field.node.page.field_image
+    - field.field.node.contactpage.body
+    - field.field.node.contactpage.field_image
     - image.style.wide
-    - node.type.page
+    - node.type.contactpage
   module:
     - image
     - text
     - user
-_core:
-  default_config_hash: M_Y8L5tfmhx7DR143E05YyZSpvgil6VFvqcfBWykalg
-id: node.page.default
+id: node.contactpage.default
 targetEntityType: node
-bundle: page
+bundle: contactpage
 mode: default
 content:
   body:
@@ -23,7 +21,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 101
     region: content
   field_image:
     type: image
@@ -37,6 +35,8 @@ content:
     weight: -1
     region: content
   links:
-    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
     region: content
 hidden: {  }
