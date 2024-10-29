@@ -1,26 +1,24 @@
-uuid: 1497cc2c-1dc4-412e-8e4d-9f5d5b2dc4b3
+uuid: ec7ae2cc-51e6-4055-aea2-c575498ed850
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.page.body
-    - field.field.node.page.field_image
+    - field.field.node.contactpage.body
+    - field.field.node.contactpage.field_image
     - image.style.thumbnail
-    - node.type.page
+    - node.type.contactpage
   module:
     - image
     - path
     - text
-_core:
-  default_config_hash: SfpLhPExzvR0MgFp0Wp7CrmgEnhcqQ-fXIWFhbf4ue0
-id: node.page.default
+id: node.contactpage.default
 targetEntityType: node
-bundle: page
+bundle: contactpage
 mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 31
+    weight: 121
     region: content
     settings:
       rows: 9

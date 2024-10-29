@@ -21,7 +21,7 @@ const Header = () => {
             <NavLink to="/contact">Contact</NavLink>
           </li>
           <li>
-            <NavLink to="/jobs">Jobs</NavLink>
+            <NavLink to="https://careers.druid.fi/">Jobs</NavLink>
           </li>
           <li>
             <NavLink to="/blog">Blog</NavLink>
