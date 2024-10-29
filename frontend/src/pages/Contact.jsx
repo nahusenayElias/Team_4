@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchContent, localhostAddress } from "../services/api";
+import { fetchContent, drupalLocalhostAddress } from "../services/api";
 
 const Contact = () => {
   const [content, setContent] = useState(null);
@@ -35,7 +35,7 @@ const Contact = () => {
   // Find the image file in included data based on the ID
   const imageFile = included?.find((image) => image.id === imageData?.id);
   const imageUrl = imageFile
-    ? `${localhostAddress}${imageFile.attributes.uri.url}`
+    ? `${drupalLocalhostAddress}${imageFile.attributes.uri.url}`
     : null;
 
   return (
