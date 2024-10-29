@@ -1,0 +1,10 @@
+uuid: f5debef6-05e5-430d-9242-85a5202f79c4
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: U_LiFOkiaWMh4KAhKOY5PALzYNdWYgM0kndqa2PY4AE
+id: mautic_block
+label: Mautic
+revision: 0
+description: 'Mautic form in a block'

@@ -1,0 +1,52 @@
+uuid: 4aa0c030-3f8a-478a-a269-c3e5a0fe7048
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.mautic_block
+    - field.field.block_content.mautic_block.field_mautic_block_formid
+    - field.field.block_content.mautic_block.field_mautic_block_text
+    - field.field.block_content.mautic_block.field_mautic_block_title
+  module:
+    - mautic_paragraph
+    - text
+_core:
+  default_config_hash: atdTt2xgbrmVg4ddv0PpOvup8SVs_kaVEpg6q_MJTUc
+id: block_content.mautic_block.default
+targetEntityType: block_content
+bundle: mautic_block
+mode: default
+content:
+  field_mautic_block_formid:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: autocomplete_mautic
+    region: content
+  field_mautic_block_text:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_mautic_block_title:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  info:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true
