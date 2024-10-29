@@ -1,0 +1,24 @@
+uuid: a8d0d6f0-5708-4563-8813-f52092d6e462
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_long_description
+    - filter.format.basic_html
+    - node.type.consultation
+  module:
+    - text
+id: node.consultation.field_long_description
+field_name: field_long_description
+entity_type: node
+bundle: consultation
+label: 'Long Description'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - basic_html
+field_type: text_long
