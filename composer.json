@@ -22,7 +22,6 @@
         "drupal/mautic": "^1.13",
         "drupal/mautic_paragraph": "^1.1",
         "drush/drush": "^12.5",
-        "guzzlehttp/guzzle": "^7.3",
         "mautic/api-library": "^3.1"
     },
     "conflict": {
