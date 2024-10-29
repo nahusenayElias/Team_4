@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a6b479b5f1d72493c4ea1025b93076dc",
+    "content-hash": "c783ba7070ab984100b043beee32b205",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1467,6 +1467,133 @@
             "description": "Core and its dependencies with known-compatible minor versions. Require this project INSTEAD OF drupal/core."
         },
         {
+            "name": "drupal/mautic",
+            "version": "1.13.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/mautic.git",
+                "reference": "8.x-1.13"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/mautic-8.x-1.13.zip",
+                "reference": "8.x-1.13",
+                "shasum": "0ffcce3d5c392b6b209b47e3f0ba83b275c684a8"
+            },
+            "require": {
+                "drupal/core": "^8.8 || ^9 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.13",
+                    "datestamp": "1663934140",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "acquia",
+                    "homepage": "https://www.drupal.org/user/1231722"
+                },
+                {
+                    "name": "alanhartless",
+                    "homepage": "https://www.drupal.org/user/3639661"
+                },
+                {
+                    "name": "japerry",
+                    "homepage": "https://www.drupal.org/user/45640"
+                },
+                {
+                    "name": "jarodriguez",
+                    "homepage": "https://www.drupal.org/user/1551452"
+                },
+                {
+                    "name": "lukassykora",
+                    "homepage": "https://www.drupal.org/user/3501891"
+                },
+                {
+                    "name": "mautic",
+                    "homepage": "https://www.drupal.org/user/3183959"
+                }
+            ],
+            "description": "Allows your site to be tracked by Mautic by adding a Javascript tracking code to every page.",
+            "homepage": "https://www.drupal.org/project/mautic",
+            "support": {
+                "source": "https://git.drupalcode.org/project/mautic"
+            }
+        },
+        {
+            "name": "drupal/mautic_paragraph",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/mautic_paragraph.git",
+                "reference": "1.1.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/mautic_paragraph-1.1.1.zip",
+                "reference": "1.1.1",
+                "shasum": "bf136b6e1c3346e8ffe5f438e48f9c1837282060"
+            },
+            "require": {
+                "drupal/core": "^9.3 || ^10.0",
+                "mautic/api-library": "^3.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.1.1",
+                    "datestamp": "1694445259",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "patches": {
+                    "mautic/api-library": {
+                        "Add support for client credentials grant": "https://patch-diff.githubusercontent.com/raw/mautic/api-library/pull/269.diff",
+                        "Make the setLogger method on the API class adhere to the LoggerAwareInterface": "https://github.com/mautic/api-library/commit/73a92ddc259ca696ce7a6932b127529447e82d17.diff"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Grayle",
+                    "homepage": "https://www.drupal.org/user/3145497"
+                },
+                {
+                    "name": "mollux",
+                    "homepage": "https://www.drupal.org/user/785804"
+                },
+                {
+                    "name": "nginex",
+                    "homepage": "https://www.drupal.org/user/2822325"
+                },
+                {
+                    "name": "Nick_vh",
+                    "homepage": "https://www.drupal.org/user/122682"
+                }
+            ],
+            "description": "Integrates Mautic with Drupal 8",
+            "homepage": "https://www.drupal.org/project/mautic_paragraph",
+            "support": {
+                "source": "https://git.drupalcode.org/project/mautic_paragraph"
+            }
+        },
+        {
             "name": "drush/drush",
             "version": "12.5.3",
             "source": {
@@ -2258,6 +2385,49 @@
                 "source": "https://github.com/Masterminds/html5-php/tree/2.9.0"
             },
             "time": "2024-03-31T07:05:07+00:00"
+        },
+        {
+            "name": "mautic/api-library",
+            "version": "3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mautic/api-library.git",
+                "reference": "5b0d9051a3a42eea132fa6da35b712e947804d2c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mautic/api-library/zipball/5b0d9051a3a42eea132fa6da35b712e947804d2c",
+                "reference": "5b0d9051a3a42eea132fa6da35b712e947804d2c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=7.2.0",
+                "psr/log": "~1.0 || ~2.0 || ~3.0"
+            },
+            "require-dev": {
+                "brianium/paratest": "^6.2",
+                "friendsofphp/php-cs-fixer": "~2.16.1",
+                "kint-php/kint": "^4.1",
+                "phpunit/phpunit": "~9.5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mautic\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Mautic API Connector Library",
+            "support": {
+                "issues": "https://github.com/mautic/api-library/issues",
+                "source": "https://github.com/mautic/api-library/tree/3.1.0"
+            },
+            "time": "2022-05-04T13:59:18+00:00"
         },
         {
             "name": "mck89/peast",
@@ -6073,10 +6243,10 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": [],
+    "platform": {},
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }

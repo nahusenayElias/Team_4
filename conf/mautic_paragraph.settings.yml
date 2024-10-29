@@ -1,0 +1,6 @@
+_core:
+  default_config_hash: _jBWHDxcUqiULjXJMHx8WwoT1VIODfJ3jsHA7pycQos
+connector: basic_auth
+cache: 3600
+limit: 100
+connector_config: {  }

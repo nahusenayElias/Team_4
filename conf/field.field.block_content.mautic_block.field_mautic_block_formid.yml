@@ -1,0 +1,23 @@
+uuid: cc55848a-6c59-4296-af1f-fc8799a7e058
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.mautic_block
+    - field.storage.block_content.field_mautic_block_formid
+  module:
+    - options
+_core:
+  default_config_hash: ou9FxN3rsxX6qwfin3-fq-0YhSCOVXsZpMRynzG0Pas
+id: block_content.mautic_block.field_mautic_block_formid
+field_name: field_mautic_block_formid
+entity_type: block_content
+bundle: mautic_block
+label: Form
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_integer

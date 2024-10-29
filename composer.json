@@ -19,6 +19,8 @@
         "drupal/core-composer-scaffold": "^10.3",
         "drupal/core-project-message": "^10.3",
         "drupal/core-recommended": "^10.3",
+        "drupal/mautic": "^1.13",
+        "drupal/mautic_paragraph": "^1.1",
         "drush/drush": "^12.5"
     },
     "conflict": {
