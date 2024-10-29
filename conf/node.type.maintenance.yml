@@ -1,0 +1,18 @@
+uuid: b8d3c938-d68c-4dc8-ba65-d27d1ff44438
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: Maintenance
+type: maintenance
+description: 'Description of maintenance.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

@@ -1,0 +1,26 @@
+uuid: e4dbce71-bd83-48a1-990f-94c156f43217
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.consultation.field_hero_image
+    - field.field.node.consultation.field_long_description
+    - field.field.node.consultation.field_short_description
+    - node.type.consultation
+  module:
+    - user
+id: node.consultation.teaser
+targetEntityType: node
+bundle: consultation
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_hero_image: true
+  field_long_description: true
+  field_short_description: true

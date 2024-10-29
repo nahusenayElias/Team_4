@@ -1,0 +1,18 @@
+uuid: f7394a8b-591d-4ad3-9371-601a3ba87765
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.maintenance
+id: node.maintenance.title
+field_name: title
+entity_type: node
+bundle: maintenance
+label: Maintenance
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

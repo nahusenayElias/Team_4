@@ -1,0 +1,19 @@
+uuid: cb0eea00-2af6-43da-9cde-2f6c6dd624d2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_short_description
+    - node.type.consultation
+id: node.consultation.field_short_description
+field_name: field_short_description
+entity_type: node
+bundle: consultation
+label: 'Short Description'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
