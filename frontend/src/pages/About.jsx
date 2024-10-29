@@ -40,6 +40,8 @@ const About = () => {
 
   return (
     <>
+      {imageUrl && <img src={imageUrl} />}
+
       <div>
         {content && content.attributes && content.attributes.body ? (
           <div
@@ -51,7 +53,6 @@ const About = () => {
           <div>No content available</div>
         )}
       </div>
-      {imageUrl && <img src={imageUrl} />}
     </>
   );
 };
