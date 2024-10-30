@@ -39,21 +39,32 @@ const About = () => {
     : null;
 
   return (
-    <>
-      {imageUrl && <img src={imageUrl} />}
+    <section className="max-w-3xl mx-auto p-6 bg-white shadow-lg mt-4">
+      {imageUrl && (
+        <img
+          src={imageUrl}
+          alt="About Image"
+          className="w-full h-64 object-cover rounded-md mb-6"
+        />
+      )}
 
-      <div>
+      {content && content.attributes && (
+        <h1 className="text-3xl font-bold mb-4">{content.attributes.title}</h1>
+      )}
+
+      <div className="prose prose-lg text-gray-700">
         {content && content.attributes && content.attributes.body ? (
           <div
+            className="prose"
             dangerouslySetInnerHTML={{
               __html: content.attributes.body.value,
             }}
           />
         ) : (
-          <div>No content available</div>
+          <div className="text-center text-gray-500">No content available</div>
         )}
       </div>
-    </>
+    </section>
   );
 };
 

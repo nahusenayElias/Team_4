@@ -1,34 +1,57 @@
 import { NavLink, Link } from "react-router-dom";
+import logo from "../assets/images/logo.svg";
 
 const Header = () => {
   return (
-    <div>
-      <Link to="/">
-        <h1>Druid - Team 4</h1>
-      </Link>
+    <header className="flex items-center justify-between p-4 bg-gray-800 text-white font-sans">
+      <div className="flex items-center">
+        <Link to="/">
+          <img src={logo} alt="Druid Logo" className="h-10 mr-5" />{" "}
+          {/* Adjust height as needed */}
+        </Link>
+        <h1 className="text-xl self-end">Team 4</h1>
+      </div>
+
       <nav>
-        <ul>
+        <ul className="flex space-x-4">
           <li>
-            <NavLink to="/">Home</NavLink>
+            <NavLink to="/" className="hover:text-gray-300">
+              Home
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/about">About Us</NavLink>
+            <NavLink to="/about" className="hover:text-gray-300">
+              About Us
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/services">Our Services</NavLink>
+            <NavLink to="/services" className="hover:text-gray-300">
+              Our Services
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/contact">Contact</NavLink>
+            <NavLink to="/contact" className="hover:text-gray-300">
+              Contact
+            </NavLink>
           </li>
           <li>
-            <NavLink to="https://careers.druid.fi/">Jobs</NavLink>
+            <a
+              href="https://careers.druid.fi/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-gray-300"
+            >
+              Jobs
+            </a>
           </li>
           <li>
-            <NavLink to="/blog">Blog</NavLink>
+            <NavLink to="/blog" className="hover:text-gray-300">
+              Blog
+            </NavLink>
           </li>
         </ul>
       </nav>
-    </div>
+    </header>
   );
 };
 

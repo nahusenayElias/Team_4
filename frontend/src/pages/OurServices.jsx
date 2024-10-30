@@ -53,29 +53,36 @@ const OurServices = () => {
   }, []);
 
   return (
-    <div>
+    <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg mt-4">
       {Object.entries(services).map(([serviceType, items]) => (
-        <section key={serviceType}>
-          <h1>
+        <section key={serviceType} className="mb-12">
+          <h1 className="text-2xl font-bold mb-4">
             {serviceType.charAt(0).toUpperCase() + serviceType.slice(1)}{" "}
             Services
           </h1>
           {items.map((item) => (
-            <div key={item.id} className="service-item">
-              <Link to={`/service/${serviceType}/${item.id}`}></Link>
-              {item.heroImageUrl && (
-                <img
-                  src={item.heroImageUrl}
-                  alt={item.attributes.title}
-                  className="hero-image"
+            <div key={item.id} className="service-item mb-8">
+              <Link to={`/service/${serviceType}/${item.id}`} className="block">
+                {item.heroImageUrl && (
+                  <img
+                    src={item.heroImageUrl}
+                    alt={item.attributes.title}
+                    className="hero-image w-full h-auto rounded-lg mb-2"
+                  />
+                )}
+                <h2 className="text-lg font-semibold mb-2">
+                  {item.attributes.title}
+                </h2>
+                <p className="text-gray-700 mb-2">
+                  {item.attributes.field_short_description}
+                </p>
+                <div
+                  className="prose" // Apply Tailwind typography styles here
+                  dangerouslySetInnerHTML={{
+                    __html: item.attributes.field_long_description?.processed,
+                  }}
                 />
-              )}
-              <p>{item.attributes.field_short_description}</p>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: item.attributes.field_long_description?.processed,
-                }}
-              />
+              </Link>
             </div>
           ))}
         </section>
