@@ -3,6 +3,7 @@ import { fetchContent, drupalLocalhostAddress } from "../services/api";
 import Section from "../components/Section";
 import HeroImage from "../components/HeroImage";
 import SectionHeading from "../components/SectionHeading";
+import ProseWrapper from "../components/ProseWrapper";
 
 const Contact = () => {
   const [content, setContent] = useState(null);
@@ -50,7 +51,7 @@ const Contact = () => {
         <SectionHeading>{content.attributes.title}</SectionHeading>
       )}
 
-      <div className="prose prose-lg text-gray-700">
+      <ProseWrapper>
         {content && content.attributes && content.attributes.body ? (
           <div
             dangerouslySetInnerHTML={{
@@ -60,7 +61,7 @@ const Contact = () => {
         ) : (
           <div className="text-center text-gray-500">No content available</div>
         )}
-      </div>
+      </ProseWrapper>
     </Section>
   );
 };
