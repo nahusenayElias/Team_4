@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { drupalLocalhostAddress } from "../services/api";
+import Section from "../components/Section";
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
@@ -64,7 +65,7 @@ const Blog = () => {
   }, []);
 
   return (
-    <section className="max-w-3xl mx-auto p-6 bg-gray-100 min-h-screen mt-4 shadow-lg rounded-lg">
+    <Section>
       <h1 className="text-4xl font-bold text-center text-dark-600 mb-8">
         Blog Posts
       </h1>
@@ -104,7 +105,7 @@ const Blog = () => {
           <p className="text-center text-gray-500">Loading blogs...</p>
         )}
       </div>
-    </section>
+    </Section>
   );
 };
 

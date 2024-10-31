@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchContent, drupalLocalhostAddress } from "../services/api";
+import Section from "../components/Section";
 
 const About = () => {
   const [content, setContent] = useState(null);
@@ -39,7 +40,7 @@ const About = () => {
     : null;
 
   return (
-    <section className="max-w-3xl mx-auto p-6 bg-white shadow-lg mt-4">
+    <Section>
       {imageUrl && (
         <img
           src={imageUrl}
@@ -64,7 +65,7 @@ const About = () => {
           <div className="text-center text-gray-500">No content available</div>
         )}
       </div>
-    </section>
+    </Section>
   );
 };
 

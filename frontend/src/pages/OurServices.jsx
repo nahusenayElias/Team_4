@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { drupalLocalhostAddress } from "../services/api";
+import Section from "../components/Section";
 
 const API_BASE_URL = `${drupalLocalhostAddress}/jsonapi`;
 
@@ -53,7 +54,7 @@ const OurServices = () => {
   }, []);
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg mt-4">
+    <Section>
       {Object.entries(services).map(([serviceType, items]) => (
         <section key={serviceType} className="mb-12">
           <h1 className="text-2xl font-bold mb-4">
@@ -87,7 +88,7 @@ const OurServices = () => {
           ))}
         </section>
       ))}
-    </div>
+    </Section>
   );
 };
 
