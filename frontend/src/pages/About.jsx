@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 import { fetchContent, drupalLocalhostAddress } from "../services/api";
+import Section from "../components/Section";
+import HeroImage from "../components/HeroImage";
+import SectionHeading from "../components/SectionHeading";
+import ProseWrapper from "../components/ProseWrapper";
 
 const About = () => {
   const [content, setContent] = useState(null);
@@ -30,29 +34,24 @@ const About = () => {
     return <div>Error loading content: {error.message}</div>;
   }
 
-  const imageData = content?.relationships?.field_image?.data; // Get the related image data
-
+  const imageData = content?.relationships?.field_image?.data;
   // Find the image file in included data based on the ID
   const imageFile = included?.find((image) => image.id === imageData?.id);
   const imageUrl = imageFile
     ? `${drupalLocalhostAddress}${imageFile.attributes.uri.url}`
     : null;
+  // TODO: imageAltText is not fetched for some reason
+  const imageAltText = imageFile?.meta?.alt;
 
   return (
-    <section className="max-w-3xl mx-auto p-6 bg-white shadow-lg mt-4">
-      {imageUrl && (
-        <img
-          src={imageUrl}
-          alt="About Image"
-          className="w-full h-64 object-cover rounded-md mb-6"
-        />
-      )}
+    <Section>
+      {imageUrl && <HeroImage src={imageUrl} alt={imageAltText} />}
 
       {content && content.attributes && (
-        <h1 className="text-3xl font-bold mb-4">{content.attributes.title}</h1>
+        <SectionHeading>{content.attributes.title}</SectionHeading>
       )}
 
-      <div className="prose prose-lg text-gray-700">
+      <ProseWrapper>
         {content && content.attributes && content.attributes.body ? (
           <div
             className="prose"
@@ -63,8 +62,8 @@ const About = () => {
         ) : (
           <div className="text-center text-gray-500">No content available</div>
         )}
-      </div>
-    </section>
+      </ProseWrapper>
+    </Section>
   );
 };
 
