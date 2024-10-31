@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchContent, drupalLocalhostAddress } from "../services/api";
 import Section from "../components/Section";
 import HeroImage from "../components/HeroImage";
+import SectionHeading from "../components/SectionHeading";
 
 const Contact = () => {
   const [content, setContent] = useState(null);
@@ -43,14 +44,10 @@ const Contact = () => {
 
   return (
     <Section>
-      {imageUrl && (
-        <>
-          <HeroImage src={imageUrl} alt={imageAltText} />
-        </>
-      )}
+      {imageUrl && <HeroImage src={imageUrl} alt={imageAltText} />}
 
       {content && content.attributes && (
-        <h1 className="text-3xl font-bold mb-4">{content.attributes.title}</h1>
+        <SectionHeading>{content.attributes.title}</SectionHeading>
       )}
 
       <div className="prose prose-lg text-gray-700">
