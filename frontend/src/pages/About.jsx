@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchContent, drupalLocalhostAddress } from "../services/api";
 import Section from "../components/Section";
+import HeroImage from "../components/HeroImage";
 
 const About = () => {
   const [content, setContent] = useState(null);
@@ -31,22 +32,21 @@ const About = () => {
     return <div>Error loading content: {error.message}</div>;
   }
 
-  const imageData = content?.relationships?.field_image?.data; // Get the related image data
-
+  const imageData = content?.relationships?.field_image?.data;
   // Find the image file in included data based on the ID
   const imageFile = included?.find((image) => image.id === imageData?.id);
   const imageUrl = imageFile
     ? `${drupalLocalhostAddress}${imageFile.attributes.uri.url}`
     : null;
+  // TODO: imageAltText is not fetched for some reason
+  const imageAltText = imageFile?.meta?.alt;
 
   return (
     <Section>
       {imageUrl && (
-        <img
-          src={imageUrl}
-          alt="About Image"
-          className="w-full h-64 object-cover rounded-md mb-6"
-        />
+        <>
+          <HeroImage src={imageUrl} alt={imageAltText} />
+        </>
       )}
 
       {content && content.attributes && (
