@@ -45,7 +45,8 @@ const Blog = () => {
 
             const authorId = blog.relationships.uid.data.id;
             const authorData = data.included.find((inc) => inc.id === authorId);
-            const authorName = authorData?.attributes?.name || "Unknown author";
+            const authorName =
+              authorData?.attributes?.display_name || "Unknown author";
 
             const publishedDate = new Date(
               blog.attributes.created
