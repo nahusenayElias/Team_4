@@ -1,4 +1,4 @@
-import { FaTwitter, FaInstagram, FaFacebook, FaLinkedin } from "react-icons/fa";
+import { FaXTwitter, FaInstagram, FaFacebook, FaLinkedin } from "react-icons/fa6";
 
 const Footer = () => {
   return (
@@ -11,15 +11,15 @@ const Footer = () => {
 
       <div className="flex flex-row items-center justify-center space-x-6">
         <a
-          href="https://twitter.com"
+          href="https://x.com/druidfi"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-gray-300"
         >
-          <FaTwitter size={20} />
+          <FaXTwitter size={20} />
         </a>
         <a
-          href="https://instagram.com"
+          href="https://www.instagram.com/druidfi/"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-gray-300"
@@ -27,7 +27,7 @@ const Footer = () => {
           <FaInstagram size={20} />
         </a>
         <a
-          href="https://facebook.com"
+          href="https://www.facebook.com/druidfi/"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-gray-300"
@@ -35,7 +35,7 @@ const Footer = () => {
           <FaFacebook size={20} />
         </a>
         <a
-          href="https://linkedin.com"
+          href="https://www.linkedin.com/company/druid-oy/"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-gray-300"
