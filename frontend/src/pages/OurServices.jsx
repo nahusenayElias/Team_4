@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { drupalLocalhostAddress } from "../services/api";
 import Section from "../components/Section";
+import HeroImage from "../components/HeroImage";
+import SectionHeading from "../components/SectionHeading";
+import ProseWrapper from "../components/ProseWrapper";
 
 const API_BASE_URL = `${drupalLocalhostAddress}/jsonapi`;
 
@@ -65,24 +68,23 @@ const OurServices = () => {
             <div key={item.id} className="service-item mb-8">
               <Link to={`/service/${serviceType}/${item.id}`} className="block">
                 {item.heroImageUrl && (
-                  <img
-                    src={item.heroImageUrl}
-                    alt={item.attributes.title}
-                    className="hero-image w-full h-auto rounded-lg mb-2"
-                  />
+                  <div>
+                    <HeroImage src={item.heroImageUrl} />
+                    <SectionHeading>{item.attributes.title}</SectionHeading>
+                  </div>
                 )}
-                <h2 className="text-lg font-semibold mb-2">
-                  {item.attributes.title}
-                </h2>
-                <p className="text-gray-700 mb-2">
-                  {item.attributes.field_short_description}
-                </p>
-                <div
-                  className="prose" // Apply Tailwind typography styles here
-                  dangerouslySetInnerHTML={{
-                    __html: item.attributes.field_long_description?.processed,
-                  }}
-                />
+
+                <ProseWrapper>
+                  <p className="text-gray-700 mb-2">
+                    {item.attributes.field_short_description}
+                  </p>
+                  <div
+                    className="prose" // Apply Tailwind typography styles here
+                    dangerouslySetInnerHTML={{
+                      __html: item.attributes.field_long_description?.processed,
+                    }}
+                  />
+                </ProseWrapper>
               </Link>
             </div>
           ))}
