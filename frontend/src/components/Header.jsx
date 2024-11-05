@@ -35,14 +35,9 @@ const Header = () => {
             </NavLink>
           </li>
           <li>
-            <a
-              href="https://careers.druid.fi/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-gray-300"
-            >
+            <NavLink to="/jobs" className="hover:text-gray-300">
               Jobs
-            </a>
+            </NavLink>
           </li>
           <li>
             <NavLink to="/blog" className="hover:text-gray-300">
