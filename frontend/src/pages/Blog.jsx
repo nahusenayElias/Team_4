@@ -4,6 +4,7 @@ import Section from "../components/Section";
 import HeroImage from "../components/HeroImage";
 import SectionHeading from "../components/SectionHeading";
 import ProseWrapper from "../components/ProseWrapper";
+import DOMPurify from "dompurify";
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
@@ -55,7 +56,18 @@ const Blog = () => {
               blog.attributes.created
             ).toLocaleDateString();
 
-            return { ...blog, imageUrl, authorName, publishedDate };
+            // Sanitize body content
+            const sanitizedBody = DOMPurify.sanitize(
+              blog.attributes.field_body?.processed || ""
+            );
+
+            return {
+              ...blog,
+              imageUrl,
+              authorName,
+              publishedDate,
+              sanitizedBody,
+            };
           })
         );
 
@@ -95,7 +107,7 @@ const Blog = () => {
                 <div
                   className="prose prose-lg text-gray-700"
                   dangerouslySetInnerHTML={{
-                    __html: blog.attributes.field_body?.processed,
+                    __html: blog.sanitizedBody,
                   }}
                 ></div>
                 <button className="text-gray-200">Read More</button>
