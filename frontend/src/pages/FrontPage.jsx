@@ -41,7 +41,7 @@ const FrontPage = () => {
 
   return (
     <div>
-      {content && content.attributes && content.attributes.body ? (
+      {sanitizedDrupalContent ? (
         <div dangerouslySetInnerHTML={{ __html: sanitizedDrupalContent }} />
       ) : (
         <div>No content available</div>

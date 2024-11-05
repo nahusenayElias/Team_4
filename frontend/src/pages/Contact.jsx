@@ -63,7 +63,7 @@ const Contact = () => {
       )}
 
       <ProseWrapper>
-        {content && content.attributes && content.attributes.body ? (
+        {sanitizedDrupalContent ? (
           <div
             dangerouslySetInnerHTML={{
               __html: sanitizedDrupalContent,
