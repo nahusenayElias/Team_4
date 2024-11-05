@@ -5,6 +5,7 @@ import Section from "../components/Section";
 import HeroImage from "../components/HeroImage";
 import SectionHeading from "../components/SectionHeading";
 import ProseWrapper from "../components/ProseWrapper";
+import DOMPurify from "dompurify";
 
 const API_BASE_URL = `${drupalLocalhostAddress}/jsonapi`;
 
@@ -35,9 +36,15 @@ const OurServices = () => {
           ? `${drupalLocalhostAddress}${heroImage.attributes.uri.url}`
           : null;
 
+        // Sanitize long description content
+        const sanitizedLongDescription = DOMPurify.sanitize(
+          item.attributes.field_long_description?.processed || ""
+        );
+
         return {
           ...item,
           heroImageUrl,
+          sanitizedLongDescription,
         };
       });
 
@@ -81,7 +88,7 @@ const OurServices = () => {
                   <div
                     className="prose" // Apply Tailwind typography styles here
                     dangerouslySetInnerHTML={{
-                      __html: item.attributes.field_long_description?.processed,
+                      __html: item.sanitizedLongDescription,
                     }}
                   />
                 </ProseWrapper>
