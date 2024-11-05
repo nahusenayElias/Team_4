@@ -4,12 +4,14 @@ import Section from "../components/Section";
 import HeroImage from "../components/HeroImage";
 import SectionHeading from "../components/SectionHeading";
 import ProseWrapper from "../components/ProseWrapper";
+import DOMPurify from "dompurify";
 
 const Contact = () => {
   const [content, setContent] = useState(null);
   const [included, setIndluded] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [sanitizedDrupalContent, setSanitizedDrupalContent] = useState(null);
 
   useEffect(() => {
     fetchContent("node/contactpage?include=field_image")
@@ -25,6 +27,15 @@ const Contact = () => {
         setLoading(false);
       });
   }, []);
+
+  // Sanitize body text coming in from Drupal
+  useEffect(() => {
+    if (content?.attributes?.body?.value) {
+      setSanitizedDrupalContent(
+        DOMPurify.sanitize(content.attributes.body.value)
+      );
+    }
+  }, [content]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -55,7 +66,7 @@ const Contact = () => {
         {content && content.attributes && content.attributes.body ? (
           <div
             dangerouslySetInnerHTML={{
-              __html: content.attributes.body.value,
+              __html: sanitizedDrupalContent,
             }}
           />
         ) : (
