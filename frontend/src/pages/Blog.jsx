@@ -78,10 +78,7 @@ const Blog = () => {
       <div className="space-y-8">
         {blogs.length > 0 ? (
           blogs.map((blog) => (
-            <article
-              key={blog.id}
-              className="bg-white p-6 rounded-lg shadow-md transition-shadow hover:shadow-lg"
-            >
+            <div key={blog.id}>
               {blog.imageUrl && (
                 <div>
                   <HeroImage
@@ -103,7 +100,7 @@ const Blog = () => {
                 ></div>
                 <button className="text-gray-200">Read More</button>
               </ProseWrapper>
-            </article>
+            </div>
           ))
         ) : (
           <p className="text-center text-gray-500">Loading blogs...</p>
