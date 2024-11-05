@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { drupalLocalhostAddress } from "../services/api";
 import Section from "../components/Section";
+import HeroImage from "../components/HeroImage";
+import SectionHeading from "../components/SectionHeading";
+import ProseWrapper from "../components/ProseWrapper";
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
@@ -75,32 +78,29 @@ const Blog = () => {
       <div className="space-y-8">
         {blogs.length > 0 ? (
           blogs.map((blog) => (
-            <article
-              key={blog.id}
-              className="bg-white p-6 rounded-lg shadow-md transition-shadow hover:shadow-lg"
-            >
+            <div key={blog.id}>
               {blog.imageUrl && (
-                <img
-                  src={`${drupalLocalhostAddress}${blog.imageUrl}`}
-                  alt={blog.attributes.title}
-                  className="w-full h-64 object-cover rounded-md mb-4"
-                />
+                <div>
+                  <HeroImage
+                    src={`${drupalLocalhostAddress}${blog.imageUrl}`}
+                  />
+                  <SectionHeading>{blog.attributes.title}</SectionHeading>
+                </div>
               )}
-              <div className="mb-4 text-gray-500 text-sm">
-                <span>By {blog.authorName}</span> |{" "}
-                <span>{blog.publishedDate}</span>
-              </div>
-              <h2 className="text-3xl font-semibold text-gray-800 mb-4">
-                {blog.attributes.title}
-              </h2>
-              <div
-                className="prose prose-lg text-gray-700"
-                dangerouslySetInnerHTML={{
-                  __html: blog.attributes.field_body?.processed,
-                }}
-              ></div>
-              <button className="text-gray-200">Read More</button>
-            </article>
+              <ProseWrapper>
+                <div className="mb-4 text-gray-500 text-sm">
+                  <span>By {blog.authorName}</span> |{" "}
+                  <span>{blog.publishedDate}</span>
+                </div>
+                <div
+                  className="prose prose-lg text-gray-700"
+                  dangerouslySetInnerHTML={{
+                    __html: blog.attributes.field_body?.processed,
+                  }}
+                ></div>
+                <button className="text-gray-200">Read More</button>
+              </ProseWrapper>
+            </div>
           ))
         ) : (
           <p className="text-center text-gray-500">Loading blogs...</p>
