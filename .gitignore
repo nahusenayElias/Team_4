@@ -1,4 +1,7 @@
 vendor
+# Include modified Api.php file (edited to solve BasicAuth logger error)
+!vendor/mautic/api-library/lib/Api/Api.php
+
 web/core
 web/modules/contrib
 web/themes/contrib
@@ -14,3 +17,5 @@ web/libraries/*
 .DS_Store
 .env.local
 .env
+
+
