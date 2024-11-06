@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const drupalLocalhostAddress = "http://localhost:63683"; // Update this if your Drupal localhost address changes. No trailing forward slash.
+const drupalLocalhostAddress = import.meta.env.VITE_DRUPAL_BASE_URL;
 const API_URL = `${drupalLocalhostAddress}/jsonapi`;
 
 export const fetchContent = async (contentType) => {

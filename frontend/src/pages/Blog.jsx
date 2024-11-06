@@ -112,7 +112,7 @@ const Blog = () => {
                 ></div>
                 <button className="text-gray-200">Read More</button>
               </ProseWrapper>
-              <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-200"></hr>
+              <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-200"></hr>
             </div>
           ))
         ) : (
