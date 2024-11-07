@@ -1,0 +1,18 @@
+uuid: 4bc968e7-0e27-4e6e-90ba-eb9972cccfb9
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.front_page
+id: node.front_page.title
+field_name: title
+entity_type: node
+bundle: front_page
+label: 'Front page'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

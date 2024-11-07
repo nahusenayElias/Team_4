@@ -1,0 +1,19 @@
+uuid: e6557a87-d90b-4b05-9eb7-a13c8b2aabad
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_description
+    - node.type.front_page
+id: node.front_page.field_description
+field_name: field_description
+entity_type: node
+bundle: front_page
+label: 'short description'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
