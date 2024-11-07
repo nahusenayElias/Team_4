@@ -18,26 +18,26 @@ bundle: mautic_block
 mode: default
 content:
   field_mautic_block_formid:
-    weight: 2
+    type: mautic_form_list
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: mautic_form_list
+    weight: 2
     region: right
   field_mautic_block_text:
     type: text_default
-    weight: 1
-    region: left
     label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 1
+    region: left
   field_mautic_block_title:
-    weight: 0
+    type: string
     label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 0
     region: left
 hidden:
   search_api_excerpt: true
