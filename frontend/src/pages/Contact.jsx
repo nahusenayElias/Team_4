@@ -5,6 +5,7 @@ import HeroImage from "../components/HeroImage";
 import SectionHeading from "../components/SectionHeading";
 import ProseWrapper from "../components/ProseWrapper";
 import DOMPurify from "dompurify";
+import MauticContactForm from "../components/MauticContactForm";
 
 const Contact = () => {
   const [content, setContent] = useState(null);
@@ -73,6 +74,7 @@ const Contact = () => {
           <div className="text-center text-gray-500">No content available</div>
         )}
       </ProseWrapper>
+      <MauticContactForm />
     </Section>
   );
 };
