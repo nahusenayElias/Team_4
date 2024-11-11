@@ -41,7 +41,7 @@ const ServiceDetail = () => {
     return <p>This page is unavailable at the moment. Try again later.</p>;
 
   // Sanitize the body content
-  const sanitizedBodyContent = DOMPurify.sanitize(
+  const sanitizedLongDescContent = DOMPurify.sanitize(
     service.attributes.field_long_description?.value
   );
 
@@ -60,7 +60,9 @@ const ServiceDetail = () => {
           />
         )}
         <ProseWrapper>
-          <div dangerouslySetInnerHTML={{ __html: sanitizedBodyContent }}></div>
+          <div
+            dangerouslySetInnerHTML={{ __html: sanitizedLongDescContent }}
+          ></div>
         </ProseWrapper>
       </Section>
     </div>

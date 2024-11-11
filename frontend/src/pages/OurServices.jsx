@@ -67,10 +67,6 @@ const OurServices = () => {
     <Section>
       {Object.entries(services).map(([serviceType, items]) => (
         <section key={serviceType} className="mb-12">
-          <h1 className="text-2xl font-bold mb-4">
-            {serviceType.charAt(0).toUpperCase() + serviceType.slice(1)}{" "}
-            Services
-          </h1>
           {items.map((item) => (
             <div key={item.id} className="service-item mb-8">
               <Link to={`/service/${serviceType}`} className="block">
@@ -82,16 +78,10 @@ const OurServices = () => {
                 )}
 
                 <ProseWrapper>
-                  <p className="text-gray-700 mb-2">
+                  <p className="text-gray-700 mb-2 prose">
                     {item.attributes.field_short_description}
                   </p>
-                  <div
-                    className="prose" // Apply Tailwind typography styles here
-                    dangerouslySetInnerHTML={{
-                      __html: item.sanitizedLongDescription,
-                    }}
-                  />
-                  <a href="/">Read more</a>
+                  <a href={`/service/${serviceType}`}>Read more</a>
                 </ProseWrapper>
               </Link>
             </div>
