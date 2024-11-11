@@ -73,7 +73,7 @@ const OurServices = () => {
           </h1>
           {items.map((item) => (
             <div key={item.id} className="service-item mb-8">
-              <Link to={`/service/${serviceType}/${item.id}`} className="block">
+              <Link to={`/service/${serviceType}`} className="block">
                 {item.heroImageUrl && (
                   <div>
                     <HeroImage src={item.heroImageUrl} />
@@ -91,6 +91,7 @@ const OurServices = () => {
                       __html: item.sanitizedLongDescription,
                     }}
                   />
+                  <a href="/">Read more</a>
                 </ProseWrapper>
               </Link>
             </div>
