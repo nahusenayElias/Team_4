@@ -1,4 +1,9 @@
-import { FaXTwitter, FaInstagram, FaFacebook, FaLinkedin } from "react-icons/fa6";
+import {
+  FaXTwitter,
+  FaInstagram,
+  FaFacebook,
+  FaLinkedin,
+} from "react-icons/fa6";
 
 const Footer = () => {
   return (
@@ -15,6 +20,7 @@ const Footer = () => {
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-gray-300"
+          aria-label="Follow Druid on X"
         >
           <FaXTwitter size={20} />
         </a>
@@ -23,6 +29,7 @@ const Footer = () => {
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-gray-300"
+          aria-label="Follow Druid on Instagram"
         >
           <FaInstagram size={20} />
         </a>
@@ -31,6 +38,7 @@ const Footer = () => {
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-gray-300"
+          aria-label="Like Druid on Facebook"
         >
           <FaFacebook size={20} />
         </a>
@@ -39,6 +47,7 @@ const Footer = () => {
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-gray-300"
+          aria-label="Connect with Druid on LinkedIn"
         >
           <FaLinkedin size={20} />
         </a>
