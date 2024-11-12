@@ -1,125 +1,97 @@
-import { useEffect, useState } from "react";
-import { drupalLocalhostAddress } from "../services/api";
-import Section from "../components/Section";
-import HeroImage from "../components/HeroImage";
-import SectionHeading from "../components/SectionHeading";
-import ProseWrapper from "../components/ProseWrapper";
-import DOMPurify from "dompurify";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { drupalLocalhostAddress, fetchContent } from '../services/api';
 
 const Blog = () => {
-  const [blogs, setBlogs] = useState([]);
-  const [error, setError] = useState(null);
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchBlogs = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch(
-          `${drupalLocalhostAddress}/jsonapi/node/blog?include=uid`,
-          {
-            headers: {
-              Accept: "application/vnd.api+json",
-            },
-          }
-        );
-        if (!response.ok) {
-          throw new Error(`Error fetching blogs: ${response.statusText}`);
-        }
-        const data = await response.json();
+        // Fetch all blog paragraph data
+        const data = await fetchContent('node/blog_paragraph?include=uid');
+        const articlesData = data.data;
 
-        const blogsWithDetails = await Promise.all(
-          data.data.map(async (blog) => {
-            // Get image ID
-            const imageId = blog.relationships.field_blog_image?.data?.[0]?.id;
+        const articlesWithDetails = await Promise.all(
+          articlesData.map(async (article) => {
+            const { id, attributes, relationships } = article;
+            const { title, created, field_blog_body, field_blog_short_text } = attributes;
+
             let imageUrl = null;
-            if (imageId) {
-              // Fetch image URL
-              const imageResponse = await fetch(
-                `${drupalLocalhostAddress}/jsonapi/file/file/${imageId}`,
-                {
-                  headers: {
-                    Accept: "application/vnd.api+json",
-                  },
+            let authorName = 'Unknown Author';
+            const mediaId = relationships?.field_blog_media?.data?.id;
+            const authorId = relationships?.uid?.data?.id;
+
+            // Fetch media image if available
+            if (mediaId) {
+              try {
+                const mediaResponse = await axios.get(`${drupalLocalhostAddress}/jsonapi/media/image/${mediaId}`);
+                const imageFileId = mediaResponse.data.data.relationships?.field_media_image?.data?.id;
+                if (imageFileId) {
+                  const fileResponse = await axios.get(`${drupalLocalhostAddress}/jsonapi/file/file/${imageFileId}`);
+                  const fileUrl = fileResponse.data.data.attributes.uri.url;
+                  imageUrl = fileUrl.startsWith('http') ? fileUrl : `${drupalLocalhostAddress}${fileUrl}`;
                 }
-              );
-              if (imageResponse.ok) {
-                const imageData = await imageResponse.json();
-                imageUrl = imageData.data.attributes.uri.url;
+              } catch (imageError) {
+                console.error(`Error fetching media image for article ${id}:`, imageError);
               }
             }
 
-            const authorId = blog.relationships.uid.data.id;
-            const authorData = data.included.find((inc) => inc.id === authorId);
-            const authorName =
-              authorData?.attributes?.display_name || "Unknown author";
-
-            const publishedDate = new Date(
-              blog.attributes.created
-            ).toLocaleDateString();
-
-            // Sanitize body content
-            const sanitizedBody = DOMPurify.sanitize(
-              blog.attributes.field_body?.processed || ""
-            );
+            // Fetch author name if available
+            if (authorId) {
+              try {
+                const authorResponse = await axios.get(`${drupalLocalhostAddress}/jsonapi/user/user/${authorId}`);
+                authorName = authorResponse.data.data.attributes.name;
+              } catch (authorError) {
+                console.error(`Error fetching author for article ${id}:`, authorError);
+              }
+            }
 
             return {
-              ...blog,
+              id,
+              title,
+              created: new Date(created).toLocaleDateString(),
+              author: authorName,
+              body: field_blog_body?.value || '',
+              shortText: field_blog_short_text || '',
               imageUrl,
-              authorName,
-              publishedDate,
-              sanitizedBody,
             };
           })
         );
 
-        setBlogs(blogsWithDetails);
-      } catch (err) {
-        setError(err.message);
+        setArticles(articlesWithDetails);
+      } catch (error) {
+        console.error('Error fetching blog paragraph content:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchBlogs();
+    fetchData();
   }, []);
 
-  return (
-    <Section>
-      <h1 className="text-4xl font-bold text-center text-dark-600 mb-8">
-        Blog Posts
-      </h1>
-      {error && <p className="text-red-500 text-center mb-4">Error: {error}</p>}
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-      <div className="space-y-8">
-        {blogs.length > 0 ? (
-          blogs.map((blog) => (
-            <div key={blog.id}>
-              {blog.imageUrl && (
-                <div>
-                  <HeroImage
-                    src={`${drupalLocalhostAddress}${blog.imageUrl}`}
-                  />
-                  <SectionHeading>{blog.attributes.title}</SectionHeading>
-                </div>
-              )}
-              <ProseWrapper>
-                <div className="mb-4 text-gray-500 text-sm">
-                  <span>By {blog.authorName}</span> |{" "}
-                  <span>{blog.publishedDate}</span>
-                </div>
-                <div
-                  className="prose prose-lg text-gray-700"
-                  dangerouslySetInnerHTML={{
-                    __html: blog.sanitizedBody,
-                  }}
-                ></div>
-                <button className="text-gray-200">Read More</button>
-              </ProseWrapper>
-              <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-200"></hr>
-            </div>
-          ))
-        ) : (
-          <p className="text-center text-gray-500">Loading blogs...</p>
-        )}
-      </div>
-    </Section>
+  return (
+    <div>
+      {articles.length === 0 ? (
+        <p>No articles available.</p>
+      ) : (
+        articles.map((article) => (
+          <div key={article.id}>
+            <h2>{article.title}</h2>
+            <p><strong>Author:</strong> {article.author}</p>
+            <p><strong>Published on:</strong> {article.created}</p>
+            {article.imageUrl && <img src={article.imageUrl} alt={`Article ${article.id}`} />}
+            <div dangerouslySetInnerHTML={{ __html: article.body }} />
+            <p>{article.shortText}</p>
+          </div>
+        ))
+      )}
+    </div>
   );
 };
 
