@@ -115,7 +115,7 @@ const BlogPost = ({ blog }) => {
 
       <p dangerouslySetInnerHTML={sanitizeHTML(blog.shortText)} />
         </ProseWrapper>
-      <button class="bg-gradient-to-r text-dark font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105" onClick={toggleContent}>
+      <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={toggleContent}>
         {showFullContent ? 'Show Less' : 'Read More'}
       </button>
       {showFullContent && (
