@@ -1,0 +1,10 @@
+uuid: f85b18dc-687c-4d0b-a44f-aaae39893971
+langcode: en
+status: true
+dependencies: {  }
+id: blog_paragraph
+label: 'Blog paragraph'
+icon_uuid: null
+icon_default: null
+description: 'Blog paragraph description'
+behavior_plugins: {  }

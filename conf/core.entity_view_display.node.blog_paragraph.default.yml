@@ -1,0 +1,30 @@
+uuid: 1d5c218a-406f-4e23-a112-54e3d8fd1ab1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.blog_paragraph.field_paragraph_blog
+    - node.type.blog_paragraph
+  module:
+    - entity_reference_revisions
+    - user
+id: node.blog_paragraph.default
+targetEntityType: node
+bundle: blog_paragraph
+mode: default
+content:
+  field_paragraph_blog:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden: {  }
