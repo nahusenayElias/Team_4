@@ -1,95 +1,86 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { drupalLocalhostAddress, fetchContent } from '../services/api';
+import React, { useState, useEffect } from "react";
+import { drupalLocalhostAddress } from "../services/api";
 
 const Blog = () => {
-  const [articles, setArticles] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch all blog paragraph data
-        const data = await fetchContent('node/blog_paragraph?include=uid');
-        const articlesData = data.data;
-
-        const articlesWithDetails = await Promise.all(
-          articlesData.map(async (article) => {
-            const { id, attributes, relationships } = article;
-            const { title, created, field_blog_body, field_blog_short_text } = attributes;
-
-            let imageUrl = null;
-            let authorName = 'Unknown Author';
-            const mediaId = relationships?.field_blog_media?.data?.id;
-            const authorId = relationships?.uid?.data?.id;
-
-            // Fetch media image if available
-            if (mediaId) {
-              try {
-                const mediaResponse = await axios.get(`${drupalLocalhostAddress}/jsonapi/media/image/${mediaId}`);
-                const imageFileId = mediaResponse.data.data.relationships?.field_media_image?.data?.id;
-                if (imageFileId) {
-                  const fileResponse = await axios.get(`${drupalLocalhostAddress}/jsonapi/file/file/${imageFileId}`);
-                  const fileUrl = fileResponse.data.data.attributes.uri.url;
-                  imageUrl = fileUrl.startsWith('http') ? fileUrl : `${drupalLocalhostAddress}${fileUrl}`;
-                }
-              } catch (imageError) {
-                console.error(`Error fetching media image for article ${id}:`, imageError);
-              }
-            }
-
-            // Fetch author name if available
-            if (authorId) {
-              try {
-                const authorResponse = await axios.get(`${drupalLocalhostAddress}/jsonapi/user/user/${authorId}`);
-                authorName = authorResponse.data.data.attributes.name;
-              } catch (authorError) {
-                console.error(`Error fetching author for article ${id}:`, authorError);
-              }
-            }
-
-            return {
-              id,
-              title,
-              created: new Date(created).toLocaleDateString(),
-              author: authorName,
-              body: field_blog_body?.value || '',
-              shortText: field_blog_short_text || '',
-              imageUrl,
-            };
-          })
+        // Fetch main blog data with included media
+        const response = await fetch(
+          `${drupalLocalhostAddress}/jsonapi/paragraph/blog_paragraph?include=field_blog_media,field_blog_media.field_media_image`
         );
+        const data = await response.json();
 
-        setArticles(articlesWithDetails);
+        // Extract and format blog data
+        const includedMedia = data.included?.filter(item => item.type === "media--image") || [];
+        const includedFiles = data.included?.filter(item => item.type === "file--file") || [];
+
+        const blogData = data.data.map((item) => {
+          let mediaUrl = null;
+          const mediaId = item.relationships.field_blog_media?.data?.id;
+
+          if (mediaId) {
+            const media = includedMedia.find(mediaItem => mediaItem.id === mediaId);
+            if (media) {
+              const fileId = media.relationships.field_media_image?.data?.id;
+              if (fileId) {
+                const file = includedFiles.find(fileItem => fileItem.id === fileId);
+                if (file && file.attributes?.uri?.url) {
+                  // Construct the full URL
+                  mediaUrl = `${drupalLocalhostAddress}${file.attributes.uri.url}`;
+                }
+              }
+            }
+          }
+
+          return {
+            id: item.id,
+            title: item.attributes.field_title_parag?.processed,
+            shortText: item.attributes.field_blog_short_text,
+            body: item.attributes.field_blog_body?.value,
+            mediaUrl: mediaUrl,
+            author: "admin", // Replace with actual author data if needed
+            date: item.attributes.created,
+          };
+        });
+
+        setBlogs(blogData);
       } catch (error) {
-        console.error('Error fetching blog paragraph content:', error);
-      } finally {
-        setLoading(false);
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div>
-      {articles.length === 0 ? (
-        <p>No articles available.</p>
-      ) : (
-        articles.map((article) => (
-          <div key={article.id}>
-            <h2>{article.title}</h2>
-            <p><strong>Author:</strong> {article.author}</p>
-            <p><strong>Published on:</strong> {article.created}</p>
-            {article.imageUrl && <img src={article.imageUrl} alt={`Article ${article.id}`} />}
-            <div dangerouslySetInnerHTML={{ __html: article.body }} />
-            <p>{article.shortText}</p>
+      <h1>Blog Posts</h1>
+      {blogs.length > 0 ? (
+        blogs.map((blog) => (
+          <div key={blog.id} className="blog-post">
+            <h2>{blog.title}</h2>
+            <p>
+              <strong>Author:</strong> {blog.author}
+            </p>
+            <p>
+              <strong>Date:</strong> {new Date(blog.date).toLocaleDateString()}
+            </p>
+            <p>{blog.shortText}</p>
+            <div dangerouslySetInnerHTML={{ __html: blog.body }} />
+            {blog.mediaUrl && (
+              <img
+                src={blog.mediaUrl}
+                alt={blog.title}
+                className="blog-image"
+              />
+            )}
           </div>
         ))
+      ) : (
+        <p>Loading...</p>
       )}
     </div>
   );
