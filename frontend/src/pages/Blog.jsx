@@ -7,13 +7,11 @@ const Blog = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch main blog data with included media
         const response = await fetch(
           `${drupalLocalhostAddress}/jsonapi/paragraph/blog_paragraph?include=field_blog_media,field_blog_media.field_media_image`
         );
         const data = await response.json();
 
-        // Extract and format blog data
         const includedMedia = data.included?.filter(item => item.type === "media--image") || [];
         const includedFiles = data.included?.filter(item => item.type === "file--file") || [];
 
@@ -28,7 +26,6 @@ const Blog = () => {
               if (fileId) {
                 const file = includedFiles.find(fileItem => fileItem.id === fileId);
                 if (file && file.attributes?.uri?.url) {
-                  // Construct the full URL
                   mediaUrl = `${drupalLocalhostAddress}${file.attributes.uri.url}`;
                 }
               }
@@ -41,7 +38,7 @@ const Blog = () => {
             shortText: item.attributes.field_blog_short_text,
             body: item.attributes.field_blog_body?.value,
             mediaUrl: mediaUrl,
-            author: "admin", // Replace with actual author data if needed
+            author: "admin",
             date: item.attributes.created,
           };
         });
@@ -60,27 +57,46 @@ const Blog = () => {
       <h1>Blog Posts</h1>
       {blogs.length > 0 ? (
         blogs.map((blog) => (
-          <div key={blog.id} className="blog-post">
-            <h2>{blog.title}</h2>
-            <p>
-              <strong>Author:</strong> {blog.author}
-            </p>
-            <p>
-              <strong>Date:</strong> {new Date(blog.date).toLocaleDateString()}
-            </p>
-            <p>{blog.shortText}</p>
-            <div dangerouslySetInnerHTML={{ __html: blog.body }} />
-            {blog.mediaUrl && (
-              <img
-                src={blog.mediaUrl}
-                alt={blog.title}
-                className="blog-image"
-              />
-            )}
-          </div>
+          <BlogPost key={blog.id} blog={blog} />
         ))
       ) : (
         <p>Loading...</p>
+      )}
+    </div>
+  );
+};
+
+const BlogPost = ({ blog }) => {
+  const [showFullContent, setShowFullContent] = useState(false);
+
+  const toggleContent = () => {
+    setShowFullContent(!showFullContent);
+  };
+
+  return (
+    <div className="blog-post">
+      <h2>{blog.title}</h2>
+      <p>
+        <strong>Author:</strong> {blog.author}
+      </p>
+      <p>
+        <strong>Date:</strong> {new Date(blog.date).toLocaleDateString()}
+      </p>
+      {blog.mediaUrl && (
+        <img
+          src={blog.mediaUrl}
+          alt={blog.title}
+          className="blog-image"
+        />
+      )}
+      <p>{blog.shortText}</p>
+      <button onClick={toggleContent}>
+        {showFullContent ? 'Show Less' : 'Read More'}
+      </button>
+      {showFullContent && (
+        <div className="full-content">
+          <div dangerouslySetInnerHTML={{ __html: blog.body }} />
+        </div>
       )}
     </div>
   );
