@@ -64,7 +64,6 @@ const authorName = author ? author.attributes.name : 'Unknown';
 
   return (
     <div>
-      <h1>Blog Posts</h1>
       {blogs.length > 0 ? (
         blogs.map((blog) => (
           <BlogPost key={blog.id} blog={blog} />
@@ -92,7 +91,10 @@ const BlogPost = ({ blog }) => {
     <Section>
 
     <div>
+       <SectionHeading>
+
       <h1 dangerouslySetInnerHTML={sanitizeHTML(blog.title)} />
+      </SectionHeading>
       <p>
         <strong>Author:</strong> {blog.author}
       </p>
