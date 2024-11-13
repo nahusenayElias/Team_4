@@ -78,11 +78,9 @@ const OurServices = () => {
                 )}
 
                 <ProseWrapper>
-                  <p className="text-gray-700 mb-2 prose">
-                    {item.attributes.field_short_description}
-                  </p>
-                  <a href={`/service/${serviceType}`}>Read more</a>
+                  {item.attributes.field_short_description}
                 </ProseWrapper>
+                <span className="block underline mt-2">Read more</span>
               </Link>
             </div>
           ))}
