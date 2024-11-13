@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { drupalLocalhostAddress } from "../services/api";
+import DOMPurify from 'dompurify';
+import Section from '../components/Section';
+import HeroImage from '../components/HeroImage';
+import SectionHeading from '../components/SectionHeading';
+import ProseWrapper from "../components/ProseWrapper";
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
@@ -31,6 +36,11 @@ const Blog = () => {
               }
             }
           }
+          const includedUsers = data.included?.filter(item => item.type === "user--user") || [];
+// ...
+const authorId = item.relationships.uid?.data?.id;
+const author = includedUsers.find(user => user.id === authorId);
+const authorName = author ? author.attributes.name : 'Unknown';
 
           return {
             id: item.id,
@@ -38,7 +48,7 @@ const Blog = () => {
             shortText: item.attributes.field_blog_short_text,
             body: item.attributes.field_blog_body?.value,
             mediaUrl: mediaUrl,
-            author: "admin",
+            author: authorName,
             date: item.attributes.created,
           };
         });
@@ -73,9 +83,16 @@ const BlogPost = ({ blog }) => {
     setShowFullContent(!showFullContent);
   };
 
+  // Sanitize HTML content
+  const sanitizeHTML = (html) => {
+    return { __html: DOMPurify.sanitize(html) };
+  };
+
   return (
-    <div className="blog-post">
-      <h2>{blog.title}</h2>
+    <Section>
+
+    <div>
+      <h1 dangerouslySetInnerHTML={sanitizeHTML(blog.title)} />
       <p>
         <strong>Author:</strong> {blog.author}
       </p>
@@ -83,22 +100,34 @@ const BlogPost = ({ blog }) => {
         <strong>Date:</strong> {new Date(blog.date).toLocaleDateString()}
       </p>
       {blog.mediaUrl && (
-        <img
-          src={blog.mediaUrl}
-          alt={blog.title}
-          className="blog-image"
+        <div>
+        <HeroImage
+
+        src={blog.mediaUrl}
+
         />
-      )}
-      <p>{blog.shortText}</p>
-      <button onClick={toggleContent}>
+        <SectionHeading
+        src={blog.title}
+        />
+</div>
+        )}
+        <ProseWrapper>
+
+      <p dangerouslySetInnerHTML={sanitizeHTML(blog.shortText)} />
+        </ProseWrapper>
+      <button class="bg-gradient-to-r text-dark font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105" onClick={toggleContent}>
         {showFullContent ? 'Show Less' : 'Read More'}
       </button>
       {showFullContent && (
         <div className="full-content">
-          <div dangerouslySetInnerHTML={{ __html: blog.body }} />
+          <ProseWrapper>
+
+          <div dangerouslySetInnerHTML={sanitizeHTML(blog.body)} />
+          </ProseWrapper>
         </div>
       )}
     </div>
+      </Section>
   );
 };
 
