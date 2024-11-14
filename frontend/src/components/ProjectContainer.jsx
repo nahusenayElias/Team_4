@@ -22,6 +22,7 @@ const ProjectContainer = () => {
           const { title, field_customer, field_project_description } =
             project.attributes;
 
+          // Get hero image
           const heroImageId = project.relationships.field_heroimg?.data?.id;
           const heroImage = data.included?.find(
             (img) => img.id === heroImageId && img.type === "file--file"
@@ -30,12 +31,34 @@ const ProjectContainer = () => {
             ? `${drupalLocalhostAddress}${heroImage.attributes.uri.url}`
             : null;
 
+          // Process paragraphs in field_content relationship
+          const paragraphs =
+            project.relationships.field_content?.data
+              ?.map((content) => {
+                const paragraphData = data.included?.find(
+                  (item) =>
+                    item.id === content.id &&
+                    item.type.startsWith("paragraph--")
+                );
+
+                if (paragraphData) {
+                  return {
+                    type: paragraphData.type,
+                    content: paragraphData.attributes,
+                  };
+                }
+
+                return null;
+              })
+              .filter(Boolean) || []; // Default to empty array if no paragraphs are found
+
           return {
             id: project.id,
             title,
             customer: field_customer,
             description: field_project_description,
             heroImageUrl,
+            paragraphs,
           };
         });
 
@@ -49,12 +72,14 @@ const ProjectContainer = () => {
   }, []);
 
   return (
-    <div className="flex flex-wrap justify-between gap-6 p-6">
-      {projects.map((project) => (
-        <div className="w-full sm:w-1/2 lg:w-2/5 xl:w-2/5" key={project.id}>
-          <ProjectCard project={project} />
-        </div>
-      ))}
+    <div className="container mx-auto p-6">
+      <div className="flex flex-wrap justify-start gap-6">
+        {projects.map((project) => (
+          <div className="flex-grow sm:w-1/2 md:w-1/3" key={project.id}>
+            <ProjectCard project={project} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

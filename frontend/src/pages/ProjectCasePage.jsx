@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { drupalLocalhostAddress } from "../services/api";
 
-const ProjectDetail = () => {
+const ProjectCasePage = () => {
   const { companyName } = useParams(); // Extract company name from URL
   const [project, setProject] = useState(null);
 
@@ -92,9 +92,55 @@ const ProjectDetail = () => {
         <div className="mt-6">
           {project.paragraphs?.map((paragraph, index) => (
             <div key={index} className="mt-4">
-              <h3 className="font-semibold">{paragraph.type}</h3>
-              <p>{paragraph.content.body?.value}</p>{" "}
-              {/* Display paragraph content */}
+              {/* Handle paragraph types */}
+
+              {/* Text paragraph */}
+              {paragraph.type === "paragraph--text" && (
+                <div>
+                  <h3 className="font-semibold">
+                    {paragraph.content.field_heading}
+                  </h3>
+                  <p>{paragraph.content.field_text?.value}</p>{" "}
+                  {/* Text content */}
+                </div>
+              )}
+
+              {/* Image paragraph */}
+              {paragraph.type === "paragraph--image" && (
+                <div>
+                  <h3 className="font-semibold">
+                    {paragraph.content.field_heading}
+                  </h3>
+                  {paragraph.content.field_image?.uri?.url && (
+                    <img
+                      src={`${drupalLocalhostAddress}${paragraph.content.field_image.uri.url}`}
+                      alt={paragraph.content.field_heading}
+                      className="mt-4 max-w-full h-auto"
+                    />
+                  )}
+                </div>
+              )}
+
+              {/* Text + Image paragraph */}
+              {paragraph.type === "paragraph--text_with_image" && (
+                <div className="flex flex-col md:flex-row items-center mt-4">
+                  <div className="md:w-1/2">
+                    <h3 className="font-semibold">
+                      {paragraph.content.field_heading}
+                    </h3>
+                    <p>{paragraph.content.field_text?.value}</p>
+                  </div>
+                  <div className="md:w-1/2 mt-4 md:mt-0">
+                    {paragraph.content.field_image?.uri?.url && (
+                      <img
+                        src={`${drupalLocalhostAddress}${paragraph.content.field_image.uri.url}`}
+                        alt={paragraph.content.field_heading}
+                        className="max-w-full h-auto"
+                      />
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -103,4 +149,4 @@ const ProjectDetail = () => {
   );
 };
 
-export default ProjectDetail;
+export default ProjectCasePage;

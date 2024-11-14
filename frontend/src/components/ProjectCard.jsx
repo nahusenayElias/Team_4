@@ -5,7 +5,7 @@ const ProjectCard = ({ project }) => {
   const companyName = customer?.toLowerCase().replace(/\s+/g, "-");
 
   return (
-    <div className="bg-white shadow-lg rounded-lg overflow-hidden max-w-xs mx-auto my-4">
+    <div className="bg-white shadow-lg rounded-lg overflow-hidden w-full h-full">
       {heroImageUrl ? (
         <img
           src={heroImageUrl}
