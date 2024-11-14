@@ -1,0 +1,19 @@
+uuid: a5a38621-a992-435d-8c8f-a9549660c26e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_blog_short_text
+    - paragraphs.paragraphs_type.blog_paragraph
+id: paragraph.blog_paragraph.field_blog_short_text
+field_name: field_blog_short_text
+entity_type: paragraph
+bundle: blog_paragraph
+label: 'Blog short text'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

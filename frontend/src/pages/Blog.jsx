@@ -1,125 +1,135 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { drupalLocalhostAddress } from "../services/api";
-import Section from "../components/Section";
-import HeroImage from "../components/HeroImage";
-import SectionHeading from "../components/SectionHeading";
+import DOMPurify from 'dompurify';
+import Section from '../components/Section';
+import HeroImage from '../components/HeroImage';
+import SectionHeading from '../components/SectionHeading';
 import ProseWrapper from "../components/ProseWrapper";
-import DOMPurify from "dompurify";
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchBlogs = async () => {
+    const fetchData = async () => {
       try {
         const response = await fetch(
-          `${drupalLocalhostAddress}/jsonapi/node/blog?include=uid`,
-          {
-            headers: {
-              Accept: "application/vnd.api+json",
-            },
-          }
+          `${drupalLocalhostAddress}/jsonapi/paragraph/blog_paragraph?include=field_blog_media,field_blog_media.field_media_image`
         );
-        if (!response.ok) {
-          throw new Error(`Error fetching blogs: ${response.statusText}`);
-        }
         const data = await response.json();
 
-        const blogsWithDetails = await Promise.all(
-          data.data.map(async (blog) => {
-            // Get image ID
-            const imageId = blog.relationships.field_blog_image?.data?.[0]?.id;
-            let imageUrl = null;
-            if (imageId) {
-              // Fetch image URL
-              const imageResponse = await fetch(
-                `${drupalLocalhostAddress}/jsonapi/file/file/${imageId}`,
-                {
-                  headers: {
-                    Accept: "application/vnd.api+json",
-                  },
+        const includedMedia = data.included?.filter(item => item.type === "media--image") || [];
+        const includedFiles = data.included?.filter(item => item.type === "file--file") || [];
+
+        const blogData = data.data.map((item) => {
+          let mediaUrl = null;
+          const mediaId = item.relationships.field_blog_media?.data?.id;
+
+          if (mediaId) {
+            const media = includedMedia.find(mediaItem => mediaItem.id === mediaId);
+            if (media) {
+              const fileId = media.relationships.field_media_image?.data?.id;
+              if (fileId) {
+                const file = includedFiles.find(fileItem => fileItem.id === fileId);
+                if (file && file.attributes?.uri?.url) {
+                  mediaUrl = `${drupalLocalhostAddress}${file.attributes.uri.url}`;
                 }
-              );
-              if (imageResponse.ok) {
-                const imageData = await imageResponse.json();
-                imageUrl = imageData.data.attributes.uri.url;
               }
             }
+          }
+          const includedUsers = data.included?.filter(item => item.type === "user--user") || [];
+// ...
+const authorId = item.relationships.uid?.data?.id;
+const author = includedUsers.find(user => user.id === authorId);
+const authorName = author ? author.attributes.name : 'Unknown';
 
-            const authorId = blog.relationships.uid.data.id;
-            const authorData = data.included.find((inc) => inc.id === authorId);
-            const authorName =
-              authorData?.attributes?.display_name || "Unknown author";
+          return {
+            id: item.id,
+            title: item.attributes.field_title_parag?.processed,
+            shortText: item.attributes.field_blog_short_text,
+            body: item.attributes.field_blog_body?.value,
+            mediaUrl: mediaUrl,
+            author: authorName,
+            date: item.attributes.created,
+          };
+        });
 
-            const publishedDate = new Date(
-              blog.attributes.created
-            ).toLocaleDateString();
-
-            // Sanitize body content
-            const sanitizedBody = DOMPurify.sanitize(
-              blog.attributes.field_body?.processed || ""
-            );
-
-            return {
-              ...blog,
-              imageUrl,
-              authorName,
-              publishedDate,
-              sanitizedBody,
-            };
-          })
-        );
-
-        setBlogs(blogsWithDetails);
-      } catch (err) {
-        setError(err.message);
+        setBlogs(blogData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
       }
     };
 
-    fetchBlogs();
+    fetchData();
   }, []);
 
   return (
-    <Section>
-      <h1 className="text-4xl font-bold text-center text-dark-600 mb-8">
-        Blog Posts
-      </h1>
-      {error && <p className="text-red-500 text-center mb-4">Error: {error}</p>}
+    <div>
+      {blogs.length > 0 ? (
+        blogs.map((blog) => (
+          <BlogPost key={blog.id} blog={blog} />
+        ))
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
+  );
+};
 
-      <div className="space-y-8">
-        {blogs.length > 0 ? (
-          blogs.map((blog) => (
-            <div key={blog.id}>
-              {blog.imageUrl && (
-                <div>
-                  <HeroImage
-                    src={`${drupalLocalhostAddress}${blog.imageUrl}`}
-                  />
-                  <SectionHeading>{blog.attributes.title}</SectionHeading>
-                </div>
-              )}
-              <ProseWrapper>
-                <div className="mb-4 text-gray-500 text-sm">
-                  <span>By {blog.authorName}</span> |{" "}
-                  <span>{blog.publishedDate}</span>
-                </div>
-                <div
-                  className="prose prose-lg text-gray-700"
-                  dangerouslySetInnerHTML={{
-                    __html: blog.sanitizedBody,
-                  }}
-                ></div>
-                <button className="text-gray-200">Read More</button>
-              </ProseWrapper>
-              <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-200"></hr>
-            </div>
-          ))
-        ) : (
-          <p className="text-center text-gray-500">Loading blogs...</p>
+const BlogPost = ({ blog }) => {
+  const [showFullContent, setShowFullContent] = useState(false);
+
+  const toggleContent = () => {
+    setShowFullContent(!showFullContent);
+  };
+
+  // Sanitize HTML content
+  const sanitizeHTML = (html) => {
+    return { __html: DOMPurify.sanitize(html) };
+  };
+
+  return (
+    <Section>
+
+    <div>
+       <SectionHeading>
+
+      <h1 dangerouslySetInnerHTML={sanitizeHTML(blog.title)} />
+      </SectionHeading>
+      <p>
+        <strong>Author:</strong> {blog.author}
+      </p>
+      <p>
+        <strong>Date:</strong> {new Date(blog.date).toLocaleDateString()}
+      </p>
+      {blog.mediaUrl && (
+        <div>
+        <HeroImage
+
+        src={blog.mediaUrl}
+
+        />
+        <SectionHeading
+        src={blog.title}
+        />
+</div>
         )}
-      </div>
-    </Section>
+        <ProseWrapper>
+
+      <p dangerouslySetInnerHTML={sanitizeHTML(blog.shortText)} />
+        </ProseWrapper>
+      <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={toggleContent}>
+        {showFullContent ? 'Show Less' : 'Read More'}
+      </button>
+      {showFullContent && (
+        <div className="full-content">
+          <ProseWrapper>
+
+          <div dangerouslySetInnerHTML={sanitizeHTML(blog.body)} />
+          </ProseWrapper>
+        </div>
+      )}
+    </div>
+      </Section>
   );
 };
 
