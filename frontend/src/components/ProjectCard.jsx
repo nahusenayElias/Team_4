@@ -2,15 +2,24 @@ const ProjectCard = ({ project }) => {
   const { title, customer, description, heroImageUrl } = project;
 
   return (
-    <div className="project-card">
-      <h2>{title}</h2>
-      <h3>{customer}</h3>
-      <p>{description}</p>
+    <div className="bg-white shadow-lg rounded-lg overflow-hidden max-w-xs mx-auto my-4">
       {heroImageUrl ? (
-        <img src={heroImageUrl} alt={title} className="project-hero-image" />
+        <img
+          src={heroImageUrl}
+          alt={title}
+          className="w-full h-48 object-cover"
+        />
       ) : (
-        <p>No image available</p>
+        <div className="w-full h-48 bg-gray-300 flex items-center justify-center text-white">
+          No image available
+        </div>
       )}
+
+      <div className="p-6">
+        {/* <h2 className="text-xl font-semibold text-gray-800">{title}</h2> */}
+        <h3 className="text-xl text-gray-600 mb-2">{customer}</h3>
+        <p className="text-gray-500 text-sm line-clamp-3">{description}</p>
+      </div>
     </div>
   );
 };

@@ -13,9 +13,6 @@ const ProjectContainer = () => {
         const response = await fetch(API_URL);
         const data = await response.json();
 
-        // Log the data to understand the structure
-        console.log("Fetched data:", data);
-
         if (!data.data) {
           console.error("No project data found in response");
           return;
@@ -25,7 +22,6 @@ const ProjectContainer = () => {
           const { title, field_customer, field_project_description } =
             project.attributes;
 
-          // Get hero image
           const heroImageId = project.relationships.field_heroimg?.data?.id;
           const heroImage = data.included?.find(
             (img) => img.id === heroImageId && img.type === "file--file"
@@ -53,9 +49,11 @@ const ProjectContainer = () => {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-wrap justify-between gap-6 p-6">
       {projects.map((project) => (
-        <ProjectCard key={project.id} project={project} />
+        <div className="w-full sm:w-1/2 lg:w-2/5 xl:w-2/5" key={project.id}>
+          <ProjectCard project={project} />
+        </div>
       ))}
     </div>
   );
