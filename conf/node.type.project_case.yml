@@ -1,0 +1,18 @@
+uuid: 257dea54-ac30-4e8d-9445-d64fb1921b90
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: project-case
+type: project_case
+description: 'Project Case content type.'
+help: null
+new_revision: true
+preview_mode: 2
+display_submitted: true

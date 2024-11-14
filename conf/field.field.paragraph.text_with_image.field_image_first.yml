@@ -1,0 +1,21 @@
+uuid: ea33d3e8-2dce-41a0-9c7d-9f5cb0cd31bc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_image_first
+    - paragraphs.paragraphs_type.text_with_image
+id: paragraph.text_with_image.field_image_first
+field_name: field_image_first
+entity_type: paragraph
+bundle: text_with_image
+label: image-first
+description: 'Do you want the image to appear first?'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

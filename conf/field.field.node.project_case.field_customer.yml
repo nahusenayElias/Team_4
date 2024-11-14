@@ -1,0 +1,19 @@
+uuid: 622d7677-6d48-4e5a-be7d-321f943f68ca
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_customer
+    - node.type.project_case
+id: node.project_case.field_customer
+field_name: field_customer
+entity_type: node
+bundle: project_case
+label: customer
+description: 'Name of Customer Company'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
