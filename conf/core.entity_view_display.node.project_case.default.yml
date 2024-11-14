@@ -1,0 +1,60 @@
+uuid: 1580a162-b67d-4f2c-ae64-cecc2c441edc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.project_case.field_content
+    - field.field.node.project_case.field_customer
+    - field.field.node.project_case.field_heroimg
+    - field.field.node.project_case.field_project_description
+    - node.type.project_case
+  module:
+    - entity_reference_revisions
+    - image
+    - user
+id: node.project_case.default
+targetEntityType: node
+bundle: project_case
+mode: default
+content:
+  field_content:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  field_customer:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_heroimg:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_project_description:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden: {  }
