@@ -9,6 +9,7 @@ import FrontPage from "./pages/FrontPage";
 import { useEffect } from "react";
 import OurServices from "./pages/OurServices";
 import ServiceDetail from "./pages/ServiceDetail";
+import ProjectCasePage from "./pages/ProjectCasePage";
 
 const App = () => {
   const location = useLocation();
@@ -38,6 +39,7 @@ const App = () => {
       <Route path="/" element={<Layout />}>
         <Route index element={<FrontPage />} />
         <Route path="/services" element={<OurServices />} />
+        <Route path="/projects/:companyName" element={<ProjectCasePage />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/jobs" element={<Jobs />} />
