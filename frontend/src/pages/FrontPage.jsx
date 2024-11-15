@@ -5,6 +5,7 @@ import Section from "../components/Section";
 import SectionHeading from "../components/SectionHeading";
 import HeroImage from "../components/HeroImage";
 import ProseWrapper from "../components/ProseWrapper";
+import ProjectContainer from "../components/ProjectContainer";
 
 const FrontPage = () => {
   const [content, setContent] = useState(null);
@@ -101,6 +102,7 @@ const FrontPage = () => {
           <div>No content available</div>
         )}
       </ProseWrapper>
+      <ProjectContainer />
     </Section>
   );
 };
