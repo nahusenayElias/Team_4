@@ -23,7 +23,7 @@ const ProjectCard = ({ project }) => {
         <h3 className="text-xl text-gray-600 mb-2">{customer}</h3>
         <p className="text-gray-500 text-sm line-clamp-3">{description}</p>
         <Link
-          to={`/projects/${companyName}`} // Link to the detailed page using project ID
+          to={`/projects/${companyName}`} // Link to the detailed page using company name
           className="text-blue-500 hover:text-blue-700 mt-4 block text-sm font-semibold"
         >
           Read More{" "}
