@@ -40,7 +40,6 @@ const ServiceDetail = () => {
   if (!service)
     return <p>This page is unavailable at the moment. Try again later.</p>;
 
-  // Sanitize the body content
   const sanitizedLongDescContent = DOMPurify.sanitize(
     service.attributes.field_long_description?.value
   );

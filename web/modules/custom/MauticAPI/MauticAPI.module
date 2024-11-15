@@ -1,0 +1,166 @@
+<?php
+
+use Drupal\Core\Url;
+use Drupal\Core\Http\ClientInterface;
+use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Form\FormStateInterface;
+
+class MauticSegmentsBlock extends BlockBase {
+    public function build() {
+        $segments = MauticAPI_fetch_mautic_segments();
+
+          if ($segments) {
+      $output = '<ul>';
+      foreach ($segments['segments'] as $segment) {
+        $output .= '<li>' . htmlspecialchars($segment['name']) . '</li>';
+      }
+      $output .= '</ul>';
+    }
+
+    else {
+      $output = '<p>No segments found or error fetching data from Mautic.</p>';
+    }
+
+    return [
+      '#markup' => $output,
+    ];
+    }
+}
+
+function MauticAPI_menu() {
+  $items = array();
+
+  // Add a route to test fetching segments from Mautic
+  $items['/mautic-segments'] = array(
+    'title' => 'Mautic Segments',
+    'page callback' => 'MauticAPI_fetch_mautic_segments',
+    'page arguments' => array(),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Fetch segments from Mautic and return them.
+ */
+
+function MauticAPI_fetch_mautic_segments() {
+  $segments = MauticAPI_get_mautic_segments();
+  if ($segments) {
+    return theme('item_list', array('items' => $segments));
+  }
+  else {
+    return t('No segments found.');
+  }
+}
+
+/**
+ * Get segments from Mautic.
+ */
+function MauticAPI_get_mautic_segments() {
+  $client = \Drupal::httpClient();
+  $api_url = 'http://appserver.mauticapp.internal/api/segments';
+  
+  try {
+    //encoding username and password for basic authentication
+    $username = 'admin';
+    $pw = '+Nimda666+';
+    $auth = base64_encode($username.':'.$pw);
+
+    $response = $client->get($api_url, [
+      'headers' => [
+        'Authorization' => 'Basic ' . $auth]
+    ]);
+
+    $data = json_decode($response->getBody()->getContents(), TRUE);
+
+    // Return segment names from the response
+    if (!empty($data['segments'])) {
+      return array_map(function($segment) {
+        return $segment['name'];
+      }, $data['segments']);
+    }
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('MauticAPI')->error('Failed to fetch Mautic segments: ' . $e->getMessage());
+  }
+
+  return NULL;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function mautic_api_block_info() {
+  $blocks = array();
+
+  $blocks['mautic_segments_block'] = array(
+    'info' => t('Mautic Segments Block'),
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function mautic_api_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 'mautic_segments_block':
+      $block['content'] = \Drupal::service('plugin.manager.block')->createInstance('mautic_api_mautic_segments_block')->build();
+      break;
+  }
+
+  return $block;
+}
+
+
+/**
+ * Implements hook_form_FORM_ID_alter() to add segments to the content form.
+ */
+function MauticAPI_form_node_article_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  // Get Mautic segments
+  $segments = MauticAPI_get_mautic_segments();
+
+  // Add Mautic segments as options to the field
+  if ($segments) {
+    $form['field_mautic_segments'] = [
+      '#type' => 'select',
+      '#title' => t('Select Mautic Segments'),
+      '#options' => array_combine($segments, $segments),
+      '#multiple' => TRUE,
+      '#default_value' => [],
+    ];
+  }
+}
+
+function MauticAPI_is_user_in_segment($email, $segments) {
+  $client = \Drupal::httpClient();
+  $api_url = 'http://appserver.mauticapp.internal/api/contacts/exists';
+  $username = 'admin';
+  $pw = '+Nimda666+';
+  $auth = base64_encode($username.':'.$pw);
+
+  $response = $client->get($api_url, [
+    'query' => ['email' => $email],
+    'headers' => ['Authorization' => 'Basic ' . $auth,
+    ]
+  ]);
+  
+  $data = json_decode($response->getBody()->getContents(), TRUE);
+  $user_segments = $data['contact']['segments'];
+
+  // Check if the user belongs to any of the selected segments
+  foreach ($segments as $segment) {
+    if (in_array($segment, $user_segments)) {
+      return TRUE;
+    }
+  }
+
+  return FALSE;
+}
+

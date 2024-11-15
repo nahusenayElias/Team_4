@@ -27,7 +27,7 @@ const FrontPage = () => {
 
         // title & short description...
         setTitle(frontPageContent.attributes.title);
-        setShortDescription(frontPageContent.attributes.field_descriptions);
+        setShortDescription(frontPageContent.attributes.field_description);
 
         // hero image URL & alt text...
         const heroImageData = frontPageContent.relationships.field_heroimg.data;
