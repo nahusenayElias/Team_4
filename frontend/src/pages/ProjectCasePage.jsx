@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { drupalLocalhostAddress } from "../services/api";
+import ProseWrapper from "../components/ProseWrapper";
+import DOMPurify from "dompurify";
 
 const ProjectCasePage = () => {
   const { companyName } = useParams(); // Extract company name from URL
@@ -96,13 +98,20 @@ const ProjectCasePage = () => {
 
               {/* Text paragraph */}
               {paragraph.type === "paragraph--text" && (
-                <div>
+                <ProseWrapper>
                   <h3 className="font-semibold">
                     {paragraph.content.field_heading}
                   </h3>
-                  <p>{paragraph.content.field_text?.value}</p>{" "}
+                  <div
+                    className="prose"
+                    dangerouslySetInnerHTML={{
+                      __html: DOMPurify.sanitize(
+                        paragraph.content.field_text?.value
+                      ),
+                    }}
+                  />
                   {/* Text content */}
-                </div>
+                </ProseWrapper>
               )}
 
               {/* Image paragraph */}
