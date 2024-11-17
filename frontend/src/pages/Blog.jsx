@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { drupalLocalhostAddress } from "../services/api";
-import DOMPurify from 'dompurify';
-import Section from '../components/Section';
-import HeroImage from '../components/HeroImage';
-import SectionHeading from '../components/SectionHeading';
+import DOMPurify from "dompurify";
+import Section from "../components/Section";
+import HeroImage from "../components/HeroImage";
+import SectionHeading from "../components/SectionHeading";
 import ProseWrapper from "../components/ProseWrapper";
 
 const Blog = () => {
@@ -19,16 +19,23 @@ const Blog = () => {
 
         const blogData = data.data.map((item) => {
           const paragraphData = data.included.find(
-            inc => inc.type === 'paragraph--blog_paragraph' && inc.id === item.relationships.field_paragraph_blog.data[0].id
+            (inc) =>
+              inc.type === "paragraph--blog_paragraph" &&
+              inc.id === item.relationships.field_paragraph_blog.data[0].id
           );
 
           let mediaUrl = null;
-          const mediaId = paragraphData?.relationships.field_blog_media?.data?.id;
+          const mediaId =
+            paragraphData?.relationships.field_blog_media?.data?.id;
           if (mediaId) {
-            const media = data.included.find(inc => inc.type === 'media--image' && inc.id === mediaId);
+            const media = data.included.find(
+              (inc) => inc.type === "media--image" && inc.id === mediaId
+            );
             if (media) {
               const fileId = media.relationships.field_media_image?.data?.id;
-              const file = data.included.find(inc => inc.type === 'file--file' && inc.id === fileId);
+              const file = data.included.find(
+                (inc) => inc.type === "file--file" && inc.id === fileId
+              );
               if (file && file.attributes?.uri?.url) {
                 mediaUrl = `${drupalLocalhostAddress}${file.attributes.uri.url}`;
               }
@@ -36,12 +43,18 @@ const Blog = () => {
           }
 
           const authorId = item.relationships.uid?.data?.id;
-          const author = data.included.find(inc => inc.type === 'user--user' && inc.id === authorId);
-          const authorName = author ? author.attributes.display_name : 'Unknown';
+          const author = data.included.find(
+            (inc) => inc.type === "user--user" && inc.id === authorId
+          );
+          const authorName = author
+            ? author.attributes.display_name
+            : "Unknown";
 
           return {
             id: item.id,
-            title: paragraphData?.attributes.field_title_parag?.processed || item.attributes.title,
+            title:
+              paragraphData?.attributes.field_title_parag?.processed ||
+              item.attributes.title,
             shortText: paragraphData?.attributes.field_blog_short_text,
             body: paragraphData?.attributes.field_blog_body?.value,
             mediaUrl: mediaUrl,
@@ -62,9 +75,7 @@ const Blog = () => {
   return (
     <div>
       {blogs.length > 0 ? (
-        blogs.map((blog) => (
-          <BlogPost key={blog.id} blog={blog} />
-        ))
+        blogs.map((blog) => <BlogPost key={blog.id} blog={blog} />)
       ) : (
         <p>Loading...</p>
       )}
@@ -105,12 +116,12 @@ const BlogPost = ({ blog }) => {
           <p>{blog.shortText}</p>
         </ProseWrapper>
         <span
-              onClick={toggleContent}
-              className="text-blue-600 cursor-pointer hover:text-blue-800 font-semibold"
-            >
-              {showFullContent ? 'Show Less' : 'Read More'}
-            </span>
-         
+          onClick={toggleContent}
+          className="text-blue-600 cursor-pointer hover:text-blue-800 font-semibold"
+        >
+          {showFullContent ? "Show Less" : "Read More"}
+        </span>
+
         {showFullContent && (
           <div className="full-content">
             <ProseWrapper>
