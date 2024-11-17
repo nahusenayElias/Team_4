@@ -13,42 +13,39 @@ const Blog = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `${drupalLocalhostAddress}/jsonapi/paragraph/blog_paragraph?include=field_blog_media,field_blog_media.field_media_image`
+          `${drupalLocalhostAddress}/jsonapi/node/blog_paragraph?include=field_paragraph_blog,field_paragraph_blog.field_blog_media,field_paragraph_blog.field_blog_media.field_media_image,uid`
         );
         const data = await response.json();
 
-        const includedMedia = data.included?.filter(item => item.type === "media--image") || [];
-        const includedFiles = data.included?.filter(item => item.type === "file--file") || [];
-
         const blogData = data.data.map((item) => {
-          let mediaUrl = null;
-          const mediaId = item.relationships.field_blog_media?.data?.id;
+          const paragraphData = data.included.find(
+            inc => inc.type === 'paragraph--blog_paragraph' && inc.id === item.relationships.field_paragraph_blog.data[0].id
+          );
 
+          let mediaUrl = null;
+          const mediaId = paragraphData?.relationships.field_blog_media?.data?.id;
           if (mediaId) {
-            const media = includedMedia.find(mediaItem => mediaItem.id === mediaId);
+            const media = data.included.find(inc => inc.type === 'media--image' && inc.id === mediaId);
             if (media) {
               const fileId = media.relationships.field_media_image?.data?.id;
-              if (fileId) {
-                const file = includedFiles.find(fileItem => fileItem.id === fileId);
-                if (file && file.attributes?.uri?.url) {
-                  mediaUrl = `${drupalLocalhostAddress}${file.attributes.uri.url}`;
-                }
+              const file = data.included.find(inc => inc.type === 'file--file' && inc.id === fileId);
+              if (file && file.attributes?.uri?.url) {
+                mediaUrl = `${drupalLocalhostAddress}${file.attributes.uri.url}`;
               }
             }
           }
-          const includedUsers = data.included?.filter(item => item.type === "user--user") || [];
-// ...
-const authorId = item.relationships.uid?.data?.id;
-const author = includedUsers.find(user => user.id === authorId);
-const authorName = author ? author.attributes.name : 'Unknown';
+
+          const authorId = item.relationships.uid?.data?.id;
+          const author = data.included.find(inc => inc.type === 'user--user' && inc.id === authorId);
+          const authorName = author ? author.attributes.display_name : 'Unknown';
 
           return {
             id: item.id,
-            title: item.attributes.field_title_parag?.processed,
-            shortText: item.attributes.field_blog_short_text,
-            body: item.attributes.field_blog_body?.value,
+            title: paragraphData?.attributes.field_title_parag?.processed || item.attributes.title,
+            shortText: paragraphData?.attributes.field_blog_short_text,
+            body: paragraphData?.attributes.field_blog_body?.value,
             mediaUrl: mediaUrl,
-            author: authorName,
+            authorName: authorName,
             date: item.attributes.created,
           };
         });
@@ -82,54 +79,45 @@ const BlogPost = ({ blog }) => {
     setShowFullContent(!showFullContent);
   };
 
-  // Sanitize HTML content
   const sanitizeHTML = (html) => {
     return { __html: DOMPurify.sanitize(html) };
   };
 
   return (
     <Section>
-
-    <div>
-       <SectionHeading>
-
-      <h1 dangerouslySetInnerHTML={sanitizeHTML(blog.title)} />
-      </SectionHeading>
-      <p>
-        <strong>Author:</strong> {blog.author}
-      </p>
-      <p>
-        <strong>Date:</strong> {new Date(blog.date).toLocaleDateString()}
-      </p>
-      {blog.mediaUrl && (
-        <div>
-        <HeroImage
-
-        src={blog.mediaUrl}
-
-        />
-        <SectionHeading
-        src={blog.title}
-        />
-</div>
+      <div>
+        <SectionHeading>
+          <h1>{blog.title}</h1>
+        </SectionHeading>
+        <p>
+          <strong>Author:</strong> {blog.authorName}
+        </p>
+        <p>
+          <strong>Date:</strong> {new Date(blog.date).toLocaleDateString()}
+        </p>
+        {blog.mediaUrl && (
+          <div>
+            <HeroImage src={blog.mediaUrl} alt={blog.title} />
+          </div>
         )}
         <ProseWrapper>
-
-      <p dangerouslySetInnerHTML={sanitizeHTML(blog.shortText)} />
+          <h2>Short Description</h2>
+          <p>{blog.shortText}</p>
         </ProseWrapper>
-      <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={toggleContent}>
-        {showFullContent ? 'Show Less' : 'Read More'}
-      </button>
-      {showFullContent && (
-        <div className="full-content">
-          <ProseWrapper>
-
-          <div dangerouslySetInnerHTML={sanitizeHTML(blog.body)} />
-          </ProseWrapper>
-        </div>
-      )}
-    </div>
-      </Section>
+        
+        <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={toggleContent}>
+          {showFullContent ? 'Show Less' : 'Read More'}
+        </button>
+        {showFullContent && (
+          <div className="full-content">
+            <ProseWrapper>
+              <h2>Full Content</h2>
+              <div dangerouslySetInnerHTML={sanitizeHTML(blog.body)} />
+            </ProseWrapper>
+          </div>
+        )}
+      </div>
+    </Section>
   );
 };
 
