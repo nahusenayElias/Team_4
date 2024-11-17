@@ -104,10 +104,13 @@ const BlogPost = ({ blog }) => {
           <h2>Short Description</h2>
           <p>{blog.shortText}</p>
         </ProseWrapper>
-        
-        <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={toggleContent}>
-          {showFullContent ? 'Show Less' : 'Read More'}
-        </button>
+        <span
+              onClick={toggleContent}
+              className="text-blue-600 cursor-pointer hover:text-blue-800 font-semibold"
+            >
+              {showFullContent ? 'Show Less' : 'Read More'}
+            </span>
+         
         {showFullContent && (
           <div className="full-content">
             <ProseWrapper>
