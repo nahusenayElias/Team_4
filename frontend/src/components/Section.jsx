@@ -1,15 +1,16 @@
 import PropTypes from "prop-types";
 
-const Section = ({ children }) => {
+const Section = ({ children, className = "" }) => {
   return (
-    <section className="max-w-3xl mx-auto p-6 bg-white shadow-lg mt-4">
+    <section className={`max-w-7xl mx-auto px-4 py-16 ${className}`}>
       {children}
     </section>
   );
 };
 
-// To stop vscode from complaining about passed children
 Section.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string,
 };
+
 export default Section;
