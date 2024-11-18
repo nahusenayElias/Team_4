@@ -9,6 +9,8 @@ const ParagraphRenderer = ({ paragraph, included, findImageUrl }) => {
     "paragraph--text_with_image": TextWithImageParagraph,
   };
 
+  console.log("Rendering paragraph:", paragraph.type, paragraph);
+
   const Component = paragraphComponents[paragraph.type];
   if (!Component) return null;
 

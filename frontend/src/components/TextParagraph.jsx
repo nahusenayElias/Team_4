@@ -1,18 +1,25 @@
 import ProseWrapper from "../components/ProseWrapper";
 import DOMPurify from "dompurify";
 
-const TextParagraph = ({ content }) => {
-  if (!content || !content.field_heading || !content.field_text) {
+const TextParagraph = ({ paragraph }) => {
+  if (
+    !paragraph ||
+    // !paragraph.attributes.field_heading ||
+    !paragraph.attributes.field_text
+  ) {
+    console.log("Invalid content for TextParagraph:", paragraph);
     return null;
   }
 
   return (
     <ProseWrapper>
-      <h3 className="font-semibold">{content.field_heading}</h3>
+      {paragraph.attributes.field_heading && (
+        <h3 className="font-semibold">{paragraph.attributes.field_heading}</h3>
+      )}{" "}
       <div
         className="prose"
         dangerouslySetInnerHTML={{
-          __html: DOMPurify.sanitize(content.field_text.value),
+          __html: DOMPurify.sanitize(paragraph.attributes.field_text.processed),
         }}
       />
     </ProseWrapper>
