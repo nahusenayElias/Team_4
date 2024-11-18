@@ -1,24 +1,26 @@
 import { useEffect, useState } from "react";
 import { fetchContent, drupalLocalhostAddress } from "../services/api";
-import Section from "../components/Section";
-import HeroImage from "../components/HeroImage";
 import SectionHeading from "../components/SectionHeading";
 import ProseWrapper from "../components/ProseWrapper";
+import CompanyStats from "../components/CompanyStats";
 import DOMPurify from "dompurify";
 
 const About = () => {
   const [content, setContent] = useState(null);
-  const [included, setIndluded] = useState(null);
+  const [included, setIncluded] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [sanitizedDrupalContent, setSanitizedDrupalContent] = useState(null);
+  const [sanitizedIntro, setSanitizedIntro] = useState(null);
+  const [sanitizedBody, setSanitizedBody] = useState(null);
 
   useEffect(() => {
     fetchContent("node/aboutpage?include=field_image")
       .then((data) => {
-        console.log("Fetched data:", data);
-        setContent(data.data[0]); // Access the first item in the data array
-        setIndluded(data.included);
+        const [intro, ...body] = DOMPurify.sanitize(data.data[0]?.attributes?.body?.value || "").split("</p>");
+        setContent(data.data[0]);
+        setIncluded(data.included);
+        setSanitizedIntro(intro + "</p>");
+        setSanitizedBody(body.join("</p>"));
         setLoading(false);
       })
       .catch((error) => {
@@ -28,53 +30,57 @@ const About = () => {
       });
   }, []);
 
-  // Sanitize body text coming in from Drupal
-  useEffect(() => {
-    if (content?.attributes?.body?.value) {
-      setSanitizedDrupalContent(
-        DOMPurify.sanitize(content.attributes.body.value)
-      );
-    }
-  }, [content]);
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error loading content: {error.message}</div>;
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error loading content: {error.message}</div>;
-  }
-
-  const imageData = content?.relationships?.field_image?.data;
-  // Find the image file in included data based on the ID
-  const imageFile = included?.find((image) => image.id === imageData?.id);
-  const imageUrl = imageFile
-    ? `${drupalLocalhostAddress}${imageFile.attributes.uri.url}`
-    : null;
-  // TODO: imageAltText is not fetched for some reason
-  const imageAltText = imageFile?.meta?.alt;
+  const imageUrl = included?.find((image) => image.id === content?.relationships?.field_image?.data?.id)?.attributes?.uri.url;
+  const imageAltText = included?.find((image) => image.id === content?.relationships?.field_image?.data?.id)?.meta?.alt;
 
   return (
-    <Section>
-      {imageUrl && <HeroImage src={imageUrl} alt={imageAltText} />}
+    <div>
+      {/* Hero and Introductory Section */}
+      <div className="flex flex-col md:flex-row w-full h-auto md:h-[95vh] mt-4 md:mt-0">
+        {imageUrl && (
+          <div className="w-full h-64 md:w-1/2 md:h-full mb-4 md:mb-0 mt-6 md:mt-0 px-10 md:px-0">
+            <img
+              src={`${drupalLocalhostAddress}${imageUrl}`}
+              alt={imageAltText || "Hero image"}
+              className="object-cover w-full h-full rounded-lg md:rounded-none mx-auto"
+            />
+          </div>
+        )}
+        <div className="w-full md:w-1/2 flex flex-col justify-center items-center md:items-start p-6 md:p-16 bg-gray-50 text-center md:text-left mt-4 md:mt-0">
+          {content?.attributes?.title && (
+            <SectionHeading className="text-2xl md:text-4xl font-extrabold text-gray-800 mb-4 md:mb-6">
+              {content.attributes.title}
+            </SectionHeading>
+          )}
+          {sanitizedIntro && (
+            <ProseWrapper>
+              <div
+                className="prose prose-base md:prose-lg text-gray-600 mt-2 leading-relaxed max-w-full md:max-w-lg"
+                dangerouslySetInnerHTML={{ __html: sanitizedIntro }}
+              />
+            </ProseWrapper>
+          )}
+        </div>
+      </div>
 
-      {content && content.attributes && (
-        <SectionHeading>{content.attributes.title}</SectionHeading>
+      {/* Body Content */}
+      {sanitizedBody && (
+        <div className="flex justify-center items-center w-full px-4 md:px-12 py-12 md:py-24 bg-white">
+          <ProseWrapper>
+            <div
+              className="prose prose-sm md:prose-lg text-gray-700 leading-relaxed text-center md:text-left max-w-full md:max-w-3xl"
+              dangerouslySetInnerHTML={{ __html: sanitizedBody }}
+            />
+          </ProseWrapper>
+        </div>
       )}
 
-      <ProseWrapper>
-        {sanitizedDrupalContent ? (
-          <div
-            className="prose"
-            dangerouslySetInnerHTML={{
-              __html: sanitizedDrupalContent,
-            }}
-          />
-        ) : (
-          <div className="text-center text-gray-500">No content available</div>
-        )}
-      </ProseWrapper>
-    </Section>
+      {/* Company Stats Component */}
+      <CompanyStats />
+    </div>
   );
 };
 
