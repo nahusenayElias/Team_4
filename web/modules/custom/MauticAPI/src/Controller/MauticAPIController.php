@@ -33,12 +33,11 @@ class MauticAPIController extends ControllerBase {
     public function fetch() {
         $username = $_ENV['API_USER'];
         $api_key = $_ENV['API_KEY'];  
-        $mautic_url = 'http://appserver.mauticapp.internal'; // Mautic API Base URL
+        $mautic_url = 'http://appserver.mauticapp.internal';
     
-        // Basic Authentication header
+        // Encoding basic authentication header
         $auth = base64_encode($username . ':' . $api_key);
     
-        // Make the API request to fetch segments
         try {
           $response = $this->httpClient->get($mautic_url . '/api/segments', [
             'headers' => [
@@ -51,6 +50,8 @@ class MauticAPIController extends ControllerBase {
           $data = json_decode($response->getBody()->getContents(), TRUE);
     
           if (isset($data['lists'])) {
+            $segments = $data['lists'];
+            \Drupal::state()->set('MauticAPI.mautic_segments', $segments);
             return [
               '#theme' => 'item_list',
               '#items' => array_map(function ($segment) {

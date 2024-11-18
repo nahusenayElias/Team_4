@@ -1,0 +1,4 @@
+services:
+  MauticAPI.mautic_service:
+    class: Drupal\MauticAPI\MauticService
+    arguments: ["@http_client"]
