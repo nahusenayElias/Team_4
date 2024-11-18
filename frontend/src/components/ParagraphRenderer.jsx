@@ -2,7 +2,7 @@ import TextParagraph from "./TextParagraph";
 import ImageParagraph from "./ImageParagraph";
 import TextWithImageParagraph from "./TextWithImageParagraph";
 
-const ParagraphRenderer = ({ paragraph, included, findImageUrl }) => {
+const ParagraphRenderer = ({ paragraph, included }) => {
   const paragraphComponents = {
     "paragraph--text": TextParagraph,
     "paragraph--image": ImageParagraph,
@@ -16,11 +16,7 @@ const ParagraphRenderer = ({ paragraph, included, findImageUrl }) => {
 
   return (
     <div className="mt-8">
-      <Component
-        paragraph={paragraph}
-        included={included}
-        findImageUrl={findImageUrl}
-      />
+      <Component paragraph={paragraph} included={included} />
     </div>
   );
 };
