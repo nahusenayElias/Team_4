@@ -97,20 +97,14 @@ const BlogPost = ({ blog }) => {
   return (
     <Section>
       <div>
-        <SectionHeading>
-          <h1>{blog.title}</h1>
-        </SectionHeading>
+        <SectionHeading>{blog.title}</SectionHeading>
         <p>
           <strong>Author:</strong> {blog.authorName}
         </p>
         <p>
           <strong>Date:</strong> {new Date(blog.date).toLocaleDateString()}
         </p>
-        {blog.mediaUrl && (
-          <div>
-            <HeroImage src={blog.mediaUrl} alt={blog.title} />
-          </div>
-        )}
+        {blog.mediaUrl && <HeroImage src={blog.mediaUrl} alt={blog.title} />}
         <ProseWrapper>
           <h2>Short Description</h2>
           <p>{blog.shortText}</p>
