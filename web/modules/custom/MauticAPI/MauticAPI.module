@@ -1,18 +1,29 @@
 <?php
+/* 
+function MauticAPI_schema() {
+    \Drupal::database()->schema()->dropTable('MauticAPI.settings');
+  return [
+    'MauticAPI.settings' => [
+      'fields' => [
+        'mautic_url' => ['type' => 'text', 'size' => 'medium'],
+        'mautic_username' => ['type' => 'text', 'size' => 'medium'],
+        'mautic_password' => ['type' => 'text', 'size' => 'medium'],
+        'allowed_values' => ['type' => 'text', 'size' => 'medium'],
+      ],
+    ],
+  ];
+} */
 
 function MauticAPI_field_storage_config_info() {
   return [
     'field_name' => 'mautic_segment',
-    'type' => 'list_text',
+    'type' => 'list_string',
     'settings' => [
       'allowed_values' => MauticAPI_fetch_mautic_segments(), 
     ],
   ];
 }
 
-/**
- * Implements hook_install().
- */
 function MauticAPI_install() {
   $field_storage = \Drupal\field\Entity\FieldStorageConfig::create([
     'field_name' => 'field_mautic_user_segment',
@@ -24,7 +35,6 @@ function MauticAPI_install() {
   ]);
   $field_storage->save();
 
-  // Attach the field to a content type (e.g., article).
   $field = \Drupal\field\Entity\FieldConfig::create([
     'field_name' => 'field_mautic_user_segment',
     'entity_type' => 'node',
@@ -49,14 +59,14 @@ function MauticAPI_fetch_mautic_segments() {
 
 function MauticAPI_get_mautic_segments() {
   
-        $username = $_ENV['API_USER'];
-        $api_key = $_ENV['API_KEY'];  
+        $username = 'admin';
+        $api_key = '+Nimda666+';  
         $mautic_url = 'http://appserver.mauticapp.internal';
         $auth = base64_encode($username . ':' . $api_key);
         $client = \Drupal::httpClient();
     
         try {
-          $response = $client->request('GET', $mautic_url . '/api/segments', [
+          $response = $client->get($mautic_url . '/api/segments', [
             'headers' => [
               'Authorization' => 'Basic ' . $auth,
             ],
@@ -89,16 +99,9 @@ function MauticAPI_get_mautic_segments() {
   }
 }
 
-/**
- * Implements hook_form_FORM_ID_alter() to dynamically populate segment options.
- */
 function MauticAPI_form_node_article_alter(array &$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-  // Check if the field exists (e.g., on the article content type).
   if (isset($form['field_mautic_segment'])) {
-    // Fetch segments dynamically from Mautic API or state.
     $segments = MauticAPI_fetch_mautic_segments();
-
-    // Populate the select list with Mautic segments.
     $form['field_mautic_segment']['widget'][0]['#options'] = $segments;
   }
 }
