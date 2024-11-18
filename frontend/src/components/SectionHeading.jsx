@@ -1,11 +1,16 @@
 import PropTypes from "prop-types";
 
-const SectionHeading = ({ children }) => {
-  return <h1 className="text-3xl font-bold mb-4">{children}</h1>;
+const SectionHeading = ({ children, className = "" }) => {
+  return (
+    <h1 className={`text-3xl md:text-4xl font-bold text-center mb-6 ${className}`}>
+      {children}
+    </h1>
+  );
 };
 
-// To stop vscode from complaining about passed children
 SectionHeading.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string,
 };
+
 export default SectionHeading;
