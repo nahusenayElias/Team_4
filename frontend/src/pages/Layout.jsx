@@ -4,13 +4,19 @@ import Footer from "../components/Footer";
 
 const Layout = () => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen w-full">
+      {/* Header */}
       <Header />
-      <main className="flex-grow flex justify-center font-sans">
-        <div className="w-full max-w-screen-md px-4">
+
+      {/* Main Content Area */}
+      <main className="flex-grow w-full">
+        {/* Full-width Wrapper for Content */}
+        <div className="w-full">
           <Outlet />
         </div>
       </main>
+
+      {/* Footer */}
       <Footer />
     </div>
   );
