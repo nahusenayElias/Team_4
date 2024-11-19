@@ -41,13 +41,12 @@ const MauticContactForm = () => {
   }, [mauticUrl]);
 
   return (
-    <>
-      <SectionHeading>Contact Form</SectionHeading>
+    
       <div
         className="mauticform-container"
         dangerouslySetInnerHTML={{ __html: formHtml }}
       />
-    </>
+  
   );
 };
 
