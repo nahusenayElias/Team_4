@@ -73,6 +73,8 @@ const MauticContactForm = () => {
     };
 
     const handleFormSubmit = (event) => {
+      event.preventDefault(); // Prevent default form submission
+
       const form = event.target;
       if (!form.matches("#mauticform_mauticcontactform")) return;
 
@@ -139,6 +141,10 @@ const MauticContactForm = () => {
             },
           },
         };
+      }
+      // Let Mautic handle the form submission
+      if (window.MauticSDK) {
+        window.MauticSDK.onSubmit(form);
       }
     };
 
