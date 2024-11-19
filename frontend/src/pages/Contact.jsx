@@ -74,6 +74,8 @@ const Contact = () => {
           <div className="text-center text-gray-500">No content available</div>
         )}
       </ProseWrapper>
+      <SectionHeading>Contact Form</SectionHeading>
+
       <MauticContactForm />
     </Section>
   );
