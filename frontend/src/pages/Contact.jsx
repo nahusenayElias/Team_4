@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { fetchContent, drupalLocalhostAddress } from "../services/api";
-import Section from "../components/Section";
-import HeroImage from "../components/HeroImage";
-import SectionHeading from "../components/SectionHeading";
-import ProseWrapper from "../components/ProseWrapper";
+import ContactLayout from "../components/ContactLayout";
 import DOMPurify from "dompurify";
 import MauticContactForm from "../components/MauticContactForm";
+import ContactInfo from "../components/ContactInfo";
 
 const Contact = () => {
   const [content, setContent] = useState(null);
@@ -56,26 +54,17 @@ const Contact = () => {
   const imageAltText = imageFile?.meta?.alt;
 
   return (
-    <Section>
-      {imageUrl && <HeroImage src={imageUrl} alt={imageAltText} />}
-
-      {content && content.attributes && (
-        <SectionHeading>{content.attributes.title}</SectionHeading>
-      )}
-
-      <ProseWrapper>
-        {sanitizedDrupalContent ? (
-          <div
-            dangerouslySetInnerHTML={{
-              __html: sanitizedDrupalContent,
-            }}
-          />
-        ) : (
-          <div className="text-center text-gray-500">No content available</div>
-        )}
-      </ProseWrapper>
-      <MauticContactForm />
-    </Section>
+    <ContactLayout
+      contactInfo={
+        <ContactInfo
+          imageUrl={imageUrl} // Hero Image URL
+          imageAltText={imageAltText || "Contact Page Hero Image"} // Alt Text
+          title={content?.attributes?.title} // Section Heading
+          bodyContent={sanitizedDrupalContent} // Sanitized Body Content
+        />
+      }
+      contactForm={<MauticContactForm />}
+    />
   );
 };
 
