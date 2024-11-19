@@ -1,115 +1,126 @@
 .mauticform_wrapper {
-  max-width: 600px;
-  margin: 10px auto;
-}
-.mauticform-innerform {
-}
-.mauticform-post-success {
-}
-.mauticform-name {
-  font-weight: bold;
-  font-size: 1.5em;
-  margin-bottom: 3px;
-}
-.mauticform-description {
-  margin-top: 2px;
-  margin-bottom: 10px;
-}
-.mauticform-error {
-  margin-bottom: 10px;
-  color: red;
-}
-.mauticform-message {
-  margin-bottom: 10px;
-  color: green;
-}
-.mauticform-row {
-  display: block;
-  margin-bottom: 20px;
-}
-.mauticform-label {
-  font-size: 1.1em;
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-.mauticform-row.mauticform-required .mauticform-label:after {
-  color: #e32;
-  content: " *";
-  display: inline;
-}
-.mauticform-helpmessage {
-  display: block;
-  font-size: 0.9em;
-  margin-bottom: 3px;
-}
-.mauticform-errormsg {
-  display: block;
-  color: red;
-  margin-top: 2px;
-}
-.mauticform-selectbox,
-.mauticform-input,
-.mauticform-textarea {
-  width: 100%;
-  padding: 0.5em 0.5em;
-  border: 1px solid #ccc;
-  background: #fff;
-  box-shadow: 0px 0px 0px #fff inset;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-.mauticform-checkboxgrp-row {
-}
-.mauticform-checkboxgrp-label {
-  font-weight: normal;
-}
-.mauticform-checkboxgrp-checkbox {
-}
-.mauticform-radiogrp-row {
-}
-.mauticform-radiogrp-label {
-  font-weight: normal;
-}
-.mauticform-radiogrp-radio {
-}
-.mauticform-button-wrapper .mauticform-button.btn-default,
-.mauticform-pagebreak-wrapper .mauticform-pagebreak.btn-default {
-  color: #5d6c7c;
-  background-color: #ffffff;
-  border-color: #dddddd;
-}
-.mauticform-button-wrapper .mauticform-button,
-.mauticform-pagebreak-wrapper .mauticform-pagebreak {
-  display: inline-block;
-  margin-bottom: 0;
-  font-weight: 600;
-  text-align: center;
-  vertical-align: middle;
-  cursor: pointer;
-  background-image: none;
-  border: 1px solid transparent;
-  white-space: nowrap;
-  padding: 6px 12px;
-  font-size: 13px;
-  line-height: 1.3856;
-  border-radius: 3px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-.mauticform-button-wrapper .mauticform-button.btn-default[disabled],
-.mauticform-pagebreak-wrapper .mauticform-pagebreak.btn-default[disabled] {
-  background-color: #ffffff;
-  border-color: #dddddd;
-  opacity: 0.75;
-  cursor: not-allowed;
-}
-.mauticform-pagebreak-wrapper .mauticform-button-wrapper {
-  display: inline;
+  width: 100%; /* Full width for responsiveness */
+  max-width: 700px; /* Wider form for better proportions */
+  margin: 0 auto; /* Center horizontally */
+  margin-top: 1rem;
+  padding: 0; /* Remove internal padding */
+  background-color: transparent; /* Transparent background */
+  border-radius: 0; /* Remove rounding */
+  box-shadow: none; /* Remove shadow */
 }
 
-.mauticform-field-hidden {
-  display: none;
+.mauticform-row-two-columns {
+  display: flex; /* Flexbox for side-by-side inputs */
+  gap: 1rem; /* Add spacing between columns */
+}
+
+.mauticform-input,
+.mauticform-textarea,
+.mauticform-selectbox {
+  width: 100%; /* Full width */
+  padding: 10px; /* Reduced padding for compact inputs */
+  border: 1px solid #ddd; /* Light border for definition */
+  border-radius: 8px; /* Rounded corners for a modern feel */
+  background-color: #f9f9f9; /* Subtle light gray */
+  font-size: 1rem; /* Standard input font size */
+  color: #333; /* Darker text for readability */
+  margin-bottom: 1rem; /* Space below inputs */
+  outline: none; /* Remove default outline */
+  transition: all 0.3s ease; /* Smooth transition for focus effects */
+}
+
+.mauticform-input.small-input {
+  width: calc(50% - 0.5rem); /* Half-width for side-by-side inputs */
+}
+
+.mauticform-input::placeholder,
+.mauticform-textarea::placeholder {
+  color: #aaa; /* Subtle placeholder color */
+  font-size: 0.9rem; /* Slightly smaller font size for placeholders */
+}
+
+/* Focus State for Inputs */
+.mauticform-input:focus,
+.mauticform-textarea:focus,
+.mauticform-selectbox:focus {
+  background-color: #fff; /* Brighten background on focus */
+  border-color: #E85232; /* Add orange border on focus */
+  box-shadow: 0 0 6px rgba(232, 82, 50, 0.5); /* Orange shadow on focus */
+}
+
+/* Submit Button */
+.mauticform-button-wrapper .mauticform-button {
+  display: block;
+  width: 100%; /* Full-width button */
+  padding: 12px; /* Add balanced padding */
+  font-size: 1rem; /* Standard font size */
+  font-weight: bold; /* Bold text for emphasis */
+  text-align: center; /* Centered text */
+  color: #fff; /* White text for contrast */
+  background-color: #E85232; /* Bright orange background */
+  border: none; /* Remove borders */
+  border-radius: 30px; /* Rounded corners for pill shape */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: all 0.3s ease; /* Smooth transitions for hover effects */
+  margin-top: 10px; /* Add spacing above the button */
+}
+
+.mauticform-button-wrapper .mauticform-button:hover {
+  background-color: #c74228; /* Slightly darker orange */
+  transform: translateY(-2px); /* Subtle lift effect */
+  box-shadow: none; /* Remove hover shadow */
+}
+
+.mauticform-button-wrapper .mauticform-button:disabled {
+  background-color: #ccc; /* Gray background for disabled button */
+  color: #777; /* Muted text */
+  cursor: not-allowed; /* Change cursor to indicate disabled state */
+  opacity: 0.75; /* Dimmed appearance */
+}
+
+/* Textarea Specific Styling */
+.mauticform-textarea {
+  resize: none; /* Disable resizing */
+  height: 100px; /* Reduced height for compactness */
+}
+
+/* Container for Layout and Alignment */
+.mauticform-container {
+  display: flex;
+  flex-direction: column; /* Stack elements */
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+  height: auto; /* Remove fixed height */
+  min-height: calc(100vh - 150px); /* Adjust height to respect header/footer */
+  padding: 0 1.5rem; /* Add horizontal padding for smaller screens */
+}
+
+/* Submit Button */
+.mauticform-button-wrapper .mauticform-button {
+  display: inline-block; /* Change to inline-block for natural button width */
+  width: auto; /* Automatically adjust width based on content */
+  padding: 15px 40px; /* Balanced padding for a smaller size */
+  font-size: 1rem; /* Slightly smaller font size */
+  font-weight: bold; /* Bold text for emphasis */
+  text-align: center; /* Centered text */
+  color: #fff; /* White text for contrast */
+  background-color: #E85232; /* Bright orange background */
+  border: none; /* Remove borders */
+  border-radius: 30px; /* Rounded corners for pill shape */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: all 0.3s ease; /* Smooth transitions for hover effects */
+  margin: 10px auto 0; /* Add top margin and center horizontally */
+}
+
+.mauticform-button-wrapper .mauticform-button:hover {
+  background-color: #c74228; /* Slightly darker orange */
+  transform: translateY(-2px); /* Subtle lift effect */
+  box-shadow: none; /* Remove hover shadow */
+}
+
+.mauticform-button-wrapper .mauticform-button:disabled {
+  background-color: #ccc; /* Gray background for disabled button */
+  color: #777; /* Muted text */
+  cursor: not-allowed; /* Change cursor to indicate disabled state */
+  opacity: 0.75; /* Dimmed appearance */
 }
