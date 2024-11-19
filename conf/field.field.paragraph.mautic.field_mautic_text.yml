@@ -1,0 +1,24 @@
+uuid: 22af94cf-aa63-45fd-9649-b8a9d954b733
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_mautic_text
+    - paragraphs.paragraphs_type.mautic
+  module:
+    - text
+_core:
+  default_config_hash: mmwEcPAjLdBPIv04UA1pRz_TThRhF__7jJEqQGf4fns
+id: paragraph.mautic.field_mautic_text
+field_name: field_mautic_text
+entity_type: paragraph
+bundle: mautic
+label: Text
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

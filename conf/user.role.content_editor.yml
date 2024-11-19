@@ -5,6 +5,7 @@ dependencies:
   config:
     - node.type.article
     - node.type.page
+    - node.type.project_case
     - taxonomy.vocabulary.tags
   module:
     - comment
@@ -30,18 +31,25 @@ permissions:
   - 'administer url aliases'
   - 'create article content'
   - 'create page content'
+  - 'create project_case content'
   - 'create terms in tags'
   - 'create url aliases'
+  - 'delete any project_case content'
   - 'delete article revisions'
   - 'delete own article content'
   - 'delete own files'
   - 'delete own page content'
+  - 'delete own project_case content'
   - 'delete page revisions'
+  - 'edit any project_case content'
   - 'edit own article content'
   - 'edit own comments'
   - 'edit own page content'
+  - 'edit own project_case content'
   - 'edit terms in tags'
   - 'revert all revisions'
+  - 'revert project_case revisions'
   - 'view all revisions'
   - 'view own unpublished content'
+  - 'view project_case revisions'
   - 'view the administration theme'

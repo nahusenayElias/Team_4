@@ -1,0 +1,57 @@
+uuid: ef2f8bdf-d787-46f2-978e-ed747bcec02f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.mautic.field_mautic_formid
+    - field.field.paragraph.mautic.field_mautic_layout
+    - field.field.paragraph.mautic.field_mautic_text
+    - field.field.paragraph.mautic.field_mautic_title
+    - paragraphs.paragraphs_type.mautic
+  module:
+    - mautic_paragraph
+    - text
+_core:
+  default_config_hash: 9yBquGOPab9SGAQhPu-LRTcAdkg38E1vGgWkQyZwxiY
+id: paragraph.mautic.default
+targetEntityType: paragraph
+bundle: mautic
+mode: default
+content:
+  field_mautic_formid:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: autocomplete_mautic
+    region: content
+  field_mautic_layout:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_mautic_text:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_mautic_title:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  unomi_segment_section:
+    type: options_select
+    weight: 99
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

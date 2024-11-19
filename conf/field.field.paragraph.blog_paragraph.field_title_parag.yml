@@ -1,0 +1,24 @@
+uuid: 965d4424-ff7e-4392-82d8-b9d82e1da562
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_title_parag
+    - filter.format.full_html
+    - paragraphs.paragraphs_type.blog_paragraph
+  module:
+    - text
+id: paragraph.blog_paragraph.field_title_parag
+field_name: field_title_parag
+entity_type: paragraph
+bundle: blog_paragraph
+label: 'title parag'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - full_html
+field_type: text
