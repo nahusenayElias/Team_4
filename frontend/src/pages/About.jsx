@@ -23,16 +23,30 @@ const About = () => {
         }
 
         const { attributes, relationships } = data.data;
-        const mediaData = data.included.find(item => item.type === 'media--image');
-        const fileData = data.included.find(item => item.type === 'file--file');
 
-        const imageUrl = fileData ? `${drupalLocalhostAddress}${fileData.attributes.uri.url}` : null;
+        let imageUrl = null;
+        let imageAlt = "About Us";
+
+        if (relationships.field_about_media && relationships.field_about_media.data) {
+          const mediaId = relationships.field_about_media.data.id;
+          const mediaItem = data.included.find(item => item.id === mediaId && item.type === 'media--image');
+
+          if (mediaItem && mediaItem.relationships.field_media_image.data) {
+            const fileId = mediaItem.relationships.field_media_image.data.id;
+            const fileItem = data.included.find(item => item.id === fileId && item.type === 'file--file');
+
+            if (fileItem) {
+              imageUrl = `${drupalLocalhostAddress}${fileItem.attributes.uri.url}`;
+              imageAlt = mediaItem.relationships.field_media_image.data.meta.alt || "About Us";
+            }
+          }
+        }
 
         setAbout({
           title: attributes.field_about_title,
           body: attributes.field_about_body.value,
           imageUrl,
-          imageAlt: mediaData?.relationships.field_media_image.data.meta.alt || "About Us"
+          imageAlt
         });
       } catch (error) {
         console.error("Error fetching about data:", error);
@@ -45,29 +59,9 @@ const About = () => {
     fetchAboutData();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-lg">Loading...</div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-lg text-red-600">{error}</div>
-      </div>
-    );
-  }
-
-  if (!about) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-lg">About content not found</div>
-      </div>
-    );
-  }
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (!about) return <div>No about content found</div>;
 
   return (
     <Section>
