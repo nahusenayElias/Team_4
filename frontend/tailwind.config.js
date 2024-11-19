@@ -8,6 +8,9 @@ export default {
   ],
   theme: {
     extend: {
+      colors: {
+        customOrange: '#E85232', // Add your custom color
+      },
       fontFamily: {
         sans: ['"DM Sans"', 'sans-serif'],
       },
@@ -16,5 +19,4 @@ export default {
   plugins: [
     typography,
   ],
-}
-
+};
