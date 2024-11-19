@@ -27,3 +27,12 @@ export const findImageUrl = (fieldImage, included) => {
     }
     return null;
   };
+
+  // Helper function to capitalize the first letter of each word (for dynamic page title in App.jsx)
+export const capitalizeFirstLetter = (text) => {
+  return text
+    .toLowerCase()
+    .split(/[-_]/) // Handles hyphenated or underscored words
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
