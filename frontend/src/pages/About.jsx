@@ -15,7 +15,7 @@ const About = () => {
       try {
         setLoading(true);
         const response = await fetch(
-          `${drupalLocalhostAddress}/jsonapi/paragraph/about_us/9180a9f2-bfff-44f2-b7f1-38cf6342d6fb?include=field_about_media,field_about_media.field_media_image`
+          `${drupalLocalhostAddress}/jsonapi/paragraph/about_us?include=field_about_media,field_about_media.field_media_image&sort=-created&page[limit]=1`
         );
         const data = await response.json();
 
@@ -23,15 +23,17 @@ const About = () => {
           throw new Error("Failed to fetch about data");
         }
 
-        const { attributes, relationships } = data.data;
+        if (data.data.length === 0) {
+          throw new Error("No about content found");
+        }
+
+        const aboutData = data.data[0];
+        const { attributes, relationships } = aboutData;
 
         let imageUrl = null;
         let imageAlt = "About Us";
 
-        if (
-          relationships.field_about_media &&
-          relationships.field_about_media.data
-        ) {
+        if (relationships.field_about_media && relationships.field_about_media.data) {
           const mediaId = relationships.field_about_media.data.id;
           const mediaItem = data.included.find(
             (item) => item.id === mediaId && item.type === "media--image"
@@ -45,9 +47,7 @@ const About = () => {
 
             if (fileItem) {
               imageUrl = `${drupalLocalhostAddress}${fileItem.attributes.uri.url}`;
-              imageAlt =
-                mediaItem.relationships.field_media_image.data.meta.alt ||
-                "About Us";
+              imageAlt = mediaItem.relationships.field_media_image.data.meta.alt || "About Us";
             }
           }
         }
@@ -69,18 +69,24 @@ const About = () => {
     fetchAboutData();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-  if (!about) return <div>No about content found</div>;
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!about) {
+    return <div>No about content found</div>;
+  }
 
   return (
     <Section>
       {about.imageUrl && (
         <HeroImage src={about.imageUrl} alt={about.imageAlt} />
       )}
-
       <SectionHeading>{about.title}</SectionHeading>
-
       <ProseWrapper>
         <div dangerouslySetInnerHTML={{ __html: about.body }} />
       </ProseWrapper>
