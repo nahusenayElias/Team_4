@@ -3,6 +3,7 @@ import { drupalLocalhostAddress } from "../services/api";
 import Section from "../components/Section";
 import HeroImage from "../components/HeroImage";
 import SectionHeading from "../components/SectionHeading";
+import ProseWrapper from "../components/ProseWrapper";
 
 const About = () => {
   const [about, setAbout] = useState(null);
@@ -27,17 +28,26 @@ const About = () => {
         let imageUrl = null;
         let imageAlt = "About Us";
 
-        if (relationships.field_about_media && relationships.field_about_media.data) {
+        if (
+          relationships.field_about_media &&
+          relationships.field_about_media.data
+        ) {
           const mediaId = relationships.field_about_media.data.id;
-          const mediaItem = data.included.find(item => item.id === mediaId && item.type === 'media--image');
+          const mediaItem = data.included.find(
+            (item) => item.id === mediaId && item.type === "media--image"
+          );
 
           if (mediaItem && mediaItem.relationships.field_media_image.data) {
             const fileId = mediaItem.relationships.field_media_image.data.id;
-            const fileItem = data.included.find(item => item.id === fileId && item.type === 'file--file');
+            const fileItem = data.included.find(
+              (item) => item.id === fileId && item.type === "file--file"
+            );
 
             if (fileItem) {
               imageUrl = `${drupalLocalhostAddress}${fileItem.attributes.uri.url}`;
-              imageAlt = mediaItem.relationships.field_media_image.data.meta.alt || "About Us";
+              imageAlt =
+                mediaItem.relationships.field_media_image.data.meta.alt ||
+                "About Us";
             }
           }
         }
@@ -46,7 +56,7 @@ const About = () => {
           title: attributes.field_about_title,
           body: attributes.field_about_body.value,
           imageUrl,
-          imageAlt
+          imageAlt,
         });
       } catch (error) {
         console.error("Error fetching about data:", error);
@@ -68,12 +78,12 @@ const About = () => {
       {about.imageUrl && (
         <HeroImage src={about.imageUrl} alt={about.imageAlt} />
       )}
-      <header className="mb-8">
-        <SectionHeading>{about.title}</SectionHeading>
-      </header>
-      <div className="space-y-8">
+
+      <SectionHeading>{about.title}</SectionHeading>
+
+      <ProseWrapper>
         <div dangerouslySetInnerHTML={{ __html: about.body }} />
-      </div>
+      </ProseWrapper>
     </Section>
   );
 };
