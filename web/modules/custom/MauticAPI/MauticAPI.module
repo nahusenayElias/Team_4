@@ -1,36 +1,41 @@
 <?php
-/* 
+
 function MauticAPI_schema() {
-    \Drupal::database()->schema()->dropTable('MauticAPI.settings');
   return [
     'MauticAPI.settings' => [
       'fields' => [
         'mautic_url' => ['type' => 'text', 'size' => 'medium'],
         'mautic_username' => ['type' => 'text', 'size' => 'medium'],
         'mautic_password' => ['type' => 'text', 'size' => 'medium'],
-        'allowed_values' => ['type' => 'text', 'size' => 'medium'],
+        'allowed_values' => ['type' => 'text', 'size' => 'medium', 'label' => 'segments'],
       ],
     ],
   ];
-} */
+} 
 
-function MauticAPI_field_storage_config_info() {
+ function MauticAPI_field_storage_config_info() {
   return [
     'field_name' => 'mautic_segment',
     'type' => 'list_string',
     'settings' => [
-      'allowed_values' => MauticAPI_fetch_mautic_segments(), 
+      'allowed_values' => MauticAPI_fetch_mautic_segments(),
+ 
     ],
   ];
-}
+} 
 
 function MauticAPI_install() {
+  $tableExists = \Drupal::database('drupal10')->schema()->tableExists(`MauticAPI.settings`);
+  if ($tableExists) {
+        \Drupal::database('drupal10')->schema()->dropTable(`MauticAPI.settings`);
+  }
   $field_storage = \Drupal\field\Entity\FieldStorageConfig::create([
     'field_name' => 'field_mautic_user_segment',
     'entity_type' => 'node',
     'type' => 'list_string',
     'settings' => [
       'allowed_values' => MauticAPI_fetch_mautic_segments(), 
+  
     ],
   ]);
   $field_storage->save();
@@ -38,19 +43,17 @@ function MauticAPI_install() {
   $field = \Drupal\field\Entity\FieldConfig::create([
     'field_name' => 'field_mautic_user_segment',
     'entity_type' => 'node',
-    'bundle' => 'article',  // Change 'article' to the content type you want.
+    'bundle' => 'article', 
     'label' => 'Mautic Segment',
   ]);
   $field->save();
 }
 
 function MauticAPI_fetch_mautic_segments() {
+
   $segments = MauticAPI_get_mautic_segments();
   if ($segments) {
-    return [
-      '#theme' => 'item_list', 
-      'items' => $segments,
-    ];
+    return $segments;
   }
   else {
     return 'No segments found.';
@@ -74,7 +77,7 @@ function MauticAPI_get_mautic_segments() {
           ]);
 
           if ($response->getStatusCode() !== 200) {
-            \Drupal::logger('mymodule')->error('Failed to fetch segments from Mautic. Status code: @status', ['@status' => $response->getStatusCode()]);
+            \Drupal::logger('MauticAPI')->error('Failed to fetch segments from Mautic. Status code: @status', ['@status' => $response->getStatusCode()]);
             return [];
           }
     
@@ -99,51 +102,16 @@ function MauticAPI_get_mautic_segments() {
   }
 }
 
-function MauticAPI_form_node_article_alter(array &$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-  if (isset($form['field_mautic_segment'])) {
-    $segments = MauticAPI_fetch_mautic_segments();
-    $form['field_mautic_segment']['widget'][0]['#options'] = $segments;
-  }
-}
-
-
 function MauticAPI_form_node_article_form_alter(array &$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
  
   $segments = MauticAPI_get_mautic_segments();
-
   if ($segments) {
-    $form['field_mautic_segments'] = [
+    $form['field_mautic_user_segments'] = [
       '#type' => 'select',
       '#title' => 'Select Mautic Segments',
-      '#options' => array_combine($segments, $segments),
+      '#options' => $segments,
       '#multiple' => TRUE,
       '#default_value' => [],
     ];
   }
 }
-
-function MauticAPI_is_user_in_segment($email, $segments) {
-  $client = \Drupal::httpClient();
-  $api_url = 'http://appserver.mauticapp.internal/api/contacts/exists';
-  $username = 'admin';
-  $pw = '+Nimda666+';
-  $auth = base64_encode($username.':'.$pw);
-
-  $response = $client->get($api_url, [
-    'query' => ['email' => $email],
-    'headers' => ['Authorization' => 'Basic ' . $auth,
-    ]
-  ]);
-  
-  $data = json_decode($response->getBody()->getContents(), TRUE);
-  $user_segments = $data['contact']['segments'];
-
-  foreach ($segments as $segment) {
-    if (in_array($segment, $user_segments)) {
-      return TRUE;
-    }
-  }
-
-  return FALSE;
-}
-
