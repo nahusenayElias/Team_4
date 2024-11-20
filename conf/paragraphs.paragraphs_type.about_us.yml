@@ -1,0 +1,10 @@
+uuid: 87e74807-8e64-4545-9fad-b23641a3ab52
+langcode: en
+status: true
+dependencies: {  }
+id: about_us
+label: 'About Us'
+icon_uuid: null
+icon_default: null
+description: 'About us paragraph page description.'
+behavior_plugins: {  }

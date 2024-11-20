@@ -1,0 +1,24 @@
+uuid: 0424995b-645e-4959-ba58-5e6b78e60326
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_about_body
+    - filter.format.full_html
+    - paragraphs.paragraphs_type.about_us
+  module:
+    - text
+id: paragraph.about_us.field_about_body
+field_name: field_about_body
+entity_type: paragraph
+bundle: about_us
+label: 'About body'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - full_html
+field_type: text_long

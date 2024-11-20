@@ -1,0 +1,58 @@
+uuid: af4e410c-2716-46d2-b8cb-4d120b244e70
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.about_us.field_about_body
+    - field.field.node.about_us.field_about_us
+    - field.field.node.about_us.field_image_about
+    - field.field.node.about_us.field_text
+    - node.type.about_us
+  module:
+    - entity_reference_revisions
+    - text
+    - user
+id: node.about_us.default
+targetEntityType: node
+bundle: about_us
+mode: default
+content:
+  field_about_body:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_about_us:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_image_about:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_text:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

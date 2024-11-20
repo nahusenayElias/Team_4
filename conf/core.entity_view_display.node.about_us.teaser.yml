@@ -1,0 +1,28 @@
+uuid: 4113392d-e23a-4170-8da9-459c03e1bc15
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.about_us.field_about_body
+    - field.field.node.about_us.field_about_us
+    - field.field.node.about_us.field_image_about
+    - field.field.node.about_us.field_text
+    - node.type.about_us
+  module:
+    - user
+id: node.about_us.teaser
+targetEntityType: node
+bundle: about_us
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_about_body: true
+  field_about_us: true
+  field_image_about: true
+  field_text: true

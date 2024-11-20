@@ -1,0 +1,29 @@
+uuid: e57b6cf5-610e-4aad-a12a-bc49c51b7be8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_about_media
+    - media.type.image
+    - paragraphs.paragraphs_type.about_us
+id: paragraph.about_us.field_about_media
+field_name: field_about_media
+entity_type: paragraph
+bundle: about_us
+label: 'About media'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
