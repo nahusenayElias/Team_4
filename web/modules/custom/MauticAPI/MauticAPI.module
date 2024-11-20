@@ -2,7 +2,6 @@
 
 use Drupal\taxonomy\Entity\Vocabulary;
 use Drupal\taxonomy\Entity\Term;
-use Drupal\Core\Url;
 
 function MauticAPI_fetch_mautic_segments() {
   
@@ -46,123 +45,31 @@ function MauticAPI_fetch_mautic_segments() {
   }
 }
 
-function MauticAPI_form_node_blog_paragraph_form_alter(array &$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
- 
+
+function MauticAPI_form_alter(array &$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+ if ($form_id === 'node_blog_paragraph_form') {
   $segments = MauticAPI_fetch_mautic_segments();
   if ($segments) {
-    $form['field_mautic_user_segment'] = [
+    $form['mautic_segment'] = [
       '#type' => 'select',
       '#title' => 'Select Mautic Segments',
       '#options' => array_map(function ($segment) {
         return $segment['name'];
       }, $segments),
       '#multiple' => TRUE,
-      '#default_value' => [],
+      '#required' => TRUE,
+      '#default_value' => isset($form['#node']->mautic_segment) ? $form['#node']->mautic_segment : '',
     ];
-
   }
-  $selectedSegment = $form_state->getValue('field_mautic_user_segment');
-  $client = \Drupal::httpClient();
-  MauticAPI_sync_segments();
-  // $form['actions']['submit']['#submit'] = $client->post('');
- 
+  $form_state->set('mautic_segments', $segments);
+}
 }
 
-function MauticAPI_node_presave(Drupal\node\NodeInterface $node) {
+function MauticAPI_node_insert(Drupal\node\NodeInterface $node) {
   if ($node->getType() == 'blog_paragraph') {
       if (!empty($node->mautic_segment)) {
-          $node->set('field_mautic_user_segment', $node->mautic_segment);
+          $node->set('field_mautic_segment', $node->mautic_segment);
       }
   }
 }
-
-function MauticAPI_sync_segments() {
-  $segments = MauticAPI_fetch_mautic_segments();
-
-  MauticAPI_create_mautic_segment_vocabulary();
-
-  $existing_terms = \Drupal::entityTypeManager()
-        ->getStorage('taxonomy_term')
-        ->loadByProperties(['vid' => 'mautic_segments']);
-    
-    $mautic_segment_ids = array_map(function($segment) {
-        return $segment['id'];
-    }, $segments);
-
-
- 
-  MauticAPI_create_mautic_segment_terms($segments);
-
-}
-
-function MauticAPI_create_mautic_segment_vocabulary() {
-  $existing_vocabulary = \Drupal::entityTypeManager()
-  ->getStorage('taxonomy_vocabulary')
-  ->loadByProperties(['vid' => 'mautic_segments']);
-  $vocabulary = Vocabulary::load('mautic_segments');
-
-  if (!$vocabulary) {
-      $vocabulary = Vocabulary::create([
-          'vid' => 'mautic_segments',
-          'name' => 'Mautic Segments',
-      ]);
-      $vocabulary->save();
-  }
-}
-
-
-function MauticAPI_create_mautic_segment_terms(array $segments) {
-    foreach ($segments as $segment) {
-      $existing_terms = \Drupal::entityTypeManager()
-      ->getStorage('taxonomy_term')
-      ->loadByProperties(['vid' => 'mautic_segments', 'name' => $segment['name']]);
-      if (!$existing_terms) {
-            $term = Term::create([
-                'name' => $segment['name'],
-                'vid' => 'mautic_segments',  // The vocabulary ID for Mautic segments.
-          
-            ]);
-            $term->save();
-        }
-    }
-}
-
-
-function MauticAPI_fetch_dynamic_content_from_mautic(){
-  $api_url = 'http://appserver.mauticapp.internal/api/dynamiccontents';
-  $username = 'admin';
-  $api_key = '+Nimda666+';
-  $auth = base64_encode($username . ':' . $api_key);
-  $client = \Drupal::httpClient();
-  $segments = MauticAPI_fetch_mautic_segments();
- try {
-  $response = $client->get($api_url, [
-    'headers' => [
-      'Authorization' => 'Basic ' . $auth,
-    ],
-    'verify' => FALSE,
-  ]);
-  $data = json_decode($response->getBody()->getContents(), TRUE);
-
-  if (isset($data['dynamicContents'])) {
-    $dynamic_content = $data['dynamicContents'];
-   
-    foreach($dynamic_content as $item) {
-      $item[] = $item['name']['content'];
-    }
-    return $dynamic_content;
-  }
-  else {
-    \Drupal::logger('MauticAPI')->error('Mautic dynamic content not found in the API response.');
-    return [];
-  }
-}
-catch (\Exception $e) {
-\Drupal::logger('MauticAPI')->error('Failed to fetch dynamic content from Mautic: ' . $e->getMessage());
-return [];
-}
-
-}
-
-
 
