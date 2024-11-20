@@ -1,0 +1,18 @@
+uuid: 41d7da45-854a-4d48-8a09-70c667c6241f
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.about_us
+id: node.about_us.title
+field_name: title
+entity_type: node
+bundle: about_us
+label: 'About us'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

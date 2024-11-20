@@ -1,0 +1,50 @@
+uuid: 4667bf3b-a9b7-4354-810c-e88437a2dba3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_about_us
+    - node.type.about_us
+    - paragraphs.paragraphs_type.image
+    - paragraphs.paragraphs_type.text
+    - paragraphs.paragraphs_type.text_with_image
+  module:
+    - entity_reference_revisions
+id: node.about_us.field_about_us
+field_name: field_about_us
+entity_type: node
+bundle: about_us
+label: 'About us'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      image: image
+      text: text
+      text_with_image: text_with_image
+    negate: 0
+    target_bundles_drag_drop:
+      about_us:
+        weight: 7
+        enabled: false
+      blog_paragraph:
+        weight: 8
+        enabled: false
+      image:
+        weight: 9
+        enabled: true
+      mautic:
+        weight: 10
+        enabled: false
+      text:
+        weight: 11
+        enabled: true
+      text_with_image:
+        weight: 12
+        enabled: true
+field_type: entity_reference_revisions

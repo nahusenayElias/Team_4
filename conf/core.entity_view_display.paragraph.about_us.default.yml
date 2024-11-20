@@ -1,0 +1,32 @@
+uuid: 8a391717-82c5-4106-983a-254972f2efd1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.about_us.field_about_body
+    - field.field.paragraph.about_us.field_about_media
+    - paragraphs.paragraphs_type.about_us
+  module:
+    - text
+id: paragraph.about_us.default
+targetEntityType: paragraph
+bundle: about_us
+mode: default
+content:
+  field_about_body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_about_media:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden: {  }

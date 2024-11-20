@@ -1,0 +1,28 @@
+uuid: 9ec1edfe-0494-49b7-aa73-f19fd91091db
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_about_body
+    - filter.format.basic_html
+    - filter.format.full_html
+    - filter.format.plain_text
+    - node.type.about_us
+  module:
+    - text
+id: node.about_us.field_about_body
+field_name: field_about_body
+entity_type: node
+bundle: about_us
+label: about_body
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - basic_html
+    - full_html
+    - plain_text
+field_type: text_long
