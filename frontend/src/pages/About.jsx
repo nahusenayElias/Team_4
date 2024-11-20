@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
-import { drupalLocalhostAddress } from "../services/api";
-import Section from "../components/Section";
-import HeroImage from "../components/HeroImage";
-import SectionHeading from "../components/SectionHeading";
-import ProseWrapper from "../components/ProseWrapper";
+import React, { useState, useEffect } from 'react';
+import { drupalLocalhostAddress } from '../services/api';
+import Section from '../components/Section';
+import SectionHeading from '../components/SectionHeading';
 
-const About = () => {
-  const [about, setAbout] = useState(null);
+const AboutPage = () => {
+  const [aboutData, setAboutData] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -15,7 +14,7 @@ const About = () => {
       try {
         setLoading(true);
         const response = await fetch(
-          `${drupalLocalhostAddress}/jsonapi/paragraph/about_us?include=field_about_media,field_about_media.field_media_image&sort=-created&page[limit]=1`
+          `${drupalLocalhostAddress}/jsonapi/node/about_us?include=field_image_about.field_media_image,field_about_us`
         );
         const data = await response.json();
 
@@ -23,41 +22,40 @@ const About = () => {
           throw new Error("Failed to fetch about data");
         }
 
-        if (data.data.length === 0) {
-          throw new Error("No about content found");
-        }
+        if (data.data && data.data.length > 0) {
+          const aboutPage = data.data[0];
 
-        const aboutData = data.data[0];
-        const { attributes, relationships } = aboutData;
-
-        let imageUrl = null;
-        let imageAlt = "About Us";
-
-        if (relationships.field_about_media && relationships.field_about_media.data) {
-          const mediaId = relationships.field_about_media.data.id;
-          const mediaItem = data.included.find(
-            (item) => item.id === mediaId && item.type === "media--image"
+          // Find the image
+          const imageMediaId = aboutPage.relationships.field_image_about?.data?.id;
+          const imageMedia = data.included?.find(
+            (item) => item.id === imageMediaId && item.type === 'media--image'
+          );
+          const imageFileId = imageMedia?.relationships?.field_media_image?.data?.id;
+          const imageFile = data.included?.find(
+            (item) => item.id === imageFileId && item.type === 'file--file'
           );
 
-          if (mediaItem && mediaItem.relationships.field_media_image.data) {
-            const fileId = mediaItem.relationships.field_media_image.data.id;
-            const fileItem = data.included.find(
-              (item) => item.id === fileId && item.type === "file--file"
+          // Construct image URL
+          const imageUrl = imageFile
+            ? `${drupalLocalhostAddress}${imageFile.attributes.uri.url}`
+            : null;
+
+          // Find additional text paragraphs
+          const paragraphs = aboutPage.relationships.field_about_us?.data?.map((paragraphRef) => {
+            const paragraph = data.included?.find(
+              (item) => item.id === paragraphRef.id && item.type === 'paragraph--text'
             );
+            return paragraph;
+          }).filter(Boolean);
 
-            if (fileItem) {
-              imageUrl = `${drupalLocalhostAddress}${fileItem.attributes.uri.url}`;
-              imageAlt = mediaItem.relationships.field_media_image.data.meta.alt || "About Us";
-            }
-          }
+          setAboutData({
+            ...aboutPage,
+            paragraphs
+          });
+          setImageUrl(imageUrl);
+        } else {
+          throw new Error("No about data found");
         }
-
-        setAbout({
-          title: attributes.field_about_title,
-          body: attributes.field_about_body.value,
-          imageUrl,
-          imageAlt,
-        });
       } catch (error) {
         console.error("Error fetching about data:", error);
         setError(error.message);
@@ -70,28 +68,70 @@ const About = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg text-red-600">{error}</div>
+      </div>
+    );
   }
 
-  if (!about) {
-    return <div>No about content found</div>;
+  if (!aboutData) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">About data not found</div>
+      </div>
+    );
   }
 
   return (
     <Section>
-      {about.imageUrl && (
-        <HeroImage src={about.imageUrl} alt={about.imageAlt} />
+      <SectionHeading>{aboutData.attributes.title}</SectionHeading>
+
+      {/* Main body text */}
+      <div
+        className="mt-8 prose max-w-full"
+        dangerouslySetInnerHTML={{ __html: aboutData.attributes.field_about_body.processed }}
+      />
+
+      {/* Image */}
+      {imageUrl && (
+        <div className="mt-8 mb-8">
+          <img
+            src={imageUrl}
+            alt="About Us"
+            className="w-full h-auto object-cover rounded-lg shadow-lg"
+          />
+        </div>
       )}
-      <SectionHeading>{about.title}</SectionHeading>
-      <ProseWrapper>
-        <div dangerouslySetInnerHTML={{ __html: about.body }} />
-      </ProseWrapper>
+
+      {/* Additional text paragraphs*/}
+      {aboutData.paragraphs && aboutData.paragraphs.map((paragraph, index) => (
+        <div
+          key={index}
+          className="mt-4"
+          dangerouslySetInnerHTML={{
+            __html: paragraph.attributes.field_text?.processed || paragraph.attributes.field_text
+          }}
+        />
+      ))}
+
+      {/* Additional text field
+      {aboutData.attributes.field_text && (
+        <p className="mt-8 text-xl font-semibold">
+          {aboutData.attributes.field_text}
+        </p>
+      )}
+        */}
     </Section>
   );
 };
 
-export default About;
+export default AboutPage;
