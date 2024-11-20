@@ -32,7 +32,7 @@ class MauticAPIController extends ControllerBase {
   
     public function fetch() {
         $username = $_ENV['API_USER'];
-        $api_key = $_ENV['API_KEY'];  
+        $api_key = $_ENV['API_KEY'];
         $mautic_url = 'http://appserver.mauticapp.internal';
     
         // Encoding basic authentication header
@@ -54,10 +54,10 @@ class MauticAPIController extends ControllerBase {
             \Drupal::state()->set('MauticAPI.mautic_segments', $segments);
             return [
               '#theme' => 'item_list',
+              '#title' => 'Mautic Segments',
               '#items' => array_map(function ($segment) {
                 return $segment['name'];
               }, $data['lists']),
-              '#title' => $this->t('Mautic Segments'),
             ];
           }
           else {
@@ -74,4 +74,5 @@ class MauticAPIController extends ControllerBase {
         }
         }
     }
+    
     

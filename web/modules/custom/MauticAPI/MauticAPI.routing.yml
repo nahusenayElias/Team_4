@@ -1,0 +1,7 @@
+MauticAPI.segments:
+  path: "/mautic/segments"
+  defaults:
+    _controller: '\Drupal\MauticAPI\Controller\MauticAPIController::fetch'
+    _title: "Mautic API module"
+  requirements:
+    _permission: "access content"
