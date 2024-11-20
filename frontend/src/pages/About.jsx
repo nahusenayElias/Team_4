@@ -11,6 +11,7 @@ const AboutPage = () => {
   const [imageUrl, setImageUrl] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [included, setIncluded] = useState([]);
 
   useEffect(() => {
     const fetchAboutData = async () => {
@@ -45,14 +46,10 @@ const AboutPage = () => {
             ? `${drupalLocalhostAddress}${imageFile.attributes.uri.url}`
             : null;
 
-          // Find additional text paragraphs
+          // Extract paragraphs
           const paragraphs = aboutPage.relationships.field_about_us?.data
             ?.map((paragraphRef) => {
-              const paragraph = data.included?.find(
-                (item) =>
-                  item.id === paragraphRef.id && item.type === "paragraph--text"
-              );
-              return paragraph;
+              return data.included?.find((item) => item.id === paragraphRef.id);
             })
             .filter(Boolean);
 
@@ -61,6 +58,7 @@ const AboutPage = () => {
             paragraphs,
           });
           setImageUrl(imageUrl);
+          setIncluded(data.included || []);
         } else {
           throw new Error("No about data found");
         }
@@ -76,33 +74,23 @@ const AboutPage = () => {
   }, []);
 
   if (loading) {
-    return (
-      <div>
-        <div className="text-lg">Loading...</div>
-      </div>
-    );
+    return <div className="text-lg">Loading...</div>;
   }
 
   if (error) {
-    return (
-      <div>
-        <div>{error}</div>
-      </div>
-    );
+    return <div className="text-red-500">{error}</div>;
   }
 
   if (!aboutData) {
-    return (
-      <div>
-        <div className="text-lg">About data not found</div>
-      </div>
-    );
+    return <div className="text-lg">About data not found</div>;
   }
 
   return (
     <Section>
       <SectionHeading>{aboutData.attributes.title}</SectionHeading>
-      {imageUrl && <HeroImage src={imageUrl} />}
+      {imageUrl && (
+        <HeroImage src={imageUrl} alt={aboutData.attributes.title} />
+      )}
       <ProseWrapper>
         <div
           dangerouslySetInnerHTML={{
@@ -111,20 +99,21 @@ const AboutPage = () => {
         />
       </ProseWrapper>
 
-      {/* Additional text paragraphs*/}
       {aboutData.paragraphs &&
         aboutData.paragraphs.map((paragraph, index) => (
-          <div
+          <ParagraphRenderer
             key={index}
-            dangerouslySetInnerHTML={{
-              __html:
-                paragraph.attributes.field_text?.processed ||
-                paragraph.attributes.field_text,
-            }}
+            paragraph={paragraph}
+            included={included}
           />
         ))}
-      {/* <ParagraphRenderer>ParagraphRenderer</> */}
- 
+
+      {/* dynamically added text... */}
+      {aboutData.attributes.field_text && (
+        <p className="mt-8 text-xl font-semibold">
+          {aboutData.attributes.field_text}
+        </p>
+      )}
     </Section>
   );
 };
