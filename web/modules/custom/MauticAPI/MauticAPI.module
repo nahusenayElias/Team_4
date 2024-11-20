@@ -68,6 +68,14 @@ function MauticAPI_form_node_blog_paragraph_form_alter(array &$form, \Drupal\Cor
  
 }
 
+function MauticAPI_node_presave(Drupal\node\NodeInterface $node) {
+  if ($node->getType() == 'blog_paragraph') {
+      if (!empty($node->mautic_segment)) {
+          $node->set('field_mautic_user_segment', $node->mautic_segment);
+      }
+  }
+}
+
 function MauticAPI_sync_segments() {
   $segments = MauticAPI_fetch_mautic_segments();
 
