@@ -142,10 +142,6 @@ const MauticContactForm = () => {
           },
         };
       }
-      // Let Mautic handle the form submission
-      if (window.MauticSDK) {
-        window.MauticSDK.onSubmit(form);
-      }
     };
 
     const initializeMautic = async () => {
