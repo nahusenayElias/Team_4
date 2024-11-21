@@ -1,0 +1,4 @@
+services:
+  mautic_proxy.mautic_service:
+    class: Drupal\mautic_proxy\Service\MauticService
+    arguments: ['@http_client']

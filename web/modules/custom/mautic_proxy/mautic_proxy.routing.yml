@@ -1,0 +1,7 @@
+mautic_proxy.contact:
+  path: '/api/mautic/contact/{contactId}'
+  defaults:
+    _controller: '\Drupal\mautic_proxy\Controller\MauticController::getContactSegments'
+    _title: 'Get Mautic Contact Segments'
+  requirements:
+    _permission: 'access content'
