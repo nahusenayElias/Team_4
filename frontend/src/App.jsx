@@ -11,6 +11,7 @@ import OurServices from "./pages/OurServices";
 import ServiceDetail from "./pages/ServiceDetail";
 import ProjectCasePage from "./pages/ProjectCasePage";
 import { capitalizeFirstLetter } from "./services/utils";
+import { fetchContactSegments } from "./services/fetchContactSegments";
 
 const App = () => {
   const location = useLocation();
@@ -52,6 +53,20 @@ const App = () => {
       title: document.title,
     });
   }, [location]);
+
+  // Fetch visitor's segments
+  useEffect(() => {
+    const fetchSegments = async () => {
+      try {
+        const data = await fetchContactSegments();
+        console.log("Contact Segments:", data);
+      } catch (err) {
+        console.error("Error:", err.message);
+      }
+    };
+
+    fetchSegments(); // Run the function when the component mounts
+  }, []); // Empty dependency array, runs once when component mounts
 
   return (
     <Routes>
