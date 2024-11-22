@@ -66,8 +66,8 @@ function MauticAPI_fetch_and_sync_segments() {
 }
 
 
-function MauticAPI_form_alter(array &$form, \Drupal\Core\Form\FormStateInterface $form_state) {
-
+function MauticAPI_form_alter(array &$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if ($form_id === 'node_blog_paragraph_form') {
     MauticAPI_fetch_and_sync_segments();
 
     $query = \Drupal::entityQuery('node')
@@ -83,7 +83,7 @@ function MauticAPI_form_alter(array &$form, \Drupal\Core\Form\FormStateInterface
         '@title' => $segment->getTitle(),
         '@node_id' => $segment->id(),
       ]);
-    
+    }
   
     $default_value = [];
     if (isset($form['#node']) && $form['#node']->hasField('field_mautic_segments')) {
@@ -95,7 +95,6 @@ function MauticAPI_form_alter(array &$form, \Drupal\Core\Form\FormStateInterface
       '#title' => 'Select Mautic Segments',
       '#options' => $options,
       '#multiple' => TRUE,
-      '#required' => TRUE,
       '#default_value' => $default_value,
     ]; 
 
