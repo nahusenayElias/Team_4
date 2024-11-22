@@ -1,0 +1,2 @@
+VITE_DRUPAL_BASE_URL=http://localhost:your_port
+VITE_MAUTIC_BASE_URL=http://localhost:your_port
