@@ -1,8 +1,5 @@
 <?php
 
-use Drupal\taxonomy\Entity\Vocabulary;
-use Drupal\taxonomy\Entity\Term;
-
 function MauticAPI_fetch_mautic_segments() {
   
         $username = $_ENV['API_USER'];
@@ -27,12 +24,7 @@ function MauticAPI_fetch_mautic_segments() {
           $data = json_decode($response->getBody()->getContents(), TRUE);
     
           if (isset($data['lists'])) {
-            $segments = $data['lists'];
-            \Drupal::state()->set('MauticAPI.mautic_segments', $segments);
-            foreach($segments as $segment) {
-              $segment[] = $segment['name'];
-            }
-            return $segments;
+            return $data['lists'];
           }
           else {
             \Drupal::logger('MauticAPI')->error('Mautic segments not found in the API response.');
@@ -45,31 +37,128 @@ function MauticAPI_fetch_mautic_segments() {
   }
 }
 
-
-function MauticAPI_form_alter(array &$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
- if ($form_id === 'node_blog_paragraph_form') {
+function MauticAPI_fetch_and_sync_segments() {
   $segments = MauticAPI_fetch_mautic_segments();
-  if ($segments) {
-    $form['mautic_segment'] = [
-      '#type' => 'select',
+  
+  foreach ($segments as $segment) {
+    if (empty($segment['name'])) {
+      \Drupal::logger('MauticAPI')->error('Segment name is missing for segment ID: @id', ['@id' => $segment['id'] ?? 'unknown']);
+      continue;
+    }
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'mautic_segment')
+      ->condition('field_segment_id', $segment['id'])
+      ->accessCheck(FALSE)
+      ->execute();
+    
+    if (empty($query)) {
+
+      $node = \Drupal\node\Entity\Node::create([
+        'type' => 'mautic_segment',
+        'title' => $segment['name'],
+        'field_segment_id' => $segment['id'],
+        'status' => 1,
+        'uid' => 1,
+      ]);
+      $node->save();
+    }
+  }
+}
+
+
+function MauticAPI_form_alter(array &$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+
+    MauticAPI_fetch_and_sync_segments();
+
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'mautic_segment')
+      ->accessCheck(FALSE)
+      ->execute();
+
+    $segments = \Drupal\node\Entity\Node::loadMultiple($query);
+    $options = [];
+    foreach($segments as $segment) {
+      $options[$segment->id()] = $segment->getTitle();
+      \Drupal::logger('MauticAPI')->notice('Adding segment option: @title (Node ID: @node_id)', [
+        '@title' => $segment->getTitle(),
+        '@node_id' => $segment->id(),
+      ]);
+    
+  
+    $default_value = [];
+    if (isset($form['#node']) && $form['#node']->hasField('field_mautic_segments')) {
+      $default_value = array_column($form['#node']->field_mautic_segments->getValue(), 'target_id');
+    }
+
+    $form['field_mautic_segments'] = [
+      '#type' => 'checkboxes',
       '#title' => 'Select Mautic Segments',
-      '#options' => array_map(function ($segment) {
-        return $segment['name'];
-      }, $segments),
+      '#options' => $options,
       '#multiple' => TRUE,
       '#required' => TRUE,
-      '#default_value' => isset($form['#node']->mautic_segment) ? $form['#node']->mautic_segment : '',
-    ];
+      '#default_value' => $default_value,
+    ]; 
+
+    $form['actions']['submit']['#submit'][] = 'mautic_api_form_submit';
+
   }
-  $form_state->set('mautic_segments', $segments);
-}
 }
 
-function MauticAPI_node_insert(Drupal\node\NodeInterface $node) {
-  if ($node->getType() == 'blog_paragraph') {
-      if (!empty($node->mautic_segment)) {
-          $node->set('field_mautic_segment', $node->mautic_segment);
+function MauticAPI_entity_base_field_info_alter(&$fields, \Drupal\Core\Entity\EntityTypeInterface $entity_type) {
+  if ($entity_type->id() === 'node') {
+    if (isset($fields['title'])) {
+      $fields['title']->setDisplayConfigurable('view', TRUE);
+    }
+    if (isset($fields['field_segment_id'])) {
+      $fields['field_segment_id']->setDisplayConfigurable('view', TRUE);
+    }
+  }
+}
+
+function mautic_api_form_submit($form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  $values = $form_state->getValue('field_mautic_segments');
+  \Drupal::logger('MauticAPI')->notice('Submit values: @values', [
+    '@values' => print_r($values, TRUE)
+  ]);
+}
+
+function MauticAPI_node_presave(\Drupal\node\NodeInterface $node) {
+  if ($node->getType() == 'blog_paragraph' && $node->hasField('field_mautic_segments')) {
+    $values = $node->get('field_mautic_segments')->getValue();
+    \Drupal::logger('MauticAPI')->notice('Raw values before processing: @values', [
+      '@values' => print_r($values, TRUE)
+    ]);
+
+    if (!empty($values)) {
+      $formatted_values = [];
+      foreach ($values as $mautic_segment_id => $value) {
+        if ($value !== 0) {
+          $query = \Drupal::entityQuery('node')
+            ->condition('type', 'mautic_segment')
+            ->condition('field_segment_id', $mautic_segment_id)
+            ->accessCheck(FALSE)
+            ->execute();
+
+          if (!empty($query)) {
+            $nid = reset($query);
+            $formatted_values[] = [
+              'target_id' => $nid
+            ];
+            \Drupal::logger('MauticAPI')->notice('Found node @nid for Mautic segment @segment_id', [
+              '@nid' => $nid,
+              '@segment_id' => $mautic_segment_id
+            ]);
+          }
+        }
       }
-  }
-}
+      if (!empty($formatted_values)) {
+        $node->set('field_mautic_segments', $formatted_values);
 
+        \Drupal::logger('MauticAPI')->notice('Final formatted values: @values', [
+          '@values' => print_r($formatted_values, TRUE)
+        ]);
+      }
+      }
+    }
+  }
+ 
