@@ -1,0 +1,7 @@
+name: 'Mautic Proxy'
+type: module
+description: 'Provides a proxy service for Mautic API.'
+core_version_requirement: ^10
+package: Custom
+dependencies:
+  - drupal:serialization
