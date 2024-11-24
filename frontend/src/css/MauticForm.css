@@ -1,126 +1,102 @@
-.mauticform_wrapper {
-  width: 100%; /* Full width for responsiveness */
-  max-width: 700px; /* Wider form for better proportions */
-  margin: 0 auto; /* Center horizontally */
-  margin-top: 1rem;
-  padding: 0; /* Remove internal padding */
-  background-color: transparent; /* Transparent background */
-  border-radius: 0; /* Remove rounding */
-  box-shadow: none; /* Remove shadow */
+.mauticform-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  width: 100%;
+  max-width: 700px;
+  margin: 3rem auto 0;
+}
+
+.mauticform-row {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 1rem;
 }
 
 .mauticform-row-two-columns {
-  display: flex; /* Flexbox for side-by-side inputs */
-  gap: 1rem; /* Add spacing between columns */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.mauticform-label {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 0.5rem;
 }
 
 .mauticform-input,
 .mauticform-textarea,
 .mauticform-selectbox {
-  width: 100%; /* Full width */
-  padding: 10px; /* Reduced padding for compact inputs */
-  border: 1px solid #ddd; /* Light border for definition */
-  border-radius: 8px; /* Rounded corners for a modern feel */
-  background-color: #f9f9f9; /* Subtle light gray */
-  font-size: 1rem; /* Standard input font size */
-  color: #333; /* Darker text for readability */
-  margin-bottom: 1rem; /* Space below inputs */
-  outline: none; /* Remove default outline */
-  transition: all 0.3s ease; /* Smooth transition for focus effects */
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  font-size: 1rem;
+  color: #333;
+  margin: 0 auto;
 }
 
-.mauticform-input.small-input {
-  width: calc(50% - 0.5rem); /* Half-width for side-by-side inputs */
+@media (max-width: 640px) {
+  .mauticform-input,
+  .mauticform-textarea,
+  .mauticform-selectbox {
+    width: 90%;
+    margin: 0.25rem 0;
+  }
+
+  .mauticform-container {
+    padding: 2rem 4rem;
+    margin-bottom: 3rem;
+  }
+
+  .mauticform-row {
+    width: calc(100% - 2rem);
+    margin: 0 1rem;
+  }
 }
 
 .mauticform-input::placeholder,
 .mauticform-textarea::placeholder {
-  color: #aaa; /* Subtle placeholder color */
-  font-size: 0.9rem; /* Slightly smaller font size for placeholders */
+  color: #aaa;
+  font-size: 0.9rem;
 }
 
-/* Focus State for Inputs */
 .mauticform-input:focus,
 .mauticform-textarea:focus,
 .mauticform-selectbox:focus {
-  background-color: #fff; /* Brighten background on focus */
-  border-color: #E85232; /* Add orange border on focus */
-  box-shadow: 0 0 6px rgba(232, 82, 50, 0.5); /* Orange shadow on focus */
+  border-color: #e85232;
+  background-color: #fff;
+  box-shadow: 0 0 6px rgba(232, 82, 50, 0.5);
 }
 
-/* Submit Button */
 .mauticform-button-wrapper .mauticform-button {
   display: block;
-  width: 100%; /* Full-width button */
-  padding: 12px; /* Add balanced padding */
-  font-size: 1rem; /* Standard font size */
-  font-weight: bold; /* Bold text for emphasis */
-  text-align: center; /* Centered text */
-  color: #fff; /* White text for contrast */
-  background-color: #E85232; /* Bright orange background */
-  border: none; /* Remove borders */
-  border-radius: 30px; /* Rounded corners for pill shape */
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: all 0.3s ease; /* Smooth transitions for hover effects */
-  margin-top: 10px; /* Add spacing above the button */
+  width: 50%;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #e85232;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 2rem auto 0;
 }
 
 .mauticform-button-wrapper .mauticform-button:hover {
-  background-color: #c74228; /* Slightly darker orange */
-  transform: translateY(-2px); /* Subtle lift effect */
-  box-shadow: none; /* Remove hover shadow */
+  background-color: #c74228;
 }
 
 .mauticform-button-wrapper .mauticform-button:disabled {
-  background-color: #ccc; /* Gray background for disabled button */
-  color: #777; /* Muted text */
-  cursor: not-allowed; /* Change cursor to indicate disabled state */
-  opacity: 0.75; /* Dimmed appearance */
-}
-
-/* Textarea Specific Styling */
-.mauticform-textarea {
-  resize: none; /* Disable resizing */
-  height: 100px; /* Reduced height for compactness */
-}
-
-/* Container for Layout and Alignment */
-.mauticform-container {
-  display: flex;
-  flex-direction: column; /* Stack elements */
-  justify-content: center; /* Center vertically */
-  align-items: center; /* Center horizontally */
-  height: auto; /* Remove fixed height */
-  min-height: calc(100vh - 150px); /* Adjust height to respect header/footer */
-  padding: 0 1.5rem; /* Add horizontal padding for smaller screens */
-}
-
-/* Submit Button */
-.mauticform-button-wrapper .mauticform-button {
-  display: inline-block; /* Change to inline-block for natural button width */
-  width: auto; /* Automatically adjust width based on content */
-  padding: 15px 40px; /* Balanced padding for a smaller size */
-  font-size: 1rem; /* Slightly smaller font size */
-  font-weight: bold; /* Bold text for emphasis */
-  text-align: center; /* Centered text */
-  color: #fff; /* White text for contrast */
-  background-color: #E85232; /* Bright orange background */
-  border: none; /* Remove borders */
-  border-radius: 30px; /* Rounded corners for pill shape */
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: all 0.3s ease; /* Smooth transitions for hover effects */
-  margin: 10px auto 0; /* Add top margin and center horizontally */
-}
-
-.mauticform-button-wrapper .mauticform-button:hover {
-  background-color: #c74228; /* Slightly darker orange */
-  transform: translateY(-2px); /* Subtle lift effect */
-  box-shadow: none; /* Remove hover shadow */
-}
-
-.mauticform-button-wrapper .mauticform-button:disabled {
-  background-color: #ccc; /* Gray background for disabled button */
-  color: #777; /* Muted text */
-  cursor: not-allowed; /* Change cursor to indicate disabled state */
-  opacity: 0.75; /* Dimmed appearance */
+  background-color: #ccc;
+  color: #777;
+  cursor: not-allowed;
+  opacity: 0.75;
 }

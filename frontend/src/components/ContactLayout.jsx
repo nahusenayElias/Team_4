@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 
 const ContactLayout = ({ contactInfo, contactForm }) => {
   return (
-    <div className="flex flex-col md:flex-row w-full h-screen">
+    <div className="flex flex-col md:flex-row w-full h-full md:h-screen">
       {/* Left: Contact Info */}
-      <div className="md:w-1/2 w-full h-full flex">{contactInfo}</div>
+      <div className="w-full md:w-1/2 flex">{contactInfo}</div>
 
       {/* Right: Contact Form */}
-      <div className="md:w-1/2 w-full h-full flex">{contactForm}</div>
+      <div className="w-full md:w-1/2 flex">{contactForm}</div>
     </div>
   );
 };

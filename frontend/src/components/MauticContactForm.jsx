@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import SectionHeading from "../components/SectionHeading";
 import "../css/MauticForm.css";
 
 const MauticContactForm = () => {
