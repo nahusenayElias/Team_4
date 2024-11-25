@@ -6,6 +6,7 @@ dependencies:
     - field.field.paragraph.text_with_image.field_image
     - field.field.paragraph.text_with_image.field_image_first
     - field.field.paragraph.text_with_image.field_long_text
+    - field.field.paragraph.text_with_image.field_mautic_segments
     - field.field.paragraph.text_with_image.field_title
     - paragraphs.paragraphs_type.text_with_image
   module:
@@ -36,6 +37,12 @@ content:
     settings:
       rows: 5
       placeholder: ''
+    third_party_settings: {  }
+  field_mautic_segments:
+    type: options_buttons
+    weight: 6
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_title:
     type: string_textfield

@@ -1,0 +1,20 @@
+uuid: 7a279efa-03c9-49a4-b080-16ceea7a4479
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_segment_id
+field_name: field_segment_id
+entity_type: node
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

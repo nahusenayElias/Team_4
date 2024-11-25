@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.paragraph.about_us.field_about_body
     - field.field.paragraph.about_us.field_about_media
+    - field.field.paragraph.about_us.field_mautic_segments
     - paragraphs.paragraphs_type.about_us
   module:
     - text
@@ -28,5 +29,13 @@ content:
       link: false
     third_party_settings: {  }
     weight: 2
+    region: content
+  field_mautic_segments:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 4
     region: content
 hidden: {  }

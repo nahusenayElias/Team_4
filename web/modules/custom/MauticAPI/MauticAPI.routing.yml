@@ -5,3 +5,11 @@ MauticAPI.segments:
     _title: "Mautic API module"
   requirements:
     _permission: "access content"
+
+MauticAPI.test:
+  path: "/admin/mautic-api/test"
+  defaults:
+    _controller: '\Drupal\MautiCAPI\Controller\MauticAPIController::testConnection'
+    _title: "Test Mautic API Connection"
+  requirements:
+    _permission: "access content"

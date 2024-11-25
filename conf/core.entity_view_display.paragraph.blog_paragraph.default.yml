@@ -6,6 +6,7 @@ dependencies:
     - field.field.paragraph.blog_paragraph.field_blog_body
     - field.field.paragraph.blog_paragraph.field_blog_media
     - field.field.paragraph.blog_paragraph.field_blog_short_text
+    - field.field.paragraph.blog_paragraph.field_mautic_segments
     - field.field.paragraph.blog_paragraph.field_title_parag
     - paragraphs.paragraphs_type.blog_paragraph
   module:
@@ -38,6 +39,14 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 2
+    region: content
+  field_mautic_segments:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 4
     region: content
   field_title_parag:
     type: text_default
