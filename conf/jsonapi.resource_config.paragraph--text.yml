@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.text
+id: paragraph--text
+disabled: false
+path: paragraph/text
+resourceType: paragraph--text
+resourceFields:
+  field_mautic_segments:
+    disabled: false
+    fieldName: field_mautic_segments
+    publicName: mautic_segments
+    enhancer:
+      id: ""

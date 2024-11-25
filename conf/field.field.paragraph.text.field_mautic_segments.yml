@@ -10,20 +10,20 @@ id: paragraph.text.field_mautic_segments
 field_name: field_mautic_segments
 entity_type: paragraph
 bundle: text
-label: 'Mautic segments'
-description: ''
+label: "Mautic segments"
+description: ""
 required: false
 translatable: false
-default_value: {  }
-default_value_callback: ''
+default_value: {}
+default_value_callback: ""
 settings:
-  handler: 'default:node'
+  handler: default
   handler_settings:
     target_bundles:
-      mautic_segments: mautic_segments
+      mautic_segment: mautic_segment
     sort:
       field: _none
       direction: ASC
     auto_create: false
-    auto_create_bundle: ''
+    auto_create_bundle: ""
 field_type: entity_reference
