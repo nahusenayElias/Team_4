@@ -15,7 +15,7 @@ const ParagraphRenderer = ({ paragraph, included }) => {
   if (!Component) return null;
 
   return (
-    <div className="mt-8">
+    <div className="mt-8 paragraph">
       <Component paragraph={paragraph} included={included} />
     </div>
   );

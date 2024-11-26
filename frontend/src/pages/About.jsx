@@ -5,8 +5,12 @@ import SectionHeading from "../components/SectionHeading";
 import HeroImage from "../components/HeroImage";
 import ProseWrapper from "../components/ProseWrapper";
 import ParagraphRenderer from "../components/ParagraphRenderer";
+import '../css/AboutCards.css'
 
-const AboutPage = () => {
+
+
+
+const About = () => {
   const [aboutData, setAboutData] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -87,6 +91,7 @@ const AboutPage = () => {
 
   return (
     <Section>
+
       <SectionHeading>{aboutData.attributes.title}</SectionHeading>
       {imageUrl && (
         <HeroImage src={imageUrl} alt={aboutData.attributes.title} />
@@ -99,14 +104,18 @@ const AboutPage = () => {
         />
       </ProseWrapper>
 
+      <div className="about-cards">
+
+
       {aboutData.paragraphs &&
         aboutData.paragraphs.map((paragraph, index) => (
           <ParagraphRenderer
-            key={index}
-            paragraph={paragraph}
-            included={included}
+          key={index}
+          paragraph={paragraph}
+          included={included}
           />
-        ))}
+          ))}
+          </div>
 
       {/* dynamically added text... */}
       {aboutData.attributes.field_text && (
@@ -118,4 +127,4 @@ const AboutPage = () => {
   );
 };
 
-export default AboutPage;
+export default About;

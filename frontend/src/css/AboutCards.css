@@ -1,0 +1,37 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer components {
+  .about-cards {
+    @apply grid gap-4 mt-8; /* Enable grid layout */
+  }
+
+  /* First three cards: horizontal grid with equal size */
+  .about-cards > :nth-child(-n+3) {
+    @apply bg-gray-100 rounded-lg shadow-md p-6; /* Base styles for first three */
+  }
+
+  /* Specific colors for the first three cards */
+  .about-cards > :nth-child(1) {
+    @apply bg-gray-100; /* Gray background for the first card */
+  }
+
+  .about-cards > :nth-child(2) {
+    @apply bg-white; /* White background for the second card */
+  }
+
+  .about-cards > :nth-child(3) {
+    @apply bg-red-100; /* Light red background for the third card */
+  }
+
+  /* Layout for the first three cards: grid layout */
+  .about-cards {
+    @apply grid grid-cols-3 gap-4; /* Three equal-width columns for the first row */
+  }
+
+  /* From the fourth card onward: stacked vertically */
+  .about-cards > :nth-child(n+4) {
+    @apply col-span-3 w-full bg-gray-50 rounded-lg shadow p-6; /* Full width for stacked items */
+  }
+}
