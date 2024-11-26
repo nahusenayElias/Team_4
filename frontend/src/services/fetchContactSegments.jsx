@@ -20,7 +20,11 @@ export const fetchContactSegments = async () => {
     const response = await axios.get(
       `${drupalLocalhostAddress}/api/mautic/contact/${contactId}`
     );
-    return response.data; // Returning the response data
+    // console.log("Raw Response:", response);
+    const data = response.data;
+    // console.log("Parsed Data:", data);
+
+    return data;
   } catch (err) {
     throw new Error(`Error fetching contact segments: ${err.message}`);
   }

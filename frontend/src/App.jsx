@@ -11,9 +11,15 @@ import OurServices from "./pages/OurServices";
 import ServiceDetail from "./pages/ServiceDetail";
 import ProjectCasePage from "./pages/ProjectCasePage";
 import { capitalizeFirstLetter } from "./services/utils";
-import { fetchContactSegments } from "./services/fetchContactSegments";
+import { useDispatch } from "react-redux";
+import { fetchSegments } from "./store/visitorSegmentsSlice";
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchSegments());
+  }, [dispatch]);
   const location = useLocation();
 
   useEffect(() => {
@@ -53,20 +59,6 @@ const App = () => {
       title: document.title,
     });
   }, [location]);
-
-  // Fetch visitor's segments
-  useEffect(() => {
-    const fetchSegments = async () => {
-      try {
-        const data = await fetchContactSegments();
-        console.log("Contact Segments:", data);
-      } catch (err) {
-        console.error("Error:", err.message);
-      }
-    };
-
-    fetchSegments(); // Run the function when the component mounts
-  }, []); // Empty dependency array, runs once when component mounts
 
   return (
     <Routes>

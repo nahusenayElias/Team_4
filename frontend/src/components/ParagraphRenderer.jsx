@@ -1,8 +1,11 @@
 import TextParagraph from "./TextParagraph";
 import ImageParagraph from "./ImageParagraph";
 import TextWithImageParagraph from "./TextWithImageParagraph";
+import { useSelector } from "react-redux";
 
 const ParagraphRenderer = ({ paragraph, included }) => {
+  
+  const visitorSegments = useSelector((state) => state.visitorSegments.data);
   const paragraphComponents = {
     "paragraph--text": TextParagraph,
     "paragraph--image": ImageParagraph,
@@ -16,6 +19,9 @@ const ParagraphRenderer = ({ paragraph, included }) => {
 
   return (
     <div className="mt-8">
+      {visitorSegments.map((segment) => (
+        <p key={segment.id}>{segment.name}</p>
+      ))}
       <Component paragraph={paragraph} included={included} />
     </div>
   );
