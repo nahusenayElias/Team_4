@@ -903,3 +903,8 @@ $databases['default']['default'] = array (
   'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
 );
 $settings['config_sync_directory'] = '../conf/';
+
+$settings['trusted_host_patterns'] = [
+  '^localhost$',
+  '127\.0\.0\.1',
+];
