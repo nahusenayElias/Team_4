@@ -1,0 +1,29 @@
+uuid: f6211d35-1ade-4f0c-a003-da6c55f3acbd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_mautic_segments
+    - node.type.mautic_segments
+    - paragraphs.paragraphs_type.about_us
+id: paragraph.about_us.field_mautic_segments
+field_name: field_mautic_segments
+entity_type: paragraph
+bundle: about_us
+label: 'Mautic segments'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      mautic_segments: mautic_segments
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

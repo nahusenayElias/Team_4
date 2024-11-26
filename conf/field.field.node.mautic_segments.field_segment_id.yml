@@ -1,0 +1,23 @@
+uuid: a3cb819c-a684-417d-83e1-e67d10256c45
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_segment_id
+    - node.type.mautic_segments
+id: node.mautic_segments.field_segment_id
+field_name: field_segment_id
+entity_type: node
+bundle: mautic_segments
+label: 'Segment id'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

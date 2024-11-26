@@ -3,4 +3,5 @@ type: module
 description: "Access Mautic API to fetch user segments"
 core_version_requirement: ^10 || ^11
 package: Custom
-dependencies: []
+dependencies:
+  - drupal:jsonapi

@@ -73,6 +73,12 @@ class MauticAPIController extends ControllerBase {
           ];
         }
         }
+        public function testConnection() {
+          $segments = MauticAPI_test_connection();
+          return [
+            '#markup' => '<pre>' . print_r($segments, TRUE) . '</pre>',
+          ];
+        }
     }
     
     

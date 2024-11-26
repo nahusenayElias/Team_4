@@ -1,0 +1,20 @@
+uuid: 5bf9a23c-8c2e-470a-8128-42a512fe1ba6
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - paragraphs
+id: paragraph.field_mautic_segments
+field_name: field_mautic_segments
+entity_type: paragraph
+type: entity_reference
+settings:
+  target_type: node
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

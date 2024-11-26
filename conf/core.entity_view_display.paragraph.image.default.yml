@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.image.field_image
+    - field.field.paragraph.image.field_mautic_segments
     - paragraphs.paragraphs_type.image
 id: paragraph.image.default
 targetEntityType: paragraph
@@ -18,5 +19,13 @@ content:
       link: false
     third_party_settings: {  }
     weight: 0
+    region: content
+  field_mautic_segments:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 4
     region: content
 hidden: {  }

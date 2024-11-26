@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.paragraph.about_us.field_about_body
     - field.field.paragraph.about_us.field_about_media
+    - field.field.paragraph.about_us.field_mautic_segments
     - paragraphs.paragraphs_type.about_us
   module:
     - media_library
@@ -28,6 +29,12 @@ content:
     region: content
     settings:
       media_types: {  }
+    third_party_settings: {  }
+  field_mautic_segments:
+    type: options_buttons
+    weight: 6
+    region: content
+    settings: {  }
     third_party_settings: {  }
 hidden:
   created: true

@@ -1,0 +1,24 @@
+uuid: c8309799-6496-40cd-9798-64a12d16189a
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.mautic_segments.field_segment_id
+    - field.field.node.mautic_segments.field_segment_name
+    - node.type.mautic_segments
+  module:
+    - user
+id: node.mautic_segments.teaser
+targetEntityType: node
+bundle: mautic_segments
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_segment_id: true
+  field_segment_name: true

@@ -1,0 +1,38 @@
+uuid: fca590e2-f11e-42d1-9b08-15d3289ab0bc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.mautic_segments.field_segment_id
+    - field.field.node.mautic_segments.field_segment_name
+    - node.type.mautic_segments
+  module:
+    - user
+id: node.mautic_segments.default
+targetEntityType: node
+bundle: mautic_segments
+mode: default
+content:
+  field_segment_id:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  field_segment_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden: {  }
