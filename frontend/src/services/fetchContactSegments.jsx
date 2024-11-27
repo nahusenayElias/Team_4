@@ -12,20 +12,30 @@ export const getCookieValue = (name) => {
 export const fetchContactSegments = async () => {
   const contactId = getCookieValue("mtc_id");
 
+  // If no contactId, return an empty segments object instead of throwing an error
   if (!contactId) {
-    throw new Error("mtc_id cookie not found.");
+    console.warn("mtc_id cookie not found. Returning empty segments.");
+    return { segments: {} };
   }
 
   try {
+    console.log("Fetching contact segments for contactId:", contactId);
     const response = await axios.get(
       `${drupalLocalhostAddress}/api/mautic/contact/${contactId}`
     );
-    // console.log("Raw Response:", response);
-    const data = response.data;
-    // console.log("Parsed Data:", data);
 
-    return data;
+    console.log("Full Segments Response:", response.data);
+
+    // Ensure the response has a segments property
+    if (!response.data.segments) {
+      console.warn("No segments found in response", response.data);
+      return { segments: {} };
+    }
+
+    return response.data;
   } catch (err) {
-    throw new Error(`Error fetching contact segments: ${err.message}`);
+    console.error("Error fetching contact segments:", err);
+    // Return an empty segments object instead of throwing an error
+    return { segments: {} };
   }
 };
