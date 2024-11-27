@@ -4,34 +4,31 @@
 
 @layer components {
   .about-cards {
-    @apply grid gap-4 mt-8; /* Enable grid layout */
+    @apply grid gap-4 mt-8;
   }
 
-  /* First three cards: horizontal grid with equal size */
+
   .about-cards > :nth-child(-n+3) {
-    @apply bg-gray-100 rounded-lg shadow-md p-6; /* Base styles for first three */
+    @apply bg-gray-100 rounded-lg shadow-md p-6;
   }
 
-  /* Specific colors for the first three cards */
   .about-cards > :nth-child(1) {
-    @apply bg-gray-100; /* Gray background for the first card */
+    @apply bg-gray-100;
   }
 
   .about-cards > :nth-child(2) {
-    @apply bg-white; /* White background for the second card */
+    @apply bg-white;
   }
 
   .about-cards > :nth-child(3) {
-    @apply bg-gray-100; /* Light red background for the third card */
+    @apply bg-gray-100;
   }
-
-  /* Layout for the first three cards: grid layout */
   .about-cards {
-    @apply grid grid-cols-3 gap-4; /* Three equal-width columns for the first row */
+    @apply grid grid-cols-3 gap-4;
   }
 
-  /* From the fourth card onward: stacked vertically */
+
   .about-cards > :nth-child(n+4) {
-    @apply col-span-3 w-full; /* Full width for stacked items */
-  }
+    @apply col-span-3 w-full;
+}
 }
