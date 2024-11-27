@@ -112,12 +112,24 @@ const About = () => {
       </div>
 
       {/* Updated div to include additional information */}
-      <div className="grid-cards mt-8">
-        <h3 className="text-lg font-semibold">Druid in numbers</h3>
-        <p><strong>Annual Turnover:</strong> {aboutData.attributes.field_annual_turnover}</p>
-        <p><strong>Completed Projects:</strong> {aboutData.attributes.field_completed_projects}</p>
-        <p><strong>Employees:</strong> {aboutData.attributes.field_employees}</p>
+      <h2 className="section-title">Druid in numbers</h2>
+      <div className="about-cards">
+        <div className="card">
+          <h3 className="card-value">{aboutData.attributes.field_annual_turnover}</h3>
+          <p className="card-label">Annual Turnover</p>
+        </div>
+
+
+        <div className="card">
+          <h3 className="card-value">{aboutData.attributes.field_employees}</h3>
+          <p className="card-label">Employees</p>
+        </div>
+        <div className="card">
+          <h3 className="card-value">{aboutData.attributes.field_completed_projects}</h3>
+          <p className="card-label">Completed Projects</p>
+        </div>
       </div>
+
 
       {/* dynamically added text... */}
       {aboutData.attributes.field_text && (
