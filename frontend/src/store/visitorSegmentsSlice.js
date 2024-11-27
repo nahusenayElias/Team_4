@@ -7,9 +7,15 @@ export const fetchSegments = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await fetchContactSegments();
-      const segmentNames = Object.values(response.segments).map((segment) => segment.name);
+      const segmentNames = response.segments 
+        ? Object.values(response.segments).map((segment) => segment.name)
+        : [];
+      
+      console.log("Extracted Visitor Segment Names:", segmentNames);
+      
       return segmentNames;
     } catch (err) {
+      console.error("Visitor Segments Fetch Error:", err);
       return rejectWithValue(err.message);
     }
   }
