@@ -1,0 +1,34 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer components {
+  .about-cards {
+    @apply grid gap-4 mt-8;
+  }
+
+
+  .about-cards > :nth-child(-n+3) {
+    @apply bg-gray-100 rounded-lg shadow-md p-6;
+  }
+
+  .about-cards > :nth-child(1) {
+    @apply bg-gray-100;
+  }
+
+  .about-cards > :nth-child(2) {
+    @apply bg-white;
+  }
+
+  .about-cards > :nth-child(3) {
+    @apply bg-gray-100;
+  }
+  .about-cards {
+    @apply grid grid-cols-3 gap-4;
+  }
+
+
+  .about-cards > :nth-child(n+4) {
+    @apply col-span-3 w-full;
+}
+}
