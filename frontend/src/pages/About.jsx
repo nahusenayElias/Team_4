@@ -111,6 +111,14 @@ const About = () => {
           ))}
       </div>
 
+      {/* Updated div to include additional information */}
+      <div className="grid-cards mt-8">
+        <h3 className="text-lg font-semibold">Druid in numbers</h3>
+        <p><strong>Annual Turnover:</strong> {aboutData.attributes.field_annual_turnover}</p>
+        <p><strong>Completed Projects:</strong> {aboutData.attributes.field_completed_projects}</p>
+        <p><strong>Employees:</strong> {aboutData.attributes.field_employees}</p>
+      </div>
+
       {/* dynamically added text... */}
       {aboutData.attributes.field_text && (
         <p className="mt-8 text-xl font-semibold">
