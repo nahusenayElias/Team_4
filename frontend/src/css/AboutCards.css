@@ -22,7 +22,7 @@
   }
 
   .about-cards > :nth-child(3) {
-    @apply bg-red-100; /* Light red background for the third card */
+    @apply bg-gray-100; /* Light red background for the third card */
   }
 
   /* Layout for the first three cards: grid layout */
@@ -32,6 +32,6 @@
 
   /* From the fourth card onward: stacked vertically */
   .about-cards > :nth-child(n+4) {
-    @apply col-span-3 w-full bg-gray-50 rounded-lg shadow p-6; /* Full width for stacked items */
+    @apply col-span-3 w-full; /* Full width for stacked items */
   }
 }
