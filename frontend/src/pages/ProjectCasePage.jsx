@@ -130,7 +130,7 @@ const ProjectCasePage = () => {
       <div className="space-y-8">
         {project.paragraphs?.map((paragraph, index) => (
           <ParagraphRenderer
-            key={index}
+            key={`${paragraph.type}-${index}`}
             paragraph={paragraph}
             included={included}
           />

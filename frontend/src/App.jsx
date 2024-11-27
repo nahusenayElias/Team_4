@@ -11,10 +11,17 @@ import OurServices from "./pages/OurServices";
 import ServiceDetail from "./pages/ServiceDetail";
 import ProjectCasePage from "./pages/ProjectCasePage";
 import { capitalizeFirstLetter } from "./services/utils";
-import { fetchContactSegments } from "./services/fetchContactSegments";
+import { useDispatch } from "react-redux";
+import { fetchSegments } from "./store/visitorSegmentsSlice";
 
 const App = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
+
+  // Fetch user segments on first page load
+  useEffect(() => {
+    dispatch(fetchSegments());
+  }, [dispatch]);
 
   useEffect(() => {
     // Define static page titles
@@ -40,7 +47,7 @@ const App = () => {
         decodeURIComponent(serviceType)
       )}  | Druid Team 4`;
     } else {
-      // Use predefined title or fallback
+      // Use predefined title for fallback
       title = pageTitles[location.pathname] || "Druid - Team 4";
     }
 
@@ -53,20 +60,6 @@ const App = () => {
       title: document.title,
     });
   }, [location]);
-
-  // Fetch visitor's segments
-  useEffect(() => {
-    const fetchSegments = async () => {
-      try {
-        const data = await fetchContactSegments();
-        console.log("Contact Segments:", data);
-      } catch (err) {
-        console.error("Error:", err.message);
-      }
-    };
-
-    fetchSegments(); // Run the function when the component mounts
-  }, []); // Empty dependency array, runs once when component mounts
 
   return (
     <Routes>
