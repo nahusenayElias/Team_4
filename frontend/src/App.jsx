@@ -15,12 +15,13 @@ import { useDispatch } from "react-redux";
 import { fetchSegments } from "./store/visitorSegmentsSlice";
 
 const App = () => {
+  const location = useLocation();
   const dispatch = useDispatch();
 
+  // Fetch user segments on first page load
   useEffect(() => {
     dispatch(fetchSegments());
   }, [dispatch]);
-  const location = useLocation();
 
   useEffect(() => {
     // Define static page titles
@@ -46,7 +47,7 @@ const App = () => {
         decodeURIComponent(serviceType)
       )}  | Druid Team 4`;
     } else {
-      // Use predefined title or fallback
+      // Use predefined title for fallback
       title = pageTitles[location.pathname] || "Druid - Team 4";
     }
 
