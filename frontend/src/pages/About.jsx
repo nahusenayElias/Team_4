@@ -18,9 +18,17 @@ const About = () => {
     const fetchAboutData = async () => {
       try {
         setLoading(true);
-        const response = await fetch(
-          `${drupalLocalhostAddress}/jsonapi/node/about_us?include=field_image_about.field_media_image,field_about_us`
-        );
+        const includes = [
+          "field_about_us",
+          "field_about_us.field_image",
+          "field_about_us.field_image.field_media_image",
+          "field_image_about",
+          "field_image_about.field_media_image",
+        ].join(",");
+
+        const url = `${drupalLocalhostAddress}/jsonapi/node/about_us?include=${includes}`;
+
+        const response = await fetch(url);
         const data = await response.json();
 
         if (!response.ok) {

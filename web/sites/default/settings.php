@@ -908,3 +908,10 @@ $settings['trusted_host_patterns'] = [
   '^localhost$',
   '127\.0\.0\.1',
 ];
+
+$settings['jsonapi_include_count'] = TRUE;
+$settings['jsonapi_resource_type_field_aliases'] = [
+  'media--image' => [
+    'uri' => 'url',
+  ],
+];
