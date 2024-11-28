@@ -49,15 +49,19 @@ const Contact = () => {
   const imageData = content?.relationships?.field_image?.data;
   // Find the image file in included data based on the ID
   const imageFile = included?.find((image) => image.id === imageData?.id);
+  console.log(imageFile);
   const imageUrl = imageFile
     ? `${drupalLocalhostAddress}${imageFile.attributes.uri.url}`
     : null;
-  // TODO: imageAltText is not fetched for some reason
-  const imageAltText = imageFile?.meta?.alt;
 
   return (
     <Section>
-      {imageUrl && <HeroImage src={imageUrl} alt={imageAltText} />}
+      {imageUrl && (
+        <HeroImage
+          src={imageUrl}
+          altText={content.relationships?.field_image?.data?.meta?.alt}
+        />
+      )}
 
       {content && content.attributes && (
         <SectionHeading>{content.attributes.title}</SectionHeading>
