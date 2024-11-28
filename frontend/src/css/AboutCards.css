@@ -31,26 +31,30 @@
     @apply col-span-3 w-full;
   }
 
-  /* New styles for card titles and values */
-  .card {
-    @apply bg-gray-100 border border-gray-100 p-8 flex flex-col items-center; /* Flex column layout */
+  .info-cards {
+    @apply grid grid-cols-3 gap-4 mt-8;
+  }
+
+  .info-cards > .card {
+    @apply bg-white p-6 border border-gray-200 rounded-lg flex flex-col items-center;
+    @apply m-1; 
   }
 
   .card-title {
-    @apply text-orange-500 text-lg font-semibold text-center; /* Centered title styles */
-    font-family: 'Arial', sans-serif; /* Change to your desired font */
+    @apply text-orange-500 text-lg font-semibold text-center;
+    font-family: 'Arial';
   }
 
   .card-value {
-    @apply text-orange-500 text-4xl font-bold; /* Value styles */
+    @apply text-orange-600 text-6xl font-bold;
   }
 
   .card-label {
-    @apply mt-2 text-gray-700 text-center; /* Label styles */
+    @apply mt-2 text-gray-700 text-center;
   }
 
   .section-title {
-    @apply text-2xl font-bold text-center mt-8 mb-4; /* Section title styles */
-    font-family: 'Arial', sans-serif; /* Change to your desired font */
+    @apply text-2xl font-bold text-center mt-8 mb-4;
+    font-family: 'Arial';
   }
 }
