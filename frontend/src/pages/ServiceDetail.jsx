@@ -54,7 +54,7 @@ const ServiceDetail = () => {
         {getHeroImageUrl(data) && (
           <HeroImage
             src={getHeroImageUrl(data)}
-            alt="Service Hero"
+            altText={service.relationships?.field_hero_image?.data?.meta?.alt}
             className="hero-image"
           />
         )}
