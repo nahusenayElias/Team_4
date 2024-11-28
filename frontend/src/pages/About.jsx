@@ -119,12 +119,26 @@ const About = () => {
           ))}
       </div>
 
-      {/* dynamically added text... */}
-      {aboutData.attributes.field_text && (
-        <p className="mt-8 text-xl font-semibold">
-          {aboutData.attributes.field_text}
-        </p>
-      )}
+      <h2 className="section-title">Druid in numbers</h2>
+      <div className="info-cards">
+        <div className="card">
+          <h3 className="card-value">
+            {aboutData.attributes.field_annual_turnover}
+          </h3>
+          <p className="card-label">Annual Turnover</p>
+        </div>
+
+        <div className="card">
+          <h3 className="card-value">{aboutData.attributes.field_employees}</h3>
+          <p className="card-label">Employees</p>
+        </div>
+        <div className="card">
+          <h3 className="card-value">
+            {aboutData.attributes.field_completed_projects}
+          </h3>
+          <p className="card-label">Completed Projects</p>
+        </div>
+      </div>
     </Section>
   );
 };

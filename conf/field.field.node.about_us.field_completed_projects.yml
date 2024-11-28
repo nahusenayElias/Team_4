@@ -1,0 +1,23 @@
+uuid: 1d3064a5-422a-41c0-884f-8222c6db8fee
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_completed_projects
+    - node.type.about_us
+id: node.about_us.field_completed_projects
+field_name: field_completed_projects
+entity_type: node
+bundle: about_us
+label: 'Completed projects'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

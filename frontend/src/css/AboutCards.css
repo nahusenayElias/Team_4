@@ -7,7 +7,6 @@
     @apply grid gap-4 mt-8;
   }
 
-
   .about-cards > :nth-child(-n+3) {
     @apply bg-gray-100 rounded-lg shadow-md p-6;
   }
@@ -23,12 +22,39 @@
   .about-cards > :nth-child(3) {
     @apply bg-gray-100;
   }
+
   .about-cards {
     @apply grid grid-cols-3 gap-4;
   }
 
-
   .about-cards > :nth-child(n+4) {
     @apply col-span-3 w-full;
-}
+  }
+
+  .info-cards {
+    @apply grid grid-cols-3 gap-4 mt-8;
+  }
+
+  .info-cards > .card {
+    @apply bg-white p-6 border border-gray-200 rounded-lg flex flex-col items-center;
+    @apply m-1; 
+  }
+
+  .card-title {
+    @apply text-orange-500 text-lg font-semibold text-center;
+    font-family: 'Arial';
+  }
+
+  .card-value {
+    @apply text-orange-600 text-6xl font-bold;
+  }
+
+  .card-label {
+    @apply mt-2 text-gray-700 text-center;
+  }
+
+  .section-title {
+    @apply text-2xl font-bold text-center mt-8 mb-4;
+    font-family: 'Arial';
+  }
 }

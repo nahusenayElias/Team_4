@@ -1,0 +1,19 @@
+uuid: 3b3f08ef-5dce-4347-9460-101e48f9afe5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_annual_turnover
+    - node.type.about_us
+id: node.about_us.field_annual_turnover
+field_name: field_annual_turnover
+entity_type: node
+bundle: about_us
+label: 'Annual turnover'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
