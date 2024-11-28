@@ -72,7 +72,12 @@ const OurServices = () => {
               <Link to={`/service/${serviceType}`} className="block">
                 {item.heroImageUrl && (
                   <div>
-                    <HeroImage src={item.heroImageUrl} />
+                    <HeroImage
+                      src={item.heroImageUrl}
+                      altText={
+                        item.relationships.field_hero_image?.data?.meta.alt
+                      }
+                    />
                     <SectionHeading>{item.attributes.title}</SectionHeading>
                   </div>
                 )}
