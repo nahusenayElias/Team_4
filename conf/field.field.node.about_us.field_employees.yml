@@ -1,0 +1,23 @@
+uuid: d601becd-849e-4e30-ab0b-89cee4b5d766
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_employees
+    - node.type.about_us
+id: node.about_us.field_employees
+field_name: field_employees
+entity_type: node
+bundle: about_us
+label: Employees
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
