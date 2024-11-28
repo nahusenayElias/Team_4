@@ -31,22 +31,7 @@ const About = () => {
         const response = await fetch(url);
         const data = await response.json();
 
-        console.log("API Response:", {
-          data: data.data,
-          included: data.included,
-          paragraphs: data.included?.filter((item) =>
-            item.type.startsWith("paragraph--")
-          ),
-          mediaItems: data.included?.filter(
-            (item) => item.type === "media--image"
-          ),
-          fileItems: data.included?.filter(
-            (item) => item.type === "file--file"
-          ),
-        });
-
         if (!response.ok) {
-          console.error("Response error:", data);
           throw new Error("Failed to fetch about data");
         }
 
