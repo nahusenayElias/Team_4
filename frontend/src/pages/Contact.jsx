@@ -49,7 +49,6 @@ const Contact = () => {
   const imageData = content?.relationships?.field_image?.data;
   // Find the image file in included data based on the ID
   const imageFile = included?.find((image) => image.id === imageData?.id);
-  console.log(imageFile);
   const imageUrl = imageFile
     ? `${drupalLocalhostAddress}${imageFile.attributes.uri.url}`
     : null;
