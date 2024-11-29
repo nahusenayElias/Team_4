@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 const ProjectCard = ({ project }) => {
-  const { title, customer, description, heroImageUrl } = project;
+  const { customer, description, heroImageUrl, heroImageAltText } = project;
   const companyName = customer?.toLowerCase().replace(/\s+/g, "-");
 
   return (
@@ -9,7 +9,7 @@ const ProjectCard = ({ project }) => {
       {heroImageUrl ? (
         <img
           src={heroImageUrl}
-          alt={title}
+          alt={heroImageAltText}
           className="w-full h-48 object-cover"
         />
       ) : (
