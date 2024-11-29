@@ -27,7 +27,7 @@ const About = () => {
         ].join(",");
 
         const url = `${drupalLocalhostAddress}/jsonapi/node/about_us?include=${includes}`;
-
+        // console.log(url);
         const response = await fetch(url);
         const data = await response.json();
 
@@ -41,6 +41,7 @@ const About = () => {
           // Find the image
           const imageMediaId =
             aboutPage.relationships.field_image_about?.data?.id;
+
           const imageMedia = data.included?.find(
             (item) => item.id === imageMediaId && item.type === "media--image"
           );
@@ -49,6 +50,9 @@ const About = () => {
           const imageFile = data.included?.find(
             (item) => item.id === imageFileId && item.type === "file--file"
           );
+          const heroImageAltText =
+            imageMedia.relationships?.field_media_image?.data?.meta?.alt ||
+            "About us hero image";
 
           // Construct image URL
           const imageUrl = imageFile
@@ -64,6 +68,7 @@ const About = () => {
 
           setAboutData({
             ...aboutPage,
+            heroImageAltText,
             paragraphs,
           });
           setImageUrl(imageUrl);
@@ -98,7 +103,7 @@ const About = () => {
     <Section>
       <SectionHeading>{aboutData.attributes.title}</SectionHeading>
       {imageUrl && (
-        <HeroImage src={imageUrl} alt={aboutData.attributes.title} />
+        <HeroImage src={imageUrl} altText={aboutData?.heroImageAltText} />
       )}
       <ProseWrapper>
         <div
