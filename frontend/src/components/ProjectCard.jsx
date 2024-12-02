@@ -26,7 +26,7 @@ const ProjectCard = ({ project }) => {
           to={`/projects/${companyName}`} // Link to the detailed page using company name
           className="text-blue-500 hover:text-blue-700 mt-4 block text-sm font-semibold"
         >
-          Read More{" "}
+          Read More
         </Link>
       </div>
     </div>
