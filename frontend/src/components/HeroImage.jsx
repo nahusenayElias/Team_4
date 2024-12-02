@@ -1,6 +1,3 @@
-// src/components/Image.jsx
-import PropTypes from "prop-types";
-
 const HeroImage = ({ src, altText }) => {
   return (
     <img
@@ -9,11 +6,6 @@ const HeroImage = ({ src, altText }) => {
       className={`w-full h-64 object-cover rounded-md mb-6`}
     />
   );
-};
-
-HeroImage.propTypes = {
-  src: PropTypes.string.isRequired,
-  altText: PropTypes.string,
 };
 
 export default HeroImage;
