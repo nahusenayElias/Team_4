@@ -30,6 +30,8 @@ const ProjectContainer = () => {
           const heroImageUrl = heroImage
             ? `${drupalLocalhostAddress}${heroImage.attributes.uri.url}`
             : null;
+          const heroImageAltText =
+            project.relationships.field_heroimg?.data?.meta?.alt;
 
           // Process paragraphs in field_content relationship
           const paragraphs =
@@ -58,6 +60,7 @@ const ProjectContainer = () => {
             customer: field_customer,
             description: field_project_description,
             heroImageUrl,
+            heroImageAltText,
             paragraphs,
           };
         });

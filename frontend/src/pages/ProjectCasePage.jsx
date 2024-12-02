@@ -48,9 +48,13 @@ const ProjectCasePage = () => {
           const heroImage = data.included?.find(
             (img) => img.id === heroImageId && img.type === "file--file"
           );
+
           const heroImageUrl = heroImage
             ? `${drupalLocalhostAddress}${heroImage.attributes.uri.url}`
             : null;
+
+          const heroImageAltText =
+            projectDetail.relationships.field_heroimg?.data?.meta?.alt;
 
           // Process paragraphs while keeping the full paragraph data
           const paragraphs = projectDetail.relationships.field_content?.data
@@ -74,6 +78,7 @@ const ProjectCasePage = () => {
             customer: field_customer,
             description: field_project_description,
             heroImageUrl,
+            heroImageAltText,
             paragraphs,
           });
           setIncluded(data.included || []);
@@ -117,7 +122,10 @@ const ProjectCasePage = () => {
     <Section>
       {" "}
       {project.heroImageUrl && (
-        <HeroImage src={project.heroImageUrl} alt={project.title} />
+        <HeroImage
+          src={project.heroImageUrl}
+          altText={project.heroImageAltText}
+        />
       )}
       <header className="mb-8">
         <SectionHeading>{project.customer}</SectionHeading>

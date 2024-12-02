@@ -41,6 +41,27 @@ const FrontPage = () => {
           const heroImageId = frontPage.relationships.field_heroimg?.data?.id;
           const heroImageFile = data.included?.find(
             (item) => item.id === heroImageId && item.type === "file--file"
+
+        // title & short description...
+        setTitle(frontPageContent.attributes.title);
+        setShortDescription(frontPageContent.attributes.field_descriptions);
+
+        // hero image URL & alt text...
+        const heroImageData = frontPageContent.relationships.field_heroimg.data;
+
+        if (heroImageFile) {
+          const imageUri = heroImageFile.attributes.uri.url;
+          const isRelativeUrl = !/^https?:\/\//i.test(imageUri);
+          setHeroImageUrl(
+            isRelativeUrl ? `${drupalLocalhostAddress}${imageUri}` : imageUri
+          );
+          setHeroImageAltText(
+            frontPageContent.relationships.field_heroimg.data.meta?.alt ||
+              "Hero image"
+          );
+          console.log(
+            "Hero image URL:",
+            isRelativeUrl ? `${drupalLocalhostAddress}${imageUri}` : imageUri
           );
 
           // Construct hero image URL
@@ -93,7 +114,8 @@ const FrontPage = () => {
       {heroImageUrl && (
         <HeroImage
           src={heroImageUrl}
-          alt={frontPageData.attributes.title}
+          altText={frontPageData.attributes.title}
+
           className="hero-image"
         />
       )}
