@@ -42,7 +42,10 @@ const FrontPage = () => {
           setHeroImageUrl(
             isRelativeUrl ? `${drupalLocalhostAddress}${imageUri}` : imageUri
           );
-          setHeroImageAltText(heroImageFile.meta?.alt || "Hero image");
+          setHeroImageAltText(
+            frontPageContent.relationships.field_heroimg.data.meta?.alt ||
+              "Hero image"
+          );
           console.log(
             "Hero image URL:",
             isRelativeUrl ? `${drupalLocalhostAddress}${imageUri}` : imageUri
@@ -79,7 +82,7 @@ const FrontPage = () => {
       {heroImageUrl ? (
         <HeroImage
           src={heroImageUrl}
-          alt={heroImageAltText}
+          altText={heroImageAltText}
           className="hero-image"
         />
       ) : (
