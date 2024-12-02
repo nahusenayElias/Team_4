@@ -1,107 +1,126 @@
-import { useEffect, useState } from "react";
-import { drupalLocalhostAddress, fetchContent } from "../services/api";
-import DOMPurify from "dompurify";
+import React, { useState, useEffect } from "react";
+import { drupalLocalhostAddress } from "../services/api";
 import Section from "../components/Section";
 import SectionHeading from "../components/SectionHeading";
 import HeroImage from "../components/HeroImage";
 import ProseWrapper from "../components/ProseWrapper";
+import ParagraphRenderer from "../components/ParagraphRenderer";
 import ProjectContainer from "../components/ProjectContainer";
 
 const FrontPage = () => {
-  const [content, setContent] = useState(null);
+  const [frontPageData, setFrontPageData] = useState(null);
+  const [heroImageUrl, setHeroImageUrl] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [sanitizedDrupalContent, setSanitizedDrupalContent] = useState(null);
-  const [title, setTitle] = useState("");
-  const [shortDescription, setShortDescription] = useState("");
-  const [heroImageUrl, setHeroImageUrl] = useState(null);
-  const [heroImageAltText, setHeroImageAltText] = useState("");
+  const [included, setIncluded] = useState([]);
 
   useEffect(() => {
-    fetchContent("node/front_page?include=field_heroimg")
-      .then((data) => {
-        console.log("Fetched data:", data);
+    const fetchFrontPageData = async () => {
+      try {
+        setLoading(true);
+        const includes = [
+          "field_heroimg",
+          "field_content",
+          "field_content.field_image",
+          "field_content.field_image.field_media_image",
+        ].join(",");
 
-        const frontPageContent = data.data[0];
-        setContent(frontPageContent);
-        setLoading(false);
+        const url = `${drupalLocalhostAddress}/jsonapi/node/front_page?include=${includes}`;
 
-        // title & short description...
-        setTitle(frontPageContent.attributes.title);
-        setShortDescription(frontPageContent.attributes.field_descriptions);
+        const response = await fetch(url);
+        const data = await response.json();
 
-        // hero image URL & alt text...
-        const heroImageData = frontPageContent.relationships.field_heroimg.data;
-        const heroImageFile = data.included?.find(
-          (image) => image.id === heroImageData?.id
-        );
-
-        if (heroImageFile) {
-          const imageUri = heroImageFile.attributes.uri.url;
-          const isRelativeUrl = !/^https?:\/\//i.test(imageUri);
-          setHeroImageUrl(
-            isRelativeUrl ? `${drupalLocalhostAddress}${imageUri}` : imageUri
-          );
-          setHeroImageAltText(heroImageFile.meta?.alt || "Hero image");
-          console.log(
-            "Hero image URL:",
-            isRelativeUrl ? `${drupalLocalhostAddress}${imageUri}` : imageUri
-          );
-        } else {
-          console.warn("Hero image data not found in included data.");
+        if (!response.ok) {
+          throw new Error("Failed to fetch front page data");
         }
-      })
-      .catch((error) => {
-        console.error("Error fetching content:", error);
-        setError(error);
+
+        if (data.data && data.data.length > 0) {
+          const frontPage = data.data[0];
+
+          // Find the hero image
+          const heroImageId = frontPage.relationships.field_heroimg?.data?.id;
+          const heroImageFile = data.included?.find(
+            (item) => item.id === heroImageId && item.type === "file--file"
+          );
+
+          // Construct hero image URL
+          const heroImageUrl = heroImageFile
+            ? `${drupalLocalhostAddress}${heroImageFile.attributes.uri.url}`
+            : null;
+
+          // Extract paragraphs
+          const paragraphs = frontPage.relationships.field_content?.data
+            ?.map((paragraphRef) => {
+              return data.included?.find((item) => item.id === paragraphRef.id);
+            })
+            .filter(Boolean);
+
+          setFrontPageData({
+            ...frontPage,
+            paragraphs,
+          });
+          setHeroImageUrl(heroImageUrl);
+          setIncluded(data.included || []);
+        } else {
+          throw new Error("No front page data found");
+        }
+      } catch (error) {
+        console.error("Error fetching front page data:", error);
+        setError(error.message);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchFrontPageData();
   }, []);
 
-  useEffect(() => {
-    if (content?.attributes?.body?.value) {
-      setSanitizedDrupalContent(
-        DOMPurify.sanitize(content.attributes.body.value)
-      );
-    }
-  }, [content]);
-
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="text-lg">Loading...</div>;
   }
 
   if (error) {
-    return <div>Error loading content: {error.message}</div>;
+    return <div className="text-red-500">{error}</div>;
+  }
+
+  if (!frontPageData) {
+    return <div className="text-lg">Front page data not found</div>;
   }
 
   return (
     <Section>
-      {heroImageUrl ? (
+      <SectionHeading>{frontPageData.attributes.title}</SectionHeading>
+      {heroImageUrl && (
         <HeroImage
           src={heroImageUrl}
-          alt={heroImageAltText}
+          alt={frontPageData.attributes.title}
           className="hero-image"
         />
-      ) : (
-        <div>No hero image available</div>
       )}
-
-      <SectionHeading>{title}</SectionHeading>
-
-      {shortDescription && (
-        <p className="short-description">{shortDescription}</p>
+      {frontPageData.attributes.field_description && (
+        <p className="short-description">{frontPageData.attributes.field_description}</p>
       )}
-
       <ProseWrapper>
-        {sanitizedDrupalContent ? (
+        {frontPageData.attributes.body && (
           <div
-            className="prose"
-            dangerouslySetInnerHTML={{ __html: sanitizedDrupalContent }}
+            dangerouslySetInnerHTML={{
+              __html: frontPageData.attributes.body.processed,
+            }}
           />
-        ) : (
-          <div>No content available</div>
         )}
       </ProseWrapper>
+
+      <div className="front-page-content">
+        {frontPageData.paragraphs &&
+          frontPageData.paragraphs.map((paragraph, index) => (
+            <ParagraphRenderer
+              key={index}
+              paragraph={paragraph}
+              included={included}
+            />
+          ))}
+      </div>
+
       <ProjectContainer />
     </Section>
   );
