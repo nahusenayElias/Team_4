@@ -10,6 +10,7 @@ import ProjectContainer from "../components/ProjectContainer";
 const FrontPage = () => {
   const [frontPageData, setFrontPageData] = useState(null);
   const [heroImageUrl, setHeroImageUrl] = useState(null);
+  const [heroImageAltText, setHeroImageAltText] = useState("Hero image");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [included, setIncluded] = useState([]);
@@ -41,33 +42,21 @@ const FrontPage = () => {
           const heroImageId = frontPage.relationships.field_heroimg?.data?.id;
           const heroImageFile = data.included?.find(
             (item) => item.id === heroImageId && item.type === "file--file"
-
-        // title & short description...
-        setTitle(frontPageContent.attributes.title);
-        setShortDescription(frontPageContent.attributes.field_descriptions);
-
-        // hero image URL & alt text...
-        const heroImageData = frontPageContent.relationships.field_heroimg.data;
-
-        if (heroImageFile) {
-          const imageUri = heroImageFile.attributes.uri.url;
-          const isRelativeUrl = !/^https?:\/\//i.test(imageUri);
-          setHeroImageUrl(
-            isRelativeUrl ? `${drupalLocalhostAddress}${imageUri}` : imageUri
-          );
-          setHeroImageAltText(
-            frontPageContent.relationships.field_heroimg.data.meta?.alt ||
-              "Hero image"
-          );
-          console.log(
-            "Hero image URL:",
-            isRelativeUrl ? `${drupalLocalhostAddress}${imageUri}` : imageUri
           );
 
-          // Construct hero image URL
-          const heroImageUrl = heroImageFile
-            ? `${drupalLocalhostAddress}${heroImageFile.attributes.uri.url}`
-            : null;
+          if (heroImageFile) {
+            const imageUri = heroImageFile.attributes.uri.url;
+            const isRelativeUrl = !/^https?:\/\//i.test(imageUri);
+            const fullHeroImageUrl = isRelativeUrl
+              ? `${drupalLocalhostAddress}${imageUri}`
+              : imageUri;
+
+            setHeroImageUrl(fullHeroImageUrl);
+            setHeroImageAltText(
+              frontPage.relationships.field_heroimg.data.meta?.alt || "Hero image"
+            );
+            console.log("Hero image URL:", fullHeroImageUrl);
+          }
 
           // Extract paragraphs
           const paragraphs = frontPage.relationships.field_content?.data
@@ -80,7 +69,6 @@ const FrontPage = () => {
             ...frontPage,
             paragraphs,
           });
-          setHeroImageUrl(heroImageUrl);
           setIncluded(data.included || []);
         } else {
           throw new Error("No front page data found");
@@ -114,8 +102,7 @@ const FrontPage = () => {
       {heroImageUrl && (
         <HeroImage
           src={heroImageUrl}
-          altText={frontPageData.attributes.title}
-
+          altText={heroImageAltText}
           className="hero-image"
         />
       )}
