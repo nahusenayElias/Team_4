@@ -5,5 +5,5 @@ visibility:
   request_path_pages: "/\r\n/*"
 header: false
 lift_enable: null
-mautic_enable: false
+mautic_enable: true
 mautic_base_url: 'http://localhost:62015/mtc.js'
