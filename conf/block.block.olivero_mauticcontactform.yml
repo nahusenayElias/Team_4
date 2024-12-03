@@ -1,22 +1,22 @@
-uuid: c6c8d6fb-6930-4c13-ae40-493de13cf05f
+uuid: dbc6e309-0abf-4885-af2f-b8a8bad0ab46
 langcode: en
 status: true
 dependencies:
   content:
-    - 'block_content:mautic_block:15334480-d012-4585-bbb2-835a2268e0ba'
+    - 'block_content:mautic_block:f011f99c-456a-44c2-8196-5528018a0754'
   module:
     - block_content
   theme:
     - olivero
 id: olivero_mauticcontactform
 theme: olivero
-region: footer_top
+region: content_below
 weight: 0
 provider: null
-plugin: 'block_content:15334480-d012-4585-bbb2-835a2268e0ba'
+plugin: 'block_content:f011f99c-456a-44c2-8196-5528018a0754'
 settings:
-  id: 'block_content:15334480-d012-4585-bbb2-835a2268e0ba'
-  label: 'mautic contact form'
+  id: 'block_content:f011f99c-456a-44c2-8196-5528018a0754'
+  label: 'Mautic contact form'
   label_display: visible
   provider: block_content
   status: true

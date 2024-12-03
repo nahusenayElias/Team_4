@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.front_page.body
+    - field.field.node.front_page.field_content
     - field.field.node.front_page.field_description
     - field.field.node.front_page.field_heroimg
     - node.type.front_page
@@ -30,5 +31,6 @@ content:
     weight: 100
     region: content
 hidden:
+  field_content: true
   field_description: true
   field_heroimg: true
