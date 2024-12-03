@@ -2,13 +2,13 @@ import { drupalLocalhostAddress } from "./api";
 
 export const findImageUrl = (fieldImage, included) => {
   if (!fieldImage || !included) {
-    return null;
+    return { imageUrl: null, altText: "n/a" };
   }
 
   // Get the media entity ID from the paragraph's field_image relationship
   const mediaEntityId = fieldImage.data?.id;
   if (!mediaEntityId) {
-    return null;
+    return { imageUrl: null, altText: "n/a" };
   }
 
   // Find the media entity
@@ -16,13 +16,16 @@ export const findImageUrl = (fieldImage, included) => {
     (item) => item.type === "media--image" && item.id === mediaEntityId
   );
   if (!mediaEntity) {
-    return null;
+    return { imageUrl: null, altText: "n/a" };
   }
+  console.log("mediaEntity log", mediaEntity);
+
+  const altText = mediaEntity.relationships?.field_media_image?.data?.meta?.alt || "n/a";
 
   // Get the file ID from the media entity's field_media_image relationship
   const fileId = mediaEntity.relationships?.field_media_image?.data?.id;
   if (!fileId) {
-    return null;
+    return { imageUrl: null, altText};
   }
 
   // Find the file entity
@@ -30,12 +33,16 @@ export const findImageUrl = (fieldImage, included) => {
     (item) => item.type === "file--file" && item.id === fileId
   );
 
-  if (fileEntity?.attributes?.uri?.url) {
-    const fullUrl = `${drupalLocalhostAddress}${fileEntity.attributes.uri.url}`;
+  // Extract the image URL
+  const imageUrl = fileEntity?.attributes?.uri?.url
+    ? `${drupalLocalhostAddress}${fileEntity.attributes.uri.url}`
+    : null;
+    console.log({ imageUrl, altText });
 
-    return fullUrl;
-  }
-  return null;
+    return {
+      imageUrl,
+      altText,
+    }
 };
 
 // Helper function to capitalize the first letter of each word (for dynamic page title in App.jsx)
