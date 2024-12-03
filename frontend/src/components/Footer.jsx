@@ -81,7 +81,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="mt-8 pt-6 border-t border-orange-500 text-center">
-          <p> All rights reserved &copy; {new Date().getFullYear()} | Druid Team Project - Team IV</p>
+          <p>&copy; {new Date().getFullYear()} | Druid Team Project - Team IV</p>
         </div>
       </div>
     </footer>
