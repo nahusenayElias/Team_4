@@ -1,0 +1,16 @@
+plugin.plugin_configuration.mautic_paragraph_connector.standard:
+  type: config_object
+  label: 'Mautic standard connector settings'
+  mapping:
+    scheme:
+      type: string
+      label: 'The HTTP protocol to use for sending queries'
+    base_url:
+      type: string
+      label: 'The base url of the Mautic server'
+    port:
+      type: integer
+      label: 'The port of the Mautic server'
+    path:
+      type: string
+      label: 'The path of the Mautic server'

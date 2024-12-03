@@ -1,0 +1,55 @@
+{% if connector and form_id %}
+  <script type="text/javascript">
+        // Debug function to check when Mautic script loads
+        function checkMauticForm() {
+            if (window.MauticForm) {
+                console.log('Mautic Form object loaded:', window.MauticForm);
+            } else {
+                console.log('Waiting for Mautic Form object...');
+                setTimeout(checkMauticForm, 1000);
+            }
+        }
+    </script>
+  <script type="text/javascript" src="{{ connector.getMauticFormScriptUrl(form_id) }}"></script>
+         <div class="mautic-form-iframe-container">
+           <iframe 
+            src="{{ connector.getMauticFormEmbedUrl(form_id) }}"
+            id="mauticform_iframe_{{ form_id }}"
+            name="mauticform_iframe_{{ form_id }}"
+            class="mautic-form-iframe"
+            style="width: 100%; min-height: 400px; border: none;"
+            scrolling="no"
+            frameborder="0"
+            allowtransparency="true">
+        </iframe>
+    </div> 
+       <style type="text/css">
+        .mautic-form-iframe-container {
+            position: relative;
+            width: 100%;
+            margin: 0 auto;
+        }
+        .mautic-form-iframe {
+            display: block !important;
+            width: 100%;
+            transition: height 0.3s ease;
+        }
+    </style>
+        <script type="text/javascript">
+        // Additional check after page load
+        document.addEventListener('DOMContentLoaded', function() {
+            var iframe = document.getElementById('mauticform_iframe_{{ form_id }}');
+            window.addEventListener('message', function(event) {
+                if (event.data.hasOwnProperty('mauticFormHeight')) {
+                    iframe.style.height = event.data.mauticFormHeight + 'px';
+                }
+            });
+
+            iframe.addEventListener('load', function() {
+                console.log('Mautic form iframe loaded');
+            });
+        });
+    </script>
+
+{% endif %}
+

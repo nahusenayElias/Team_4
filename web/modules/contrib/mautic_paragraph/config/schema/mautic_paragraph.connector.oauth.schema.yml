@@ -1,0 +1,13 @@
+plugin.plugin_configuration.mautic_paragraph_connector.oauth:
+  type: plugin.plugin_configuration.mautic_paragraph_connector.standard
+  label: 'Mautic oauth connector settings'
+  mapping:
+    client_id:
+      type: string
+      label: 'Client ID for OAuth authentication'
+    client_secret:
+      type: string
+      label: 'Client Secret for OAuth authentication'
+    redirect_base_url:
+      type: string
+      label: 'Redirect base url from Drupal instance'

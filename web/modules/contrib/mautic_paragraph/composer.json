@@ -1,0 +1,18 @@
+{
+    "name": "drupal/mautic_paragraph",
+    "description": "Integrates Mautic with Drupal 8",
+    "type": "drupal-module",
+    "homepage": "https://www.drupal.org/project/mautic_paragraph",
+    "require": {
+        "mautic/api-library": "^3.0"
+    },
+    "prefer-stable": true,
+    "extra": {
+        "patches": {
+            "mautic/api-library": {
+                "Add support for client credentials grant": "https://patch-diff.githubusercontent.com/raw/mautic/api-library/pull/269.diff",
+                "Make the setLogger method on the API class adhere to the LoggerAwareInterface": "https://github.com/mautic/api-library/commit/73a92ddc259ca696ce7a6932b127529447e82d17.diff"
+            }
+        }
+    }
+}

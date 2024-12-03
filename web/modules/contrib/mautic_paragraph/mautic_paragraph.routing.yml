@@ -1,0 +1,15 @@
+mautic_paragraph.route_settings:
+  path: '/admin/config/services/mautic'
+  defaults:
+    _title: 'Mautic paragraph'
+    _form: '\Drupal\mautic_paragraph\Form\MauticSettingsForm'
+  requirements:
+    _permission: 'administer mautic_paragraph'
+
+mautic_paragraph.autocomplete.forms:
+  path: '/admin/mautic_paragraph/autocomplete/forms'
+  defaults:
+    _controller: '\Drupal\mautic_paragraph\Controller\FormAutocompleteController::handleAutocomplete'
+    _format: json
+  requirements:
+    _permission: 'access content'

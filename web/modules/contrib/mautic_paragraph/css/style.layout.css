@@ -1,0 +1,27 @@
+.paragraph--type-mautic {
+  display: flex;
+}
+.p-mautic--view-mode--form_left,
+.p-mautic--view-mode--form_default {
+  flex-direction: row-reverse;
+}
+
+.p-mautic--view-mode--form_left.paragraph-mautic-info {
+  margin-left: 2rem;
+}
+.p-mautic--view-mode--form_right.paragraph-mautic-info {
+  margin-right: 2rem;
+}
+
+.paragraph-mautic-info,
+.field--name-field-mautic-formid {
+  flex-basis: 50%;
+}
+.field--name-field-mautic-title {
+  margin-bottom: 1rem;
+}
+
+.paragraph-mautic-info {
+  display: flex;
+  flex-direction: column;
+}

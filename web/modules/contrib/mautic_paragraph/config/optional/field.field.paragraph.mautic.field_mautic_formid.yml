@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_mautic_formid
+    - paragraphs.paragraphs_type.mautic
+  module:
+    - options
+id: paragraph.mautic.field_mautic_formid
+field_name: field_mautic_formid
+entity_type: paragraph
+bundle: mautic
+label: 'Form'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_integer

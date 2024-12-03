@@ -1,0 +1,19 @@
+{% block paragraph %}
+
+  <div{{ attributes.addClass('paragraph') }}>
+    {{ title_prefix }}
+    {{ title_suffix }}
+    {% block content %}
+
+      {% if content.field_mautic_title is not empty and content.field_mautic_text is not empty  %}
+        <div{{ attributes.addClass('paragraph-mautic-info') }}>
+          {{ content.field_mautic_title }}
+          {{ content.field_mautic_text }}
+        </div>
+        {{ content.field_mautic_formid }}
+      {% else %}
+        {{ content.field_mautic_formid }}
+      {% endif %}
+    {% endblock %}
+  </div>
+{% endblock paragraph %}

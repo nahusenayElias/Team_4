@@ -1,0 +1,154 @@
+<?php
+
+/**
+ * @file
+ * Contains mautic_paragraph.module.
+ */
+
+use Drupal\Core\Config\FileStorage;
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function mautic_paragraph_theme() {
+  return [
+    'mautic_field_formatter' => [
+      'template' => 'mautic-field-formatter',
+      'variables' => [
+        'base_url' => NULL,
+        'connector' => NULL,
+        'form_id' => NULL,
+      ],
+    ],
+    'paragraph__mautic' => [
+      'template' => 'paragraph--mautic',
+      'base hook' => 'paragraph',
+    ],
+  ];
+}
+
+function mautic_paragraph_preprocess_mautic_field_formatter(&$variables) {
+  // Debug logging
+  \Drupal::logger('mautic_paragraph')->notice('Preprocessing variables: form_id=@form_id, connector=@connector', [
+    '@form_id' => $variables['form_id'] ?? 'not set',
+    '@connector' => !empty($variables['connector']) ? 'exists' : 'missing',
+  ]);
+}
+
+/**
+ * Callback function for the field_mautic_formid.
+ */
+function mautic_paragraph_form_list() {
+  $instance = \Drupal::service('mautic_paragraph_api');
+  $list = $instance->getList();
+
+  if (!isset($list)) {
+    return [];
+  }
+  $options = [];
+  foreach ($list as $item) {
+    $options[$item['id']] = $item['name'];
+  }
+  return $options;
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view_alter().
+ */
+function mautic_paragraph_paragraph_view_alter(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
+  if (!$entity instanceof ContentEntityInterface) {
+    return;
+  }
+  if (!$entity->bundle() == 'mautic') {
+    return;
+  }
+  // Output the layout choice as a class on the wrapper.
+  if ($entity->hasField('field_mautic_layout')) {
+    $p_mautic_layout = $entity->get('field_mautic_layout')->getValue();
+    $p_mautic_title = $entity->get('field_mautic_title')->getValue();
+    $p_mautic_text = $entity->get('field_mautic_text')->getValue();
+    if (isset($p_mautic_layout[0]['value']) && isset($p_mautic_title[0]['value']) && isset($p_mautic_text[0]['value'])) {
+      $build['#attributes']['class'][] = 'p--view-mode--' . $p_mautic_layout[0]['value'];
+      $build['#attributes']['class'][] = 'p-mautic--view-mode--' . $p_mautic_layout[0]['value'];
+      $build['#attached']['library'][] = 'mautic_paragraph/mautic-layout';
+    }
+    else {
+      $build['#attributes']['class'][] = 'p-mautic--view-mode--full';
+      $build['#attached']['library'][] = 'mautic_paragraph/mautic-layout';
+    }
+
+  }
+
+}
+
+/**
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter().
+ *
+ * Widget : Paragraphs Classic : entity_reference_paragraphs.
+ */
+function mautic_paragraph_field_widget_entity_reference_paragraphs_form_alter(&$element, &$form_state, $context) {
+  // If the paragraph type has got a background color field,
+  // we need to load a library for the admin preview of colors
+  // (color picker) to work.
+  if (isset($element['subform']['field_mautic_layout']) && isset($element['subform']['field_mautic_layout']['widget'])) {
+    // Library for making the colorpicker work.
+    $element['subform']['#attached']['library'][] = 'mautic_paragraph/admin_mautic_layout';
+  }
+}
+
+/**
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter().
+ */
+function mautic_paragraph_field_widget_paragraphs_form_alter(&$element, &$form_state, $context) {
+  mautic_paragraph_field_widget_entity_reference_paragraphs_form_alter($element, $form_state, $context);
+}
+
+/**
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter().
+ */
+function mautic_paragraph_field_widget_paragraphs_classic_asymmetric_form_alter(&$element, &$form_state, $context) {
+  mautic_paragraph_field_widget_entity_reference_paragraphs_form_alter($element, $form_state, $context);
+}
+
+/**
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter().
+ */
+function mautic_paragraph_field_widget_entity_reference_paragraphs_previewer_form_alter(&$element, &$form_state, $context) {
+  mautic_paragraph_field_widget_entity_reference_paragraphs_form_alter($element, $form_state, $context);
+}
+
+/**
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter().
+ */
+function mautic_paragraph_field_widget_paragraphs_previewer_form_alter(&$element, &$form_state, $context) {
+  mautic_paragraph_field_widget_entity_reference_paragraphs_form_alter($element, $form_state, $context);
+}
+
+/**
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter().
+ */
+function mautic_paragraph_field_widget_paragraphs_asymmetric_form_alter(&$element, &$form_state, $context) {
+  mautic_paragraph_field_widget_entity_reference_paragraphs_form_alter($element, $form_state, $context);
+}
+
+/**
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter().
+ */
+function mautic_paragraph_field_widget_rs_paragraphs_asymmetric_form_alter(&$element, &$form_state, $context) {
+  mautic_paragraph_field_widget_entity_reference_paragraphs_form_alter($element, $form_state, $context);
+}
+
+/**
+ * Implements hook_modules_installed().
+ */
+function mautic_paragraph_modules_installed($modules) {
+  if (in_array('paragraphs', $modules)) {
+    // Loading config of mautic paragraphs if paragraphs module gets enabled.
+    $config_path = \Drupal::service('extension.list.module')->getPath('mautic_paragraph') . '/config/optional';
+    $config_source = new FileStorage($config_path);
+    \Drupal::service('config.installer')->installOptionalConfig($config_source);
+  }
+}

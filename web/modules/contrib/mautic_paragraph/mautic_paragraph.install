@@ -1,0 +1,54 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for File module.
+ */
+
+/**
+ * Remove outdated configuration.
+ */
+function mautic_paragraph_update_9001() {
+  \Drupal::configFactory()
+    ->getEditable('mautic_paragraph.settings')
+    ->clear('connector_config.redirect_base_url')
+    ->save(TRUE);
+}
+
+/**
+ * Add default value for limit settings.
+ */
+function mautic_paragraph_update_9002() {
+  $config = \Drupal::configFactory()->getEditable('mautic_paragraph.settings');
+  $config->set('limit', 100);
+  $config->save();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function mautic_paragraph_uninstall() {
+  $config_factory = \Drupal::service('config.factory');
+
+  $config_names = [
+    'mautic_paragraph.settings',
+    'core.entity_form_display.paragraph.mautic.default',
+    'core.entity_view_display.paragraph.mautic.default',
+    'core.entity_view_display.block_content.mautic_block.default',
+    'core.entity_form_display.block_content.mautic_block.default',
+    'paragraphs.paragraphs_type.mautic',
+    'block_content.type.mautic_block',
+  ];
+
+  $field = $config_factory->listAll('field.field.paragraph.mautic');
+  $bField = $config_factory->listAll('field.field.block_content.mautic_block');
+  $storage = $config_factory->listAll('field.storage.paragraph.field_mautic');
+  $bStorage = $config_factory->listAll('field.storage.block_content.field_mautic_block');
+
+  $config_names = array_merge($config_names, $field, $storage, $bField, $bStorage);
+
+  foreach ($config_names as $config_name) {
+    $config_factory->getEditable($config_name)->delete();
+  }
+
+}

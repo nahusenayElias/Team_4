@@ -1,0 +1,13 @@
+#services:
+#  mautic_paragraph_api:
+#    class: Drupal\mautic_paragraph\MauticParagraphApi
+#    arguments: ['@config.factory', '@state', '@url_generator', '@request_stack', '@messenger', '@cache.default']
+
+services:
+  mautic_paragraph_api:
+    class: Drupal\mautic_paragraph\MauticParagraphApi
+    arguments: ['@config.factory', '@state', '@url_generator', '@request_stack', '@messenger', '@plugin.manager.mautic_paragraph.connector', '@cache.default']
+  plugin.manager.mautic_paragraph.connector:
+    class: Drupal\mautic_paragraph\MauticParagraphConnector\MauticParagraphConnectorPluginManager
+    parent: default_plugin_manager
+

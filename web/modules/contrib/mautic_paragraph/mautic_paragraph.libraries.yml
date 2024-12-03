@@ -1,0 +1,20 @@
+mautic-layout:
+  css:
+    theme:
+        css/style.layout.css: {}
+
+admin_mautic_layout:
+  js:
+    js/mautic.admin.js: { }
+  css:
+    base:
+      css/mautic.admin.css: {}
+  dependencies:
+    - core/jquery
+    - core/once
+
+admin_mautic_settings:
+  js:
+    js/mautic.settings.js: {}
+  dependencies:
+    - core/jquery

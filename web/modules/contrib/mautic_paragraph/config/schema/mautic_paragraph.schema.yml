@@ -1,0 +1,14 @@
+# Schema for the configuration files of the Mautic_Paragraph module.
+
+mautic_paragraph.settings:
+  type: config_object
+  label: 'Mautic Integration settings'
+  mapping:
+    connector:
+      type: string
+      label: 'The connector plugin ID'
+    limit:
+      type: integer
+      label: 'Limit number of entities to return'
+    connector_config:
+      type: plugin.plugin_configuration.mautic_paragraph_connector.[%parent.connector]

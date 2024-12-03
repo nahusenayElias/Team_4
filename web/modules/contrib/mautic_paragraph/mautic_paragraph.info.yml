@@ -1,0 +1,14 @@
+name: Mautic paragraph
+description: Creates a Mautic paragraph Type, Mautic block Type and form
+package: Custom
+configure: mautic_paragraph.route_settings
+dependencies:
+  - drupal:options
+  - drupal:text
+type: module
+core_version_requirement: ^9.3 || ^10.0
+
+# Information added by Drupal.org packaging script on 2023-09-11
+version: '1.1.1'
+project: 'mautic_paragraph'
+datestamp: 1694445261
