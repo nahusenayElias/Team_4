@@ -3,7 +3,10 @@ import { findImageUrl } from "../services/utils";
 import SectionHeading from "./SectionHeading";
 
 const TextWithImageParagraph = ({ paragraph, included }) => {
-  const imageUrl = findImageUrl(paragraph.relationships?.field_image, included);
+  const { imageUrl, altText } = findImageUrl(
+    paragraph.relationships?.field_image,
+    included
+  );
 
   // Check if toggle "field_image_first" is set to true or false by user in drupal paragraph:
   const isImageFirst = paragraph.attributes?.field_image_first || false;
@@ -16,7 +19,7 @@ const TextWithImageParagraph = ({ paragraph, included }) => {
           <div className="md:w-1/2">
             <img
               src={imageUrl}
-              alt={paragraph.attributes?.field_title || "Project image"}
+              alt={altText || "n/a"}
               className="max-w-full h-auto rounded-lg shadow-md"
             />
           </div>
@@ -33,7 +36,7 @@ const TextWithImageParagraph = ({ paragraph, included }) => {
           <div className="md:w-1/2">
             <img
               src={imageUrl}
-              alt={paragraph.attributes?.field_title || "Project image"}
+              alt={altText || "n/a"}
               className="max-w-full h-auto rounded-lg shadow-md"
             />
           </div>

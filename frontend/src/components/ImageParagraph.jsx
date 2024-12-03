@@ -1,17 +1,20 @@
 import { findImageUrl } from "../services/utils";
 
 const ImageParagraph = ({ paragraph, included }) => {
-  const imageUrl = findImageUrl(paragraph.relationships?.field_image, included);
+  const { imageUrl, altText } = findImageUrl(
+    paragraph.relationships?.field_image,
+    included
+  );
 
   return (
     <div>
       <h3 className="font-semibold">
-        {paragraph.attributes?.field_heading || ""}
+        {paragraph.attributes?.field_title || ""}
       </h3>
       {imageUrl && (
         <img
           src={imageUrl}
-          alt={paragraph.attributes?.field_heading || "Project image"}
+          alt={altText || "n/a"}
           className="mt-4 max-w-full h-auto rounded-lg shadow-md"
         />
       )}
