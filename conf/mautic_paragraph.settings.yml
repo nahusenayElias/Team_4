@@ -2,5 +2,12 @@ _core:
   default_config_hash: _jBWHDxcUqiULjXJMHx8WwoT1VIODfJ3jsHA7pycQos
 connector: basic_auth
 limit: 100
-connector_config: {  }
-cache: 3600
+connector_config:
+  scheme: http
+  base_url: appserver.mauticapp.internal
+  port: ''
+  path: ''
+  public_url: 'localhost:51061'
+  username: admin
+  password: +Nimda666+
+cache: '3600'

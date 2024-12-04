@@ -1,10 +1,20 @@
-.mauticform_wrapper {
+.mautic-form-container {
+  width: 100%;
   max-width: 600px;
-  margin: 10px auto;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f0f0f0;
+}
+.mauticform_wrapper {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 .mauticform-innerform {
-}
-.mauticform-post-success {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  min-height: 50px;
 }
 .mauticform-name {
   font-weight: bold;

@@ -1,0 +1,25 @@
+uuid: 8d37c382-9221-4e6f-a146-247b6adb75f5
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:mautic_block:440600e7-0c73-40e7-afee-a8958e5e0de7'
+  module:
+    - block_content
+  theme:
+    - olivero
+id: olivero_mauticform
+theme: olivero
+region: content_below
+weight: 0
+provider: null
+plugin: 'block_content:440600e7-0c73-40e7-afee-a8958e5e0de7'
+settings:
+  id: 'block_content:440600e7-0c73-40e7-afee-a8958e5e0de7'
+  label: 'mautic form'
+  label_display: visible
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }
