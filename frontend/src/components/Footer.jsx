@@ -59,9 +59,9 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4 text-orange-500">Company</h3>
             <ul>
-              <li className="mb-2"><a href="#" className="hover:text-orange-500 transition-colors">About Us</a></li>
-              <li className="mb-2"><a href="#" className="hover:text-orange-500 transition-colors">Careers</a></li>
-              <li className="mb-2"><a href="#" className="hover:text-orange-500 transition-colors">Contact</a></li>
+              <li className="mb-2"><a href="/about" className="hover:text-orange-500 transition-colors">About Us</a></li>
+              <li className="mb-2"><a href="/jobs" className="hover:text-orange-500 transition-colors">Careers</a></li>
+              <li className="mb-2"><a href="/contact" className="hover:text-orange-500 transition-colors">Contact</a></li>
             </ul>
           </div>
 
