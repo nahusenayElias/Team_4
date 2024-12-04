@@ -38,6 +38,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-orange-500 transition-colors"
+                aria-label="Follow Druid on X"
               >
                 <FaXTwitter size={20} />
               </a>
@@ -46,6 +47,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-orange-500 transition-colors"
+                aria-label="Follow Druid on Instagram"
               >
                 <FaInstagram size={20} />
               </a>
@@ -54,6 +56,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-orange-500 transition-colors"
+                aria-label="Follow Druid on Facebook"
               >
                 <FaFacebook size={20} />
               </a>
@@ -62,6 +65,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-orange-500 transition-colors"
+                aria-label="Follow Druid on LinkedIn"
               >
                 <FaLinkedin size={20} />
               </a>
@@ -75,14 +79,20 @@ const Footer = () => {
             </h3>
             <ul>
               <li className="mb-2">
-                <a href="#" className="hover:text-orange-500 transition-colors">
+                <a
+                  href="/services"
+                  className="hover:text-orange-500 transition-colors"
+                >
                   Services
                 </a>
               </li>
               <li className="mb-2">
-                <a href="#" className="hover:text-orange-500 transition-colors">
+                <Link
+                  to="/#ProjectContainer"
+                  className="hover:text-orange-500 transition-colors"
+                >
                   Featured cases
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -127,18 +137,12 @@ const Footer = () => {
             </h3>
             <ul>
               <li className="mb-2">
-                <a href="#" className="hover:text-orange-500 transition-colors">
-                  Report a bug
-                </a>
-              </li>
-              <li className="mb-2">
-                <a href="#" className="hover:text-orange-500 transition-colors">
-                  Chat with support
-                </a>
-              </li>
-              <li className="mb-2">
-                <a href="#" className="hover:text-orange-500 transition-colors">
-                  FAQs
+                <a
+                  href="#"
+                  className="hover:text-orange-500 transition-colors"
+                  aria-label="support email"
+                >
+                  support@druid.fi
                 </a>
               </li>
             </ul>
@@ -151,7 +155,7 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Copyright */}
+        {/* Copyright & Team IV */}
         <div className="mt-8 pt-6 border-t border-orange-500 text-center">
           <p>
             &copy; {new Date().getFullYear()} | Druid Team Project - Team IV
