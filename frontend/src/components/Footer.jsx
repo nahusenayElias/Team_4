@@ -7,11 +7,29 @@ import {
   FaArrowUp,
 } from "react-icons/fa6";
 import logo from "../assets/images/logo.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Footer = () => {
+  const navigate = useNavigate();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleScrollToFeaturedCases = (event) => {
+    event.preventDefault(); // Prevent the default link behavior
+
+    // Navigate to the homepage
+    navigate("/");
+
+    // Use setTimeout to give time for the page to load, then scroll to the section
+    setTimeout(() => {
+      // Make sure to scroll to the element with id "featuredCases"
+      const element = document.getElementById("featuredCases");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100); // A small delay to ensure the page has loaded
   };
 
   return (
@@ -87,12 +105,13 @@ const Footer = () => {
                 </a>
               </li>
               <li className="mb-2">
-                <Link
-                  to="/#ProjectContainer"
+                <a
+                  href="#featuredCases"
+                  onClick={handleScrollToFeaturedCases}
                   className="hover:text-orange-500 transition-colors"
                 >
                   Featured cases
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
