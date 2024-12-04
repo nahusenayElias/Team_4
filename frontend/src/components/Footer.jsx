@@ -29,7 +29,7 @@ const Footer = () => {
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
-    }, 100); // A small delay to ensure the page has loaded
+    }, 300);
   };
 
   return (
