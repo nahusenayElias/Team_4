@@ -13,20 +13,38 @@ const Contact = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [sanitizedDrupalContent, setSanitizedDrupalContent] = useState(null);
+  const [formId, setFormId] = useState(null);
 
   useEffect(() => {
-    fetchContent("node/contactpage?include=field_image")
-      .then((data) => {
-        console.log("Fetched data:", data);
-        setContent(data.data[0]); // Access the first item in the data array
-        setIndluded(data.included);
-        setLoading(false);
-      })
-      .catch((error) => {
+    const fetchData = async () => {
+      try {
+        const contentResponse = await fetchContent(
+          "node/contactpage?include=field_image"
+        );
+        setContent(contentResponse.data[0]);
+        setIndluded(contentResponse.included);
+
+        const formResponse = await fetch(
+          `${drupalLocalhostAddress}/jsonapi/block_content/mautic_block`
+        );
+        const formData = await formResponse.json();
+
+        if (!formResponse.ok) {
+          throw new Error("Failed to fetch Mautic form data");
+        }
+
+        const mauticFormId =
+          formData.data[0]?.attributes?.field_mautic_block_formid;
+        console.log("Mautic Form ID:", mauticFormId);
+        setFormId(mauticFormId);
+      } catch (error) {
         console.error("Error fetching content:", error);
         setError(error);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+    fetchData();
   }, []);
 
   // Sanitize body text coming in from Drupal
@@ -79,7 +97,11 @@ const Contact = () => {
       </ProseWrapper>
       <SectionHeading>Contact Form</SectionHeading>
 
-      <MauticContactForm />
+      {formId ? (
+        <MauticContactForm formId={formId} />
+      ) : (
+        <div className="text-center text-gray-500">Form not available</div>
+      )}
     </Section>
   );
 };
