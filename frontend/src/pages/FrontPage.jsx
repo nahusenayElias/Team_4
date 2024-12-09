@@ -98,14 +98,14 @@ const FrontPage = () => {
 
   return (
     <Section>
-      <SectionHeading>{frontPageData.attributes.title}</SectionHeading>
       {heroImageUrl && (
         <HeroImage
-          src={heroImageUrl}
-          altText={heroImageAltText}
-          className="hero-image"
+        src={heroImageUrl}
+        altText={heroImageAltText}
+        className="hero-image"
         />
-      )}
+        )}
+        <SectionHeading>{frontPageData.attributes.title}</SectionHeading>
       {frontPageData.attributes.field_description && (
         <p className="short-description">{frontPageData.attributes.field_description}</p>
       )}
