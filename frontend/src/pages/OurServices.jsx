@@ -6,6 +6,7 @@ import HeroImage from "../components/HeroImage";
 import SectionHeading from "../components/SectionHeading";
 import ProseWrapper from "../components/ProseWrapper";
 import DOMPurify from "dompurify";
+import { useNavigate } from "react-router-dom";
 
 const API_BASE_URL = `${drupalLocalhostAddress}/jsonapi`;
 
@@ -16,6 +17,7 @@ const API_ENDPOINTS = {
 };
 
 const OurServices = () => {
+  const navigate = useNavigate();
   const [services, setServices] = useState({
     project: [],
     maintenance: [],
@@ -65,32 +67,54 @@ const OurServices = () => {
 
   return (
     <Section>
-      {Object.entries(services).map(([serviceType, items]) => (
-        <section key={serviceType} className="mb-12">
-          {items.map((item) => (
-            <div key={item.id} className="service-item mb-8">
-              <Link to={`/service/${serviceType}`} className="block">
-                {item.heroImageUrl && (
-                  <div>
-                    <HeroImage
-                      src={item.heroImageUrl}
-                      altText={
-                        item.relationships.field_hero_image?.data?.meta.alt
-                      }
-                    />
-                    <SectionHeading>{item.attributes.title}</SectionHeading>
-                  </div>
-                )}
+      <SectionHeading>Our Services</SectionHeading>
+      <div className="flex justify-center items-center">
+        <button
+          className="flex justify-center items-center bg-orange-600 text-white text-2xl hover:bg-orange-900 text-center block border-2 border-orange-400 rounded-full shadow-md w-50 p-5 m-5"
+          onClick={() => navigate("/contact")}
+        >
+          <span>Get in touch</span>
+          <span className="material-symbols-outlined text-3xl ml-2">
+            arrow_forward
+          </span>
+        </button>
+      </div>
 
-                <ProseWrapper>
-                  {item.attributes.field_short_description}
-                </ProseWrapper>
-                <span className="block underline mt-2">Read more</span>
-              </Link>
-            </div>
-          ))}
-        </section>
-      ))}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+        {Object.entries(services).map(([serviceType, items]) => (
+          <div key={serviceType} className="mb-12">
+            {items.map((item) => (
+              <div
+                key={item.id}
+                className="service-item w-75 mb-8 p-8 border-2 border-orange-400 rounded-xl shadow-md"
+              >
+                <Link to={`/service/${serviceType}`} className="block">
+                  {item.heroImageUrl && (
+                    <div>
+                      <HeroImage
+                        src={item.heroImageUrl}
+                        altText={
+                          item.relationships.field_hero_image?.data?.meta.alt
+                        }
+                      />
+                      <SectionHeading>{item.attributes.title}</SectionHeading>
+                    </div>
+                  )}
+
+                  <ProseWrapper>
+                    <span className="text-gray-500">
+                      {item.attributes.field_short_description}
+                    </span>
+                  </ProseWrapper>
+                  <span className="text-orange-400 hover:text-orange-700 text-center block m-2 p-2 border-2 border-orange-400 rounded-lg shadow-md">
+                    Read more
+                  </span>
+                </Link>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
     </Section>
   );
 };

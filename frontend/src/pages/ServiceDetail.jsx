@@ -45,12 +45,8 @@ const ServiceDetail = () => {
   );
 
   return (
-    <div className="service-detail">
+    <div className="service-detail flex justify-center items-center">
       <Section>
-        <SectionHeading className="text-2xl font-bold">
-          {service.attributes.title}
-        </SectionHeading>
-
         {getHeroImageUrl(data) && (
           <HeroImage
             src={getHeroImageUrl(data)}
@@ -58,8 +54,12 @@ const ServiceDetail = () => {
             className="hero-image"
           />
         )}
+        <SectionHeading className="text-2xl font-bold">
+          {service.attributes.title}
+        </SectionHeading>
         <ProseWrapper>
           <div
+            className="text-center"
             dangerouslySetInnerHTML={{ __html: sanitizedLongDescContent }}
           ></div>
         </ProseWrapper>
