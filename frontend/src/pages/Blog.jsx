@@ -104,13 +104,14 @@ const BlogPost = ({ blog, onReadMore }) => {
     <Section>
       <div>
         <SectionHeading>{blog.title}</SectionHeading>
+
+        {blog.mediaUrl && <HeroImage src={blog.mediaUrl} alt={blog.title} />}
         <p>
           <strong>Author:</strong> {blog.authorName}
         </p>
         <p>
           <strong>Date:</strong> {new Date(blog.date).toLocaleDateString()}
         </p>
-        {blog.mediaUrl && <HeroImage src={blog.mediaUrl} alt={blog.title} />}
         <ProseWrapper>
           <p>{blog.shortText}</p>
         </ProseWrapper>
