@@ -7,7 +7,6 @@ connector_config:
   base_url: appserver.mauticapp.internal
   port: ''
   path: ''
-  public_url: 'localhost:51061'
   username: admin
   password: +Nimda666+
 cache: '3600'
