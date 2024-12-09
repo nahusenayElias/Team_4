@@ -7,7 +7,6 @@ dependencies:
     - field.field.paragraph.blog_paragraph.field_blog_media
     - field.field.paragraph.blog_paragraph.field_blog_short_text
     - field.field.paragraph.blog_paragraph.field_mautic_segments
-    - field.field.paragraph.blog_paragraph.field_title_parag
     - paragraphs.paragraphs_type.blog_paragraph
   module:
     - text
@@ -47,12 +46,5 @@ content:
       link: true
     third_party_settings: {  }
     weight: 4
-    region: content
-  field_title_parag:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
     region: content
 hidden: {  }
