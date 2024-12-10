@@ -54,7 +54,9 @@ const Blog = () => {
 
           return {
             id: item.id,
-            title: item.attributes.title || paragraphData?.attributes.field_title_parag?.processed,
+            title:
+              item.attributes.title ||
+              paragraphData?.attributes.field_title_parag?.processed,
             shortText: paragraphData?.attributes.field_blog_short_text,
             body: paragraphData?.attributes.field_blog_body?.value,
             mediaUrl: mediaUrl,
@@ -77,10 +79,8 @@ const Blog = () => {
 
   const handleReadMore = (blog) => {
     setSelectedBlog(blog);
-    topRef.current.scrollIntoView({ behavior: 'smooth' });
+    topRef.current.scrollIntoView({ behavior: "smooth" });
   };
-
-
 
   const handleShowLess = () => {
     setSelectedBlog(null);
@@ -90,14 +90,12 @@ const Blog = () => {
     <div ref={topRef}>
       {selectedBlog ? (
         <FullBlogPost blog={selectedBlog} onShowLess={handleShowLess} />
+      ) : blogs.length > 0 ? (
+        blogs.map((blog) => (
+          <BlogPost key={blog.id} blog={blog} onReadMore={handleReadMore} />
+        ))
       ) : (
-        blogs.length > 0 ? (
-          blogs.map((blog) => (
-            <BlogPost key={blog.id} blog={blog} onReadMore={handleReadMore} />
-          ))
-        ) : (
-          <p>Loading...</p>
-        )
+        <p>Loading...</p>
       )}
     </div>
   );
