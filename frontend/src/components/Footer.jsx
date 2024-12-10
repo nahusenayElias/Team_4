@@ -41,7 +41,13 @@ const Footer = () => {
           {/* Company Info */}
           <div className="md:col-span-1 space-y-4">
             <Link to="/">
-              <img src={logo} alt="Druid Logo" className="h-8" />
+              <img
+                src={logo}
+                alt="Druid Logo"
+                className="h-8 w-auto"
+                width="113.4"
+                height="38.5"
+              />
             </Link>
             <div className="space-y-1 text-sm">
               <p className="mb-1">Pasilankatu 2</p>

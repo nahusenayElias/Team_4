@@ -55,7 +55,13 @@ const Header = () => {
     <header className="flex items-center justify-between p-4 bg-gray-800 text-white font-sans md:border-b md:border-gray-300">
       <div className="flex items-center">
         <Link to="/">
-          <img src={logo} alt="Druid Logo" className="h-10 mr-5" />
+          <img
+            src={logo}
+            alt="Druid Logo"
+            className="h-10 w-auto mr-5"
+            width="113.4"
+            height="38.5"
+          />
         </Link>
         <h1 className="pt-2 text-xl">Team 4</h1>
       </div>
