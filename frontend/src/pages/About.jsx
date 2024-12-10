@@ -101,10 +101,10 @@ const About = () => {
 
   return (
     <Section>
-      <SectionHeading>{aboutData.attributes.title}</SectionHeading>
       {imageUrl && (
         <HeroImage src={imageUrl} altText={aboutData?.heroImageAltText} />
-      )}
+        )}
+        <SectionHeading>{aboutData.attributes.title}</SectionHeading>
       <ProseWrapper>
         <div
           dangerouslySetInnerHTML={{
