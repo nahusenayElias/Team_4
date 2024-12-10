@@ -53,7 +53,8 @@ const FrontPage = () => {
 
             setHeroImageUrl(fullHeroImageUrl);
             setHeroImageAltText(
-              frontPage.relationships.field_heroimg.data.meta?.alt || "Hero image"
+              frontPage.relationships.field_heroimg.data.meta?.alt ||
+                "Hero image"
             );
             console.log("Hero image URL:", fullHeroImageUrl);
           }
@@ -98,7 +99,6 @@ const FrontPage = () => {
 
   return (
     <Section>
-      <SectionHeading>{frontPageData.attributes.title}</SectionHeading>
       {heroImageUrl && (
         <HeroImage
           src={heroImageUrl}
@@ -106,8 +106,11 @@ const FrontPage = () => {
           className="hero-image"
         />
       )}
+      <SectionHeading>{frontPageData.attributes.title}</SectionHeading>
       {frontPageData.attributes.field_description && (
-        <p className="short-description">{frontPageData.attributes.field_description}</p>
+        <p className="short-description">
+          {frontPageData.attributes.field_description}
+        </p>
       )}
       <ProseWrapper>
         {frontPageData.attributes.body && (
