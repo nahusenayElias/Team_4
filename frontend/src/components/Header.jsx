@@ -47,13 +47,20 @@ const Header = () => {
   ];
 
   const linkClasses = "text-lg font-semibold hover:bg-gray-700 py-4 md:py-0";
-  const desktopClasses = "w-full md:w-auto text-center md:text-left md:text-base md:font-normal";
+  const desktopClasses =
+    "w-full md:w-auto text-center md:text-left md:text-base md:font-normal";
 
   return (
     <header className="flex items-center justify-between p-4 bg-gray-800 text-white font-sans md:border-b md:border-gray-300">
       <div className="flex items-center">
         <Link to="/">
-          <img src={logo} alt="Druid Logo" className="h-10 mr-5" />
+          <img
+            src={logo}
+            alt="Druid Logo"
+            className="h-10 w-auto mr-5"
+            width="113.4"
+            height="38.5"
+          />
         </Link>
         <h1 className="text-xl">Team 4</h1>
       </div>
