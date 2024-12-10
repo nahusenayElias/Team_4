@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { drupalLocalhostAddress } from "../services/api";
 import DOMPurify from "dompurify";
 import HeroImage from "../components/HeroImage";
@@ -14,6 +14,7 @@ const ServiceDetail = () => {
   const [service, setService] = useState(null);
   const [data, setData] = useState(null);
   // made a new usestate for fetching the heroimage
+  const navigate = useNavigate();
 
   const fetchServiceDetail = async () => {
     try {
@@ -45,12 +46,14 @@ const ServiceDetail = () => {
   );
 
   return (
-    <div className="service-detail">
+    <div className="service-detail flex justify-center items-center">
       <Section>
-        <SectionHeading className="text-2xl font-bold">
-          {service.attributes.title}
-        </SectionHeading>
-
+        <button
+          className="flex justify-center items-center bg-orange-600 text-white text-xl hover:bg-orange-900 text-center block rounded-full shadow-md w-48 p-2 m-5"
+          onClick={() => navigate(-1)}
+        >
+          Back to Services
+        </button>
         {getHeroImageUrl(data) && (
           <HeroImage
             src={getHeroImageUrl(data)}
@@ -58,8 +61,12 @@ const ServiceDetail = () => {
             className="hero-image"
           />
         )}
+        <SectionHeading className="text-2xl font-bold">
+          {service.attributes.title}
+        </SectionHeading>
         <ProseWrapper>
           <div
+            className="text-center"
             dangerouslySetInnerHTML={{ __html: sanitizedLongDescContent }}
           ></div>
         </ProseWrapper>

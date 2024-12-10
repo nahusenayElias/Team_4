@@ -46,7 +46,8 @@ const Header = () => {
     { name: "Blog", path: "/blog" },
   ];
 
-  const linkClasses = "text-lg font-semibold hover:bg-gray-700 py-4 md:py-0";
+  const linkClasses =
+    "text-lg font-semibold hover:text-orange-500 active:underline-offset-4 py-4 md:py-0";
   const desktopClasses =
     "w-full md:w-auto text-center md:text-left md:text-base md:font-normal";
 
@@ -62,7 +63,7 @@ const Header = () => {
             height="38.5"
           />
         </Link>
-        <h1 className="text-xl">Team 4</h1>
+        <h1 className="pt-2 text-xl">Team 4</h1>
       </div>
 
       {/* Hamburger Icon */}
