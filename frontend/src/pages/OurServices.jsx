@@ -73,10 +73,7 @@ const OurServices = () => {
           className="flex justify-center items-center bg-orange-600 text-white text-xl hover:bg-orange-900 text-center block rounded-full shadow-md w-48 p-2 m-5"
           onClick={() => navigate("/contact")}
         >
-          <span>Get in touch</span>
-          <span className="material-symbols-outlined text-3xl ml-2">
-            arrow_forward
-          </span>
+          Get in touch {">"}
         </button>
       </div>
 

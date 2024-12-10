@@ -14,7 +14,7 @@ const Jobs = () => {
   const [sanitizedDrupalContent, setSanitizedDrupalContent] = useState(null);
 
   useEffect(() => {
-    fetchContent("node/page?include=field_image")
+    fetchContent("node/page?include=field_image,field_paragraphs")
       .then((data) => {
         setContent(data.data[0]);
         setIncluded(data.included);
@@ -63,10 +63,25 @@ const Jobs = () => {
 
       <ProseWrapper>
         {sanitizedDrupalContent ? (
-          <div dangerouslySetInnerHTML={{ __html: sanitizedDrupalContent }} />
+          <div className="flex flex-col items-center justify-center">
+            <div
+              dangerouslySetInnerHTML={{ __html: sanitizedDrupalContent }}
+              className="text-orange-600 text-left"
+            />
+            <button className="bg-orange-600 w-48 rounded-full text-white p-2 m-2 hover:bg-orange-800">
+              All jobs {">"}
+            </button>
+          </div>
         ) : (
-          <div className="text-center text-gray-500">no content found</div>
+          <div className="text-left text-gray-500">no content found</div>
         )}
+      </ProseWrapper>
+
+      <SectionHeading>
+        {included[1].attributes.field_about_title}
+      </SectionHeading>
+      <ProseWrapper>
+        {included[1].attributes.field_about_body.value}
       </ProseWrapper>
     </Section>
   );
