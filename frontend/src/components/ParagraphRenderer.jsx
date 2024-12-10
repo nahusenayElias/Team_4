@@ -1,14 +1,9 @@
 import TextParagraph from "./TextParagraph";
 import ImageParagraph from "./ImageParagraph";
 import TextWithImageParagraph from "./TextWithImageParagraph";
-import { useSelector } from "react-redux";
 import axios from "axios";
 import { useState, useEffect } from "react";
-
-// Fetch visitor's segments from Redux state
-const useVisitorSegments = () => {
-  return useSelector((state) => state.visitorSegments.data);
-};
+import useVisitorSegmentState from "../hooks/useVisitorSegmentState";
 
 // Function to fetch segment details using the provided link
 const fetchSegmentDetails = async (segmentLink) => {
@@ -34,29 +29,23 @@ const isVisitorInSegment = (visitorSegments, paragraphSegments) => {
 };
 
 const ParagraphRenderer = ({ paragraph, included }) => {
-  const visitorSegments = useVisitorSegments(); // Get visitor's segments from Redux state
-  const visitorSegmentsLoading = useSelector(
-    (state) => state.visitorSegments.isLoading
-  );
-  const visitorSegmentsError = useSelector(
-    (state) => state.visitorSegments.error
-  );
+  const { data: visitorSegments, isLoading: visitorSegmentsLoading } =
+    useVisitorSegmentState();
+
+  const [paragraphSegments, setParagraphSegments] = useState([]);
+  const [paragraphSegmentsLoading, setParagraphSegmentsLoading] =
+    useState(true);
 
   console.log("Paragraph Rendering Debug:", {
     paragraphType: paragraph.type,
     visitorSegments,
     isLoading: visitorSegmentsLoading,
-    error: visitorSegmentsError,
   });
 
   console.log("Visitor Segments State:", {
     segments: visitorSegments,
     isLoading: visitorSegmentsLoading,
   });
-
-  const [paragraphSegments, setParagraphSegments] = useState([]);
-  const [paragraphSegmentsLoading, setParagraphSegmentsLoading] =
-    useState(true);
 
   // Lookup table to select which component should be rendered by ParagraphRenderer
   const paragraphComponents = {
