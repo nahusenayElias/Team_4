@@ -134,6 +134,7 @@ const FullBlogPost = ({ blog, onShowLess }) => {
   return (
     <Section>
       <div>
+        {blog.mediaUrl && <HeroImage src={blog.mediaUrl} alt={blog.title} />}
         <SectionHeading>{blog.title}</SectionHeading>
         <p>
           <strong>Author:</strong> {blog.authorName}
@@ -141,7 +142,6 @@ const FullBlogPost = ({ blog, onShowLess }) => {
         <p>
           <strong>Date:</strong> {new Date(blog.date).toLocaleDateString()}
         </p>
-        {blog.mediaUrl && <HeroImage src={blog.mediaUrl} alt={blog.title} />}
         <ProseWrapper>
           <div dangerouslySetInnerHTML={sanitizeHTML(blog.body)} />
         </ProseWrapper>
