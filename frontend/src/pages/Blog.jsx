@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { drupalLocalhostAddress } from "../services/api";
 import DOMPurify from "dompurify";
 import Section from "../components/Section";
@@ -9,6 +9,7 @@ import ProseWrapper from "../components/ProseWrapper";
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
   const [selectedBlog, setSelectedBlog] = useState(null);
+  const topRef = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -76,14 +77,17 @@ const Blog = () => {
 
   const handleReadMore = (blog) => {
     setSelectedBlog(blog);
+    topRef.current.scrollIntoView({ behavior: 'smooth' });
   };
+
+
 
   const handleShowLess = () => {
     setSelectedBlog(null);
   };
 
   return (
-    <div>
+    <div ref={topRef}>
       {selectedBlog ? (
         <FullBlogPost blog={selectedBlog} onShowLess={handleShowLess} />
       ) : (
@@ -106,10 +110,10 @@ const BlogPost = ({ blog, onReadMore }) => {
         <SectionHeading>{blog.title}</SectionHeading>
 
         {blog.mediaUrl && <HeroImage src={blog.mediaUrl} alt={blog.title} />}
-        <p>
+        <p className="text-gray-500 text-sm">
           <strong>Author:</strong> {blog.authorName}
         </p>
-        <p>
+        <p className="text-sm text-gray-500">
           <strong>Date:</strong> {new Date(blog.date).toLocaleDateString()}
         </p>
         <ProseWrapper>
@@ -136,10 +140,10 @@ const FullBlogPost = ({ blog, onShowLess }) => {
       <div>
         {blog.mediaUrl && <HeroImage src={blog.mediaUrl} alt={blog.title} />}
         <SectionHeading>{blog.title}</SectionHeading>
-        <p>
+        <p className="text-sm text-gray-500">
           <strong>Author:</strong> {blog.authorName}
         </p>
-        <p>
+        <p className="text-sm text-gray-500">
           <strong>Date:</strong> {new Date(blog.date).toLocaleDateString()}
         </p>
         <ProseWrapper>
