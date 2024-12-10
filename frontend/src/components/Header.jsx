@@ -47,7 +47,7 @@ const Header = () => {
   ];
 
   const linkClasses =
-    "text-lg font-semibold hover:text-orange-700 py-4 md:py-0";
+    "text-lg font-semibold hover:text-orange-500 active:underline-offset-4 py-4 md:py-0";
   const desktopClasses =
     "w-full md:w-auto text-center md:text-left md:text-base md:font-normal";
 

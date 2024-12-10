@@ -70,7 +70,7 @@ const OurServices = () => {
       <SectionHeading>Our Services</SectionHeading>
       <div className="flex justify-center items-center">
         <button
-          className="flex justify-center items-center bg-orange-600 text-white text-2xl hover:bg-orange-900 text-center block border-2 border-orange-400 rounded-full shadow-md w-50 p-5 m-5"
+          className="flex justify-center items-center bg-orange-600 text-white text-xl hover:bg-orange-900 text-center block rounded-full shadow-md w-48 p-2 m-5"
           onClick={() => navigate("/contact")}
         >
           <span>Get in touch</span>
