@@ -56,7 +56,9 @@ const MauticContactForm = () => {
     }
   }, [formId]);
 
-  return <div className="mautic-form-container" ref={formContainerRef}></div>;
+  return (
+    <div className="mautic-form-container mb-2" ref={formContainerRef}></div>
+  );
 };
 
 export default MauticContactForm;
