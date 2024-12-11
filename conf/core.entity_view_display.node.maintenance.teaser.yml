@@ -4,10 +4,8 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.maintenance.field_content
     - field.field.node.maintenance.field_hero_image
     - field.field.node.maintenance.field_long_description
-    - field.field.node.maintenance.field_paragraphs
     - field.field.node.maintenance.field_short_description
     - node.type.maintenance
   module:
@@ -23,8 +21,6 @@ content:
     weight: 100
     region: content
 hidden:
-  field_content: true
   field_hero_image: true
   field_long_description: true
-  field_paragraphs: true
   field_short_description: true

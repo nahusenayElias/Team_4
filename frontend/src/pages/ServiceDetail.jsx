@@ -52,7 +52,7 @@ const ServiceDetail = () => {
           className="flex justify-center items-center bg-orange-600 text-white text-xl hover:bg-orange-900 text-center block rounded-full shadow-md w-48 p-2 m-5"
           onClick={() => navigate(-1)}
         >
-          Back to Services
+          {"<"} Back to Services
         </button>
         {getHeroImageUrl(data) && (
           <HeroImage
@@ -66,7 +66,7 @@ const ServiceDetail = () => {
         </SectionHeading>
         <ProseWrapper>
           <div
-            className="text-center"
+            className="text-left"
             dangerouslySetInnerHTML={{ __html: sanitizedLongDescContent }}
           ></div>
         </ProseWrapper>

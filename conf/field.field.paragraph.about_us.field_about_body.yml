@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.storage.paragraph.field_about_body
     - filter.format.full_html
+    - filter.format.plain_text
     - paragraphs.paragraphs_type.about_us
   module:
     - text
@@ -21,4 +22,5 @@ default_value_callback: ''
 settings:
   allowed_formats:
     - full_html
+    - plain_text
 field_type: text_long

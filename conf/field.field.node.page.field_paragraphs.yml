@@ -5,7 +5,11 @@ dependencies:
   config:
     - field.storage.node.field_paragraphs
     - node.type.page
+    - paragraphs.paragraphs_type.about_us
     - paragraphs.paragraphs_type.blog_paragraph
+    - paragraphs.paragraphs_type.image
+    - paragraphs.paragraphs_type.text
+    - paragraphs.paragraphs_type.text_with_image
   module:
     - entity_reference_revisions
 id: node.page.field_paragraphs
@@ -23,12 +27,28 @@ settings:
   handler_settings:
     target_bundles:
       blog_paragraph: blog_paragraph
+      about_us: about_us
+      image: image
+      text: text
+      text_with_image: text_with_image
     negate: 0
     target_bundles_drag_drop:
+      about_us:
+        weight: 7
+        enabled: true
       blog_paragraph:
         weight: 3
+        enabled: true
+      image:
+        weight: 9
         enabled: true
       mautic:
         weight: 4
         enabled: false
+      text:
+        weight: 11
+        enabled: true
+      text_with_image:
+        weight: 12
+        enabled: true
 field_type: entity_reference_revisions

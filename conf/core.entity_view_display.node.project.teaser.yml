@@ -6,7 +6,6 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.project.field_hero_image
     - field.field.node.project.field_long_description
-    - field.field.node.project.field_paragraphs
     - field.field.node.project.field_short_description
     - node.type.project
   module:
@@ -24,5 +23,4 @@ content:
 hidden:
   field_hero_image: true
   field_long_description: true
-  field_paragraphs: true
   field_short_description: true

@@ -5,11 +5,9 @@ dependencies:
   config:
     - field.field.node.project.field_hero_image
     - field.field.node.project.field_long_description
-    - field.field.node.project.field_paragraphs
     - field.field.node.project.field_short_description
     - node.type.project
   module:
-    - entity_reference_revisions
     - image
     - text
     - user
@@ -35,15 +33,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 103
-    region: content
-  field_paragraphs:
-    type: entity_reference_revisions_entity_view
-    label: above
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    weight: 102
     region: content
   field_short_description:
     type: string
