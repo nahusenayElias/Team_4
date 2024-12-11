@@ -52,7 +52,7 @@ const Jobs = () => {
   return (
     <>
       <div
-        className="h-80 bg-cover bg-center flex justify-center items-center"
+        className="h-96 bg-cover bg-center flex justify-center items-center"
         style={{
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${imageUrl})`,
         }}
@@ -73,7 +73,7 @@ const Jobs = () => {
               <div className="flex flex-col items-center justify-center">
                 <div
                   dangerouslySetInnerHTML={{ __html: sanitizedDrupalContent }}
-                  className="text-left"
+                  className="text-left text-lg"
                 />
                 <a href="https://careers.druid.fi/jobs">
                   <button className="bg-orange-600 w-48 rounded-full text-white p-2 m-2 hover:bg-orange-800">
