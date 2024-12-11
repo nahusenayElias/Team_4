@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { drupalLocalhostAddress, fetchContent } from "../services/api";
 import Section from "../components/Section";
-import HeroImage from "../components/HeroImage";
+// import HeroImage from "../components/HeroImage";
 import SectionHeading from "../components/SectionHeading";
 import ProseWrapper from "../components/ProseWrapper";
 import DOMPurify from "dompurify";
