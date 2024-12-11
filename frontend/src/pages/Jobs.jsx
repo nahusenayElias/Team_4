@@ -75,12 +75,11 @@ const Jobs = () => {
                   dangerouslySetInnerHTML={{ __html: sanitizedDrupalContent }}
                   className="text-left"
                 />
-                <button
-                  className="bg-orange-600 w-48 rounded-full text-white p-2 m-2 hover:bg-orange-800"
-                  href="https://careers.druid.fi/job"
-                >
-                  All jobs {">"}
-                </button>
+                <a href="https://careers.druid.fi/jobs">
+                  <button className="bg-orange-600 w-48 rounded-full text-white p-2 m-2 hover:bg-orange-800">
+                    All jobs {">"}
+                  </button>
+                </a>
               </div>
             ) : (
               <div className="text-left text-gray-500">no content found</div>
