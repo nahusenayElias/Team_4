@@ -73,10 +73,7 @@ const OurServices = () => {
           className="flex justify-center items-center bg-orange-600 text-white text-xl hover:bg-orange-900 text-center block rounded-full shadow-md w-48 p-2 m-5"
           onClick={() => navigate("/contact")}
         >
-          <span>Get in touch</span>
-          <span className="material-symbols-outlined text-3xl ml-2">
-            arrow_forward
-          </span>
+          Get in touch {">"}
         </button>
       </div>
 
@@ -86,7 +83,7 @@ const OurServices = () => {
             {items.map((item) => (
               <div
                 key={item.id}
-                className="service-item w-75 mb-8 p-8 border-2 border-orange-400 rounded-xl shadow-md"
+                className="service-item w-75 h-full mb-8 p-8 border-2 border-orange-400 rounded-xl shadow-md"
               >
                 <Link to={`/service/${serviceType}`} className="block">
                   {item.heroImageUrl && (
