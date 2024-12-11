@@ -95,7 +95,7 @@ const Contact = () => {
           <div className="text-center text-gray-500">No content available</div>
         )}
       </ProseWrapper>
-      <SectionHeading>Contact Form</SectionHeading>
+      <SectionHeading>Contact Us</SectionHeading>
 
       {formId ? (
         <MauticContactForm formId={formId} />

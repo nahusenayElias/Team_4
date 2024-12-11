@@ -83,7 +83,7 @@ const OurServices = () => {
             {items.map((item) => (
               <div
                 key={item.id}
-                className="service-item w-75 mb-8 p-8 border-2 border-orange-400 rounded-xl shadow-md"
+                className="service-item w-75 h-full mb-8 p-8 border-2 border-orange-400 rounded-xl shadow-md"
               >
                 <Link to={`/service/${serviceType}`} className="block">
                   {item.heroImageUrl && (
@@ -103,9 +103,11 @@ const OurServices = () => {
                       {item.attributes.field_short_description}
                     </span>
                   </ProseWrapper>
-                  <span className="text-orange-400 hover:text-orange-700 text-center block m-2 p-2 border-2 border-orange-400 rounded-lg shadow-md">
-                    Read more
-                  </span>
+                  <div>
+                    <span className="text-orange-400 hover:text-orange-700 text-center block m-2 p-2 border-2 border-orange-400 rounded-lg shadow-md">
+                      Read more
+                    </span>
+                  </div>
                 </Link>
               </div>
             ))}
