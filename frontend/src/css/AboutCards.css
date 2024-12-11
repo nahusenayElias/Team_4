@@ -69,6 +69,7 @@
   /* Individual Card Styles for Info Cards */
   .info-cards > .card {
     @apply bg-white p-6 border border-gray-200 rounded-lg flex flex-col items-center m-1;
+    @apply max-w-xs; /* Prevent cards from becoming too wide */
   }
 
   /* Card Title Styling */
@@ -78,7 +79,8 @@
 
   /* Card Value Styling */
   .card-value {
-    @apply text-orange-600 text-6xl font-bold;
+    @apply text-orange-600 font-bold;
+    @apply text-4xl sm:text-5xl md:text-6xl;
   }
 
   /* Card Label Styling */
