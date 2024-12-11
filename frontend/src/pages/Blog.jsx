@@ -27,20 +27,26 @@ const Blog = () => {
           );
 
           let mediaUrl = null;
+          let mediaAltText = null;
+
           const mediaId =
             paragraphData?.relationships.field_blog_media?.data?.id;
+
           if (mediaId) {
             const media = data.included.find(
               (inc) => inc.type === "media--image" && inc.id === mediaId
             );
             if (media) {
               const fileId = media.relationships.field_media_image?.data?.id;
+
               const file = data.included.find(
                 (inc) => inc.type === "file--file" && inc.id === fileId
               );
               if (file && file.attributes?.uri?.url) {
                 mediaUrl = `${drupalLocalhostAddress}${file.attributes.uri.url}`;
               }
+              mediaAltText =
+                media.relationships.field_media_image?.data?.meta?.alt;
             }
           }
 
@@ -60,6 +66,7 @@ const Blog = () => {
             shortText: paragraphData?.attributes.field_blog_short_text,
             body: paragraphData?.attributes.field_blog_body?.value,
             mediaUrl: mediaUrl,
+            mediaAltText: mediaAltText,
             authorName: authorName,
             date: item.attributes.created,
           };
@@ -107,7 +114,9 @@ const BlogPost = ({ blog, onReadMore }) => {
       <div>
         <SectionHeading>{blog.title}</SectionHeading>
 
-        {blog.mediaUrl && <HeroImage src={blog.mediaUrl} alt={blog.title} />}
+        {blog.mediaUrl && (
+          <HeroImage src={blog.mediaUrl} altText={blog.mediaAltText} />
+        )}
         <p className="text-gray-500 text-sm">
           <strong>Author:</strong> {blog.authorName}
         </p>
@@ -136,7 +145,9 @@ const FullBlogPost = ({ blog, onShowLess }) => {
   return (
     <Section>
       <div>
-        {blog.mediaUrl && <HeroImage src={blog.mediaUrl} alt={blog.title} />}
+        {blog.mediaUrl && (
+          <HeroImage src={blog.mediaUrl} altText={blog.mediaAltText} />
+        )}
         <SectionHeading>{blog.title}</SectionHeading>
         <p className="text-sm text-gray-500">
           <strong>Author:</strong> {blog.authorName}
