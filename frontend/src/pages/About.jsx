@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { drupalLocalhostAddress } from "../services/api";
 import Section from "../components/Section";
 import SectionHeading from "../components/SectionHeading";
 import HeroImage from "../components/HeroImage";
-import ProseWrapper from "../components/ProseWrapper";
 import ParagraphRenderer from "../components/ParagraphRenderer";
 import "../css/AboutCards.css";
 
@@ -103,15 +102,14 @@ const About = () => {
     <Section>
       {imageUrl && (
         <HeroImage src={imageUrl} altText={aboutData?.heroImageAltText} />
-        )}
-        <SectionHeading>{aboutData.attributes.title}</SectionHeading>
-      <ProseWrapper>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: aboutData.attributes.field_about_body.processed,
-          }}
-        />
-      </ProseWrapper>
+      )}
+      <SectionHeading>{aboutData.attributes.title}</SectionHeading>
+      <div
+        className="mx-auto my-8 prose"
+        dangerouslySetInnerHTML={{
+          __html: aboutData.attributes.field_about_body.processed,
+        }}
+      />
 
       <div className="about-cards">
         {aboutData.paragraphs &&

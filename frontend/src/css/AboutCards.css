@@ -3,14 +3,47 @@
 @import "tailwindcss/utilities";
 
 @layer components {
+  /* About Cards Grid Layout */
   .about-cards {
-    @apply grid gap-4 mt-8;
+    @apply grid gap-4;
+    grid-template-columns: repeat(1, minmax(0, 1fr)); /* 1 column by default */
+    grid-auto-rows: auto; /* Ensure rows auto-size based on content */
   }
 
-  .about-cards > :nth-child(-n+3) {
-    @apply bg-gray-100 rounded-lg shadow-md p-6;
+  /* Responsive Grid for About Cards (1 column by default, 3 columns on large screens) */
+  @media (min-width: 1024px) {
+    .about-cards {
+      grid-template-columns: repeat(
+        3,
+        minmax(0, 1fr)
+      ); /* 3 columns for large screens */
+    }
+
+    /* Span all 3 columns for 4th and 5th cards */
+    .about-cards > :nth-child(n + 4) {
+      @apply col-span-3; /* Span all 3 columns */
+    }
   }
 
+  /* For medium screens (min-width: 640px and max-width: 1024px), cards will have a narrower width */
+  @media (min-width: 640px) {
+    /* Apply max-width and center only to the first three cards */
+    .about-cards > :nth-child(-n + 3) {
+      @apply max-w-lg mx-auto; /* Center the card and set a max-width for medium screens */
+    }
+
+    /* Ensure cards after the first three fill the space properly */
+    .about-cards > :nth-child(n + 4) {
+      @apply max-w-full mx-auto; /* Ensure cards are full width and centered */
+    }
+  }
+
+  /* Styles for the First Three Cards */
+  .about-cards > :nth-child(-n + 3) {
+    @apply bg-gray-100 rounded-lg shadow-md p-6 w-full h-auto; /* Card styles */
+  }
+
+  /* Alternating Backgrounds for the First Three Cards */
   .about-cards > :nth-child(1) {
     @apply bg-gray-100;
   }
@@ -23,38 +56,40 @@
     @apply bg-gray-100;
   }
 
-  .about-cards {
-    @apply grid grid-cols-3 gap-4;
+  /* Styles for Cards After the First Three */
+  .about-cards > :nth-child(n + 4) {
+    @apply w-full; /* Default to full-width for items after the first 3 */
   }
 
-  .about-cards > :nth-child(n+4) {
-    @apply col-span-3 w-full;
-  }
-
+  /* Info Cards Layout */
   .info-cards {
-    @apply grid grid-cols-3 gap-4 mt-8;
+    @apply grid grid-cols-3 gap-4 mt-8 mb-10;
   }
 
+  /* Individual Card Styles for Info Cards */
   .info-cards > .card {
-    @apply bg-white p-6 border border-gray-200 rounded-lg flex flex-col items-center;
-    @apply m-1; 
+    @apply bg-white p-6 border border-gray-200 rounded-lg flex flex-col items-center m-1;
+    @apply max-w-xs; /* Prevent cards from becoming too wide */
   }
 
+  /* Card Title Styling */
   .card-title {
-    @apply text-orange-500 text-lg font-semibold text-center;
-    font-family: 'Arial';
+    @apply text-orange-500 text-lg font-semibold text-center font-sans;
   }
 
+  /* Card Value Styling */
   .card-value {
-    @apply text-orange-600 text-6xl font-bold;
+    @apply text-orange-600 font-bold;
+    @apply text-4xl sm:text-5xl md:text-6xl;
   }
 
+  /* Card Label Styling */
   .card-label {
     @apply mt-2 text-gray-700 text-center;
   }
 
+  /* Section Title Styling */
   .section-title {
-    @apply text-2xl font-bold text-center mt-8 mb-4;
-    font-family: 'Arial';
+    @apply text-2xl font-bold text-center mt-14 mb-8 font-sans;
   }
 }
