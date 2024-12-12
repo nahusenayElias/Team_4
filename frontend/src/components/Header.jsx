@@ -52,7 +52,7 @@ const Header = () => {
     "w-full md:w-auto text-center md:text-left md:text-base md:font-normal";
 
   return (
-    <header className="flex items-center justify-between p-4 bg-gray-800 text-white font-sans md:border-b md:border-gray-300">
+    <header className="flex items-center justify-between p-4 bg-gray-800 text-white font-sans">
       <div className="flex items-center">
         <Link to="/">
           <img
