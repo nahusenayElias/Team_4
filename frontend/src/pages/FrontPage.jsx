@@ -23,6 +23,7 @@ const FrontPage = () => {
           "field_content",
           "field_content.field_image",
           "field_content.field_image.field_media_image",
+          "field_media.field_media_image",
         ].join(",");
 
         const url = `${drupalLocalhostAddress}/jsonapi/node/front_page?include=${includes}`;
@@ -102,31 +103,34 @@ const FrontPage = () => {
       <Section className="flex flex-col items-center justify-center">
         <div className="w-2/3 text-center p-5 mx-auto">
           {frontPageData.attributes.field_description && (
-            <p className="short-description text-3xl">
+            <p className="short-description text-3xl mb-5">
               {frontPageData.attributes.field_description}
             </p>
           )}
         </div>
-        <ProseWrapper className="w-full">
-          {frontPageData.attributes.body && (
-            <>
-              <div className="w-full text-white bg-black mx-auto p-4">
-                <div
-                  className=""
-                  dangerouslySetInnerHTML={{
-                    __html: frontPageData.attributes.body.processed,
-                  }}
-                />
-                <a href="/jobs">
-                  <button className="bg-orange-600 text-white text-xl hover:bg-orange-900 text-center rounded-full shadow-md w-48 p-2 m-5">
-                    Join Druid!
-                  </button>
-                </a>
+        <div className="flex">
+          <ProseWrapper>
+            {frontPageData.attributes.body && (
+              <div className="rounded-lg">
+                <div className="flex flex-col items-center justify-center w-full text-white bg-black p-4">
+                  <div
+                    className=""
+                    dangerouslySetInnerHTML={{
+                      __html: frontPageData.attributes.body.processed,
+                    }}
+                  />
+                  <a href="/jobs">
+                    <button className="bg-orange-600 text-white text-xl hover:bg-orange-900 text-center rounded-full shadow-md w-48 p-2 m-5">
+                      Join Druid!
+                    </button>
+                  </a>
+                </div>
+                <div></div>
               </div>
-              <div></div>
-            </>
-          )}
-        </ProseWrapper>
+            )}
+          </ProseWrapper>
+          <img src={heroImageUrl} className="w-1/2"></img>
+        </div>
 
         <div className="front-page-content">
           {frontPageData.paragraphs &&
