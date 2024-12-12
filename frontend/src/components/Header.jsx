@@ -4,6 +4,7 @@ import logo from "../assets/images/logo.svg";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const menuRef = useRef();
   const buttonRef = useRef();
 
@@ -12,6 +13,12 @@ const Header = () => {
   };
 
   useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
     const handleClickOutside = (event) => {
       if (
         menuRef.current &&
@@ -28,6 +35,7 @@ const Header = () => {
     }
 
     return () => {
+      window.removeEventListener("scroll", handleScroll);
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [menuOpen]);
@@ -42,45 +50,49 @@ const Header = () => {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-transparent p-4">
-      <div className="flex items-center justify-between relative">
-        {/* Logo and Group Name */}
-        <div className="flex items-center z-50">
-          <Link to="/">
-            <img
-              src={logo}
-              alt="Logo"
-              className="h-10 w-auto mr-4"
-              width="113.4"
-              height="38.5"
-            />
-          </Link>
-          <h1 className="text-xl font-semibold text-orange-600">Team 4</h1>
-        </div>
+    <header className="fixed top-0 left-0 right-0 z-50 bg-gray-900 p-4">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between relative">
+          {/* Logo and Group Name */}
+          <div className="flex items-center z-50">
+            <Link to="/">
+              <img
+                src={logo}
+                alt="Logo"
+                className="h-10 w-auto mr-4"
+                width="113.4"
+                height="38.5"
+              />
+            </Link>
+            <h1 className="text-xl font-semibold text-orange-600 hover:text-white">
+              Team 4
+            </h1>
+          </div>
 
-        {/* Hamburger Menu Button */}
-        <button
-          ref={buttonRef}
-          onClick={toggleMenu}
-          className="flex flex-col justify-center items-center w-10 h-10 relative focus:outline-none z-50"
-          aria-label="Toggle navigation menu"
-        >
-          <span
-            className={`block w-6 h-0.5 bg-orange-600 absolute transition-all duration-300 ease-out ${
-              menuOpen ? "rotate-45" : "-translate-y-1.5"
-            }`}
-          ></span>
-          <span
-            className={`block w-6 h-0.5 bg-orange-600 absolute transition-all duration-300 ease-out ${
-              menuOpen ? "opacity-0" : "opacity-100"
-            }`}
-          ></span>
-          <span
-            className={`block w-6 h-0.5 bg-orange-600 absolute transition-all duration-300 ease-out ${
-              menuOpen ? "-rotate-45" : "translate-y-1.5"
-            }`}
-          ></span>
-        </button>
+          {/* Hamburger Menu Button */}
+          <button
+            ref={buttonRef}
+            onClick={toggleMenu}
+            className="group flex flex-col justify-center items-center w-10 h-10 relative focus:outline-none z-50"
+            aria-label="Toggle navigation menu"
+          >
+            <span
+              className={`block w-6 h-0.5 bg-orange-600 group-hover:bg-white absolute transition-all duration-300 ease-out ${
+                menuOpen ? "rotate-45" : "-translate-y-1.5"
+              }`}
+            ></span>
+            <span
+              className={`block w-6 h-0.5 bg-orange-600 group-hover:bg-white absolute transition-all duration-300 ease-out ${
+                menuOpen ? "opacity-0" : "opacity-100"
+              }`}
+            ></span>
+            <span
+              className={`block w-6 h-0.5 bg-orange-600 group-hover:bg-white absolute transition-all duration-300 ease-out ${
+                menuOpen ? "-rotate-45" : "translate-y-1.5"
+              }`}
+            ></span>
+          </button>
+        </div>
       </div>
 
       {/* Fullscreen Overlay Menu */}
