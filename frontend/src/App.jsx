@@ -66,12 +66,13 @@ const App = () => {
       <Route path="/" element={<Layout />}>
         <Route index element={<FrontPage />} />
         <Route path="/services" element={<OurServices />} />
+        <Route path="/services/:serviceType" element={<ServiceDetail />} />
         <Route path="/projects/:companyName" element={<ProjectCasePage />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/jobs" element={<Jobs />} />
         <Route path="/blog" element={<Blog />} />
-        <Route path="/service/:serviceType" element={<ServiceDetail />} />
+        <Route path="/projects/:companyName" element={<ProjectCasePage />} />
       </Route>
     </Routes>
   );

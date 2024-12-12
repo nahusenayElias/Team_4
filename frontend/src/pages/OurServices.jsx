@@ -86,7 +86,7 @@ const OurServices = () => {
                 key={item.id}
                 className="service-item w-75 h-full mb-8 p-8 border-2 border-gray-100 rounded-lg shadow-md"
               >
-                <Link to={`/service/${serviceType}`} className="block">
+                <Link to={`/services/${serviceType}`} className="block">
                   {item.heroImageUrl && (
                     <div>
                       <HeroImage
