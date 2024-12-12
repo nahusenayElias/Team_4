@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { fetchContent, drupalLocalhostAddress } from "../services/api";
 import Section from "../components/Section";
-import HeroImage from "../components/HeroImage";
 import SectionHeading from "../components/SectionHeading";
 import ProseWrapper from "../components/ProseWrapper";
 import DOMPurify from "dompurify";
 import MauticContactForm from "../components/MauticContactForm";
+import HeroHeader from "../components/HeroHeader";
 
 const Contact = () => {
   const [content, setContent] = useState(null);
@@ -72,37 +72,31 @@ const Contact = () => {
     : null;
 
   return (
-    <Section>
-      {imageUrl && (
-        <HeroImage
-          src={imageUrl}
-          altText={content.relationships?.field_image?.data?.meta?.alt}
-        />
-      )}
+    <>
+      <HeroHeader imageUrl={imageUrl} content={content} />
+      <Section>
+        <ProseWrapper>
+          {sanitizedDrupalContent ? (
+            <div
+              dangerouslySetInnerHTML={{
+                __html: sanitizedDrupalContent,
+              }}
+            />
+          ) : (
+            <div className="text-center text-gray-500">
+              No content available
+            </div>
+          )}
+        </ProseWrapper>
+        <SectionHeading>Contact Us</SectionHeading>
 
-      {content && content.attributes && (
-        <SectionHeading>{content.attributes.title}</SectionHeading>
-      )}
-
-      <ProseWrapper>
-        {sanitizedDrupalContent ? (
-          <div
-            dangerouslySetInnerHTML={{
-              __html: sanitizedDrupalContent,
-            }}
-          />
+        {formId ? (
+          <MauticContactForm formId={formId} />
         ) : (
-          <div className="text-center text-gray-500">No content available</div>
+          <div className="text-center text-gray-500">Form not available</div>
         )}
-      </ProseWrapper>
-      <SectionHeading>Contact Us</SectionHeading>
-
-      {formId ? (
-        <MauticContactForm formId={formId} />
-      ) : (
-        <div className="text-center text-gray-500">Form not available</div>
-      )}
-    </Section>
+      </Section>
+    </>
   );
 };
 

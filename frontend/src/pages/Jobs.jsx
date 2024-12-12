@@ -6,6 +6,8 @@ import SectionHeading from "../components/SectionHeading";
 import ProseWrapper from "../components/ProseWrapper";
 import DOMPurify from "dompurify";
 import { FaArrowRightLong } from "react-icons/fa6";
+import HeroHeader from "../components/HeroHeader";
+
 
 const Jobs = () => {
   const [content, setContent] = useState(null);
@@ -52,21 +54,7 @@ const Jobs = () => {
 
   return (
     <>
-      <div
-        className="h-96 bg-cover bg-center flex justify-center items-center"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${imageUrl})`,
-        }}
-      >
-        <div className="flex flex-col justify-center items-center container mx-auto p-4 pt-6 md:p-6 lg:px-16 xl:px-20">
-          {content && content.attributes && (
-            <h1 className="text-5xl font-bold text-white">
-              {content.attributes.title}
-            </h1>
-          )}
-        </div>
-      </div>
-
+      <HeroHeader imageUrl={imageUrl} content={content} />
       <Section>
         <div className="flex flex-col items-center justify-center">
           <ProseWrapper>
