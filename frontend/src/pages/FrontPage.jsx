@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { drupalLocalhostAddress } from "../services/api";
 import Section from "../components/Section";
-import SectionHeading from "../components/SectionHeading";
-import HeroImage from "../components/HeroImage";
 import ProseWrapper from "../components/ProseWrapper";
 import ParagraphRenderer from "../components/ParagraphRenderer";
 import ProjectContainer from "../components/ProjectContainer";
+import HeroHeader from "../components/HeroHeader";
 
 const FrontPage = () => {
   const [frontPageData, setFrontPageData] = useState(null);
@@ -98,43 +97,38 @@ const FrontPage = () => {
   }
 
   return (
-    <Section>
-      {heroImageUrl && (
-        <HeroImage
-          src={heroImageUrl}
-          altText={heroImageAltText}
-          className="hero-image"
-        />
-      )}
-      <SectionHeading>{frontPageData.attributes.title}</SectionHeading>
-      {frontPageData.attributes.field_description && (
-        <p className="short-description">
-          {frontPageData.attributes.field_description}
-        </p>
-      )}
-      <ProseWrapper>
-        {frontPageData.attributes.body && (
-          <div
-            dangerouslySetInnerHTML={{
-              __html: frontPageData.attributes.body.processed,
-            }}
-          />
+    <>
+      <HeroHeader imageUrl={heroImageUrl} content={frontPageData} />
+      <Section>
+        {frontPageData.attributes.field_description && (
+          <p className="short-description">
+            {frontPageData.attributes.field_description}
+          </p>
         )}
-      </ProseWrapper>
-
-      <div className="front-page-content">
-        {frontPageData.paragraphs &&
-          frontPageData.paragraphs.map((paragraph, index) => (
-            <ParagraphRenderer
-              key={index}
-              paragraph={paragraph}
-              included={included}
+        <ProseWrapper>
+          {frontPageData.attributes.body && (
+            <div
+              dangerouslySetInnerHTML={{
+                __html: frontPageData.attributes.body.processed,
+              }}
             />
-          ))}
-      </div>
+          )}
+        </ProseWrapper>
 
-      <ProjectContainer />
-    </Section>
+        <div className="front-page-content">
+          {frontPageData.paragraphs &&
+            frontPageData.paragraphs.map((paragraph, index) => (
+              <ParagraphRenderer
+                key={index}
+                paragraph={paragraph}
+                included={included}
+              />
+            ))}
+        </div>
+
+        <ProjectContainer />
+      </Section>
+    </>
   );
 };
 

@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { drupalLocalhostAddress } from "../services/api";
 import Section from "../components/Section";
-import SectionHeading from "../components/SectionHeading";
-import HeroImage from "../components/HeroImage";
 import ParagraphRenderer from "../components/ParagraphRenderer";
 import "../css/AboutCards.css";
+import HeroHeader from "../components/HeroHeader";
 
 const About = () => {
   const [aboutData, setAboutData] = useState(null);
@@ -99,50 +98,50 @@ const About = () => {
   }
 
   return (
-    <Section>
-      {imageUrl && (
-        <HeroImage src={imageUrl} altText={aboutData?.heroImageAltText} />
-      )}
-      <SectionHeading>{aboutData.attributes.title}</SectionHeading>
-      <div
-        className="mx-auto my-8 prose"
-        dangerouslySetInnerHTML={{
-          __html: aboutData.attributes.field_about_body.processed,
-        }}
-      />
-
-      <div className="about-cards">
-        {aboutData.paragraphs &&
-          aboutData.paragraphs.map((paragraph, index) => (
-            <ParagraphRenderer
-              key={index}
-              paragraph={paragraph}
-              included={included}
-            />
-          ))}
-      </div>
-
-      <h2 className="section-title">Druid in numbers</h2>
-      <div className="info-cards">
-        <div className="card">
-          <h3 className="card-value">
-            {aboutData.attributes.field_annual_turnover}
-          </h3>
-          <p className="card-label">Annual Turnover</p>
+    <>
+      <HeroHeader imageUrl={imageUrl} content={aboutData} />
+      <Section>
+        <div
+          className="mx-auto my-8 prose"
+          dangerouslySetInnerHTML={{
+            __html: aboutData.attributes.field_about_body.processed,
+          }}
+        />
+        <div className="about-cards">
+          {aboutData.paragraphs &&
+            aboutData.paragraphs.map((paragraph, index) => (
+              <ParagraphRenderer
+                key={index}
+                paragraph={paragraph}
+                included={included}
+              />
+            ))}
         </div>
 
-        <div className="card">
-          <h3 className="card-value">{aboutData.attributes.field_employees}</h3>
-          <p className="card-label">Employees</p>
+        <h2 className="section-title">Druid in numbers</h2>
+        <div className="info-cards">
+          <div className="card">
+            <h3 className="card-value">
+              {aboutData.attributes.field_annual_turnover}
+            </h3>
+            <p className="card-label">Annual Turnover</p>
+          </div>
+
+          <div className="card">
+            <h3 className="card-value">
+              {aboutData.attributes.field_employees}
+            </h3>
+            <p className="card-label">Employees</p>
+          </div>
+          <div className="card">
+            <h3 className="card-value">
+              {aboutData.attributes.field_completed_projects}
+            </h3>
+            <p className="card-label">Completed Projects</p>
+          </div>
         </div>
-        <div className="card">
-          <h3 className="card-value">
-            {aboutData.attributes.field_completed_projects}
-          </h3>
-          <p className="card-label">Completed Projects</p>
-        </div>
-      </div>
-    </Section>
+      </Section>
+    </>
   );
 };
 
