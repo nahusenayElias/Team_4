@@ -76,6 +76,7 @@ const ProjectContainer = () => {
 
   return (
     <div id="featuredCases" className="container mx-auto p-6">
+      <h1 className="text-center text-3xl m-5 p-5">Check out our projects</h1>
       <div className="flex flex-wrap justify-start gap-6">
         {projects.map((project) => (
           <div className="flex-grow sm:w-1/2 md:w-1/3" key={project.id}>

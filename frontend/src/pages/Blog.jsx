@@ -96,7 +96,7 @@ const Blog = () => {
   return (
     <div className="container mx-auto px-4">
       <div className="text-center py-10">
-        <h1 className="text-5xl mb-4">Blog</h1>
+        <h1 className="text-5xl mb-4 mt-10">Blog</h1>
         <h2 className="text-2xl text-gray-600 m-3 p-3 text-center">
           Writings on and off topic – about our everyday life, culture, and the
           world of software development

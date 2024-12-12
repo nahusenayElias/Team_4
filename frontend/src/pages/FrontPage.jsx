@@ -99,19 +99,32 @@ const FrontPage = () => {
   return (
     <>
       <HeroHeader imageUrl={heroImageUrl} content={frontPageData} />
-      <Section>
-        {frontPageData.attributes.field_description && (
-          <p className="short-description">
-            {frontPageData.attributes.field_description}
-          </p>
-        )}
-        <ProseWrapper>
+      <Section className="flex flex-col items-center justify-center">
+        <div className="w-2/3 text-center p-5 mx-auto">
+          {frontPageData.attributes.field_description && (
+            <p className="short-description text-3xl">
+              {frontPageData.attributes.field_description}
+            </p>
+          )}
+        </div>
+        <ProseWrapper className="w-full">
           {frontPageData.attributes.body && (
-            <div
-              dangerouslySetInnerHTML={{
-                __html: frontPageData.attributes.body.processed,
-              }}
-            />
+            <>
+              <div className="w-full text-white bg-black mx-auto p-4">
+                <div
+                  className=""
+                  dangerouslySetInnerHTML={{
+                    __html: frontPageData.attributes.body.processed,
+                  }}
+                />
+                <a href="/jobs">
+                  <button className="bg-orange-600 text-white text-xl hover:bg-orange-900 text-center rounded-full shadow-md w-48 p-2 m-5">
+                    Join Druid!
+                  </button>
+                </a>
+              </div>
+              <div></div>
+            </>
           )}
         </ProseWrapper>
 
