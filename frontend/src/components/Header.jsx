@@ -1,18 +1,24 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
 import logo from "../assets/images/logo.svg";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const menuRef = useRef();
   const buttonRef = useRef();
 
-  const toggleMenu = (e) => {
-    e.stopPropagation();
+  const toggleMenu = () => {
     setMenuOpen((prev) => !prev);
   };
 
   useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
     const handleClickOutside = (event) => {
       if (
         menuRef.current &&
@@ -24,16 +30,13 @@ const Header = () => {
       }
     };
 
-    const handleScroll = () => setMenuOpen(false);
-
     if (menuOpen) {
       document.addEventListener("mousedown", handleClickOutside);
-      window.addEventListener("scroll", handleScroll, { passive: true });
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
       window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [menuOpen]);
 
@@ -46,56 +49,72 @@ const Header = () => {
     { name: "Blog", path: "/blog" },
   ];
 
-  const linkClasses =
-    "text-lg font-semibold hover:text-orange-500 active:underline-offset-4 py-4 md:py-0";
-  const desktopClasses =
-    "w-full md:w-auto text-center md:text-left md:text-base md:font-normal";
-
   return (
-    <header className="flex items-center justify-between p-4 bg-gray-800 text-white font-sans">
-      <div className="flex items-center">
-        <Link to="/">
-          <img
-            src={logo}
-            alt="Druid Logo"
-            className="h-10 w-auto mr-5"
-            width="113.4"
-            height="38.5"
-          />
-        </Link>
-        <h1 className="pt-2 text-xl">Team 4</h1>
+
+    <header className="fixed top-0 left-0 right-0 z-50 bg-gray-800 p-4">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between relative">
+ 
+
+          <div className="flex items-center z-50">
+            <Link to="/">
+              <img
+                src={logo}
+                alt="Druid Logo"
+                className="h-10 w-auto mr-4"
+                width="113.4"
+                height="38.5"
+              />
+            </Link>
+            <h1 className="text-xl font-semibold text-orange-600 hover:text-white">
+              Team 4
+            </h1>
+          </div>
+
+          {/* Hamburger menu button */}
+          <button
+            ref={buttonRef}
+            onClick={toggleMenu}
+            className="group flex flex-col justify-center items-center w-10 h-10 relative focus:outline-none z-50"
+            aria-label="Toggle navigation menu"
+          >
+            <span
+              className={`block w-6 h-0.5 bg-orange-600 group-hover:bg-white absolute transition-all duration-300 ease-out ${
+                menuOpen ? "rotate-45" : "-translate-y-1.5"
+              }`}
+            ></span>
+            <span
+              className={`block w-6 h-0.5 bg-orange-600 group-hover:bg-white absolute transition-all duration-300 ease-out ${
+                menuOpen ? "opacity-0" : "opacity-100"
+              }`}
+            ></span>
+            <span
+              className={`block w-6 h-0.5 bg-orange-600 group-hover:bg-white absolute transition-all duration-300 ease-out ${
+                menuOpen ? "-rotate-45" : "translate-y-1.5"
+              }`}
+            ></span>
+          </button>
+        </div>
       </div>
 
-      {/* Hamburger Icon */}
-      <button
-        ref={buttonRef}
-        onClick={toggleMenu}
-        className="md:hidden flex flex-col space-y-1.5 p-2"
-        aria-label="Toggle navigation menu"
-      >
-        <span className="block w-6 h-0.5 bg-white"></span>
-        <span className="block w-6 h-0.5 bg-white"></span>
-        <span className="block w-6 h-0.5 bg-white"></span>
-      </button>
-
-      {/* Navigation Menu */}
-      <nav
+      {/* Fullscreen overlay menu */}
+      <div
         ref={menuRef}
-        className={`${
-          menuOpen ? "flex" : "hidden"
-        } flex-col md:flex md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4 absolute md:relative top-16 md:top-auto left-0 w-full md:w-auto bg-gray-800 md:bg-transparent z-10 p-4 md:p-0 border-t border-gray-300 md:border-none`}
+        className={`fixed inset-0 bg-gray-800 bg-opacity-95 flex flex-col items-center justify-center text-center space-y-8 transition-opacity duration-300 ${
+          menuOpen ? "opacity-100 z-40" : "opacity-0 pointer-events-none -z-10"
+        }`}
       >
         {menuItems.map((item) => (
           <NavLink
             key={item.name}
             to={item.path}
-            className={`${desktopClasses} ${linkClasses}`}
+            className="text-white text-2xl font-bold hover:text-orange-500 transition duration-300"
             onClick={() => setMenuOpen(false)}
           >
             {item.name}
           </NavLink>
         ))}
-      </nav>
+      </div>
     </header>
   );
 };
