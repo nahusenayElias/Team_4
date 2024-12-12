@@ -58,7 +58,7 @@ const Header = () => {
             <Link to="/">
               <img
                 src={logo}
-                alt="Logo"
+                alt="Druid Logo"
                 className="h-10 w-auto mr-4"
                 width="113.4"
                 height="38.5"
