@@ -5,6 +5,9 @@ import Section from "../components/Section";
 import SectionHeading from "../components/SectionHeading";
 import ProseWrapper from "../components/ProseWrapper";
 import DOMPurify from "dompurify";
+import { FaArrowRightLong } from "react-icons/fa6";
+import HeroHeader from "../components/HeroHeader";
+
 
 const Jobs = () => {
   const [content, setContent] = useState(null);
@@ -51,21 +54,7 @@ const Jobs = () => {
 
   return (
     <>
-      <div
-        className="h-96 bg-cover bg-center flex justify-center items-center"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${imageUrl})`,
-        }}
-      >
-        <div className="flex flex-col justify-center items-center container mx-auto p-4 pt-6 md:p-6 lg:px-16 xl:px-20">
-          {content && content.attributes && (
-            <h1 className="text-5xl font-bold text-white">
-              {content.attributes.title}
-            </h1>
-          )}
-        </div>
-      </div>
-
+      <HeroHeader imageUrl={imageUrl} content={content} />
       <Section>
         <div className="flex flex-col items-center justify-center">
           <ProseWrapper>
@@ -75,9 +64,12 @@ const Jobs = () => {
                   dangerouslySetInnerHTML={{ __html: sanitizedDrupalContent }}
                   className="text-left text-lg"
                 />
-                <a href="https://careers.druid.fi/jobs">
-                  <button className="bg-orange-600 w-48 rounded-full text-white p-2 m-2 hover:bg-orange-800">
-                    All jobs {">"}
+                <a
+                  href="https://careers.druid.fi/jobs"
+                  className="no-underline"
+                >
+                  <button className="flex justify-center items-center bg-orange-600 text-white text-xl hover:bg-orange-900 text-center rounded-full shadow-md w-48 p-2 m-5">
+                    All jobs <FaArrowRightLong className="ml-4" />
                   </button>
                 </a>
               </div>
@@ -105,8 +97,8 @@ const Jobs = () => {
             ""
           )}
           <a href="https://careers.druid.fi/jobs/1200341-open-application-for-druid">
-            <button className="bg-orange-600 w-48 rounded-full text-white p-3 m-2 hover:bg-orange-800 text-lg">
-              Apply now {">"}
+            <button className="flex justify-center items-center bg-orange-600 text-white text-xl hover:bg-orange-900 text-center rounded-full shadow-md w-48 p-2 m-5">
+              Apply now <FaArrowRightLong className="ml-4" />
             </button>
           </a>
         </div>

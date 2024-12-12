@@ -7,6 +7,7 @@ import SectionHeading from "../components/SectionHeading";
 import ProseWrapper from "../components/ProseWrapper";
 import DOMPurify from "dompurify";
 import { useNavigate } from "react-router-dom";
+import { FaArrowRightLong } from "react-icons/fa6";
 
 const API_BASE_URL = `${drupalLocalhostAddress}/jsonapi`;
 
@@ -70,10 +71,10 @@ const OurServices = () => {
       <SectionHeading>Our Services</SectionHeading>
       <div className="flex justify-center items-center">
         <button
-          className="flex justify-center items-center bg-orange-600 text-white text-xl hover:bg-orange-900 text-center block rounded-full shadow-md w-48 p-2 m-5"
+          className="flex justify-center items-center bg-orange-600 text-white text-xl hover:bg-orange-900 text-center rounded-full shadow-md w-48 p-2 m-5"
           onClick={() => navigate("/contact")}
         >
-          Get in touch {">"}
+          Get in touch <FaArrowRightLong className="ml-4" />
         </button>
       </div>
 
@@ -83,7 +84,7 @@ const OurServices = () => {
             {items.map((item) => (
               <div
                 key={item.id}
-                className="service-item w-75 h-full mb-8 p-8 border-2 border-orange-400 rounded-xl shadow-md"
+                className="service-item w-75 h-full mb-8 p-8 border-2 border-gray-100 rounded-lg shadow-md"
               >
                 <Link to={`/service/${serviceType}`} className="block">
                   {item.heroImageUrl && (
