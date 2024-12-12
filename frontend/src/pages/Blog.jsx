@@ -128,7 +128,7 @@ const Blog = () => {
 const BlogPost = ({ blog, onReadMore }) => {
   return (
     <Section>
-      <div className="bg-white shadow-lg p-5 flex flex-col rounded-lg border-2 border-gray-100">
+      <div className="h-full bg-white shadow-lg p-5 flex flex-col rounded-lg border-2 border-gray-100">
         {blog.mediaUrl && (
           <HeroImage
             src={blog.mediaUrl}
