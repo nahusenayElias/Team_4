@@ -13,6 +13,7 @@ import ProjectCasePage from "./pages/ProjectCasePage";
 import { capitalizeFirstLetter } from "./services/utils";
 import { useDispatch } from "react-redux";
 import { fetchSegments } from "./store/visitorSegmentsSlice";
+import FullBlogPost from "./pages/FullBlogPost";
 
 const App = () => {
   const location = useLocation();
@@ -72,7 +73,7 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/jobs" element={<Jobs />} />
         <Route path="/blog" element={<Blog />} />
-        <Route path="/projects/:companyName" element={<ProjectCasePage />} />
+        <Route path="/blog/:blogPostId" element={<FullBlogPost />} />
       </Route>
     </Routes>
   );
