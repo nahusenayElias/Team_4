@@ -83,7 +83,7 @@ const OurServices = () => {
             {items.map((item) => (
               <div
                 key={item.id}
-                className="service-item w-75 mb-8 p-8 border-2 border-orange-400 rounded-xl shadow-md"
+                className="service-item w-75 h-full mb-8 p-8 border-2 border-gray-100 rounded-lg shadow-md"
               >
                 <Link to={`/service/${serviceType}`} className="block">
                   {item.heroImageUrl && (
