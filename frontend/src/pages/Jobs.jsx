@@ -5,6 +5,7 @@ import Section from "../components/Section";
 import SectionHeading from "../components/SectionHeading";
 import ProseWrapper from "../components/ProseWrapper";
 import DOMPurify from "dompurify";
+import { FaArrowRightLong } from "react-icons/fa6";
 
 const Jobs = () => {
   const [content, setContent] = useState(null);
@@ -75,9 +76,12 @@ const Jobs = () => {
                   dangerouslySetInnerHTML={{ __html: sanitizedDrupalContent }}
                   className="text-left text-lg"
                 />
-                <a href="https://careers.druid.fi/jobs">
-                  <button className="bg-orange-600 w-48 rounded-full text-white p-2 m-2 hover:bg-orange-800">
-                    All jobs {">"}
+                <a
+                  href="https://careers.druid.fi/jobs"
+                  className="no-underline"
+                >
+                  <button className="flex justify-center items-center bg-orange-600 text-white text-xl hover:bg-orange-900 text-center rounded-full shadow-md w-48 p-2 m-5">
+                    All jobs <FaArrowRightLong className="ml-4" />
                   </button>
                 </a>
               </div>
@@ -105,8 +109,8 @@ const Jobs = () => {
             ""
           )}
           <a href="https://careers.druid.fi/jobs/1200341-open-application-for-druid">
-            <button className="bg-orange-600 w-48 rounded-full text-white p-3 m-2 hover:bg-orange-800 text-lg">
-              Apply now {">"}
+            <button className="flex justify-center items-center bg-orange-600 text-white text-xl hover:bg-orange-900 text-center rounded-full shadow-md w-48 p-2 m-5">
+              Apply now <FaArrowRightLong className="ml-4" />
             </button>
           </a>
         </div>
