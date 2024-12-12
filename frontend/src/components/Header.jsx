@@ -53,7 +53,7 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 bg-gray-900 p-4">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between relative">
-          {/* Logo and Group Name */}
+          
           <div className="flex items-center z-50">
             <Link to="/">
               <img
@@ -69,7 +69,7 @@ const Header = () => {
             </h1>
           </div>
 
-          {/* Hamburger Menu Button */}
+          {/* Hamburger menu button */}
           <button
             ref={buttonRef}
             onClick={toggleMenu}
@@ -95,7 +95,7 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Fullscreen Overlay Menu */}
+      {/* Fullscreen overlay menu */}
       <div
         ref={menuRef}
         className={`fixed inset-0 bg-gray-900 bg-opacity-95 flex flex-col items-center justify-center text-center space-y-8 transition-opacity duration-300 ${
