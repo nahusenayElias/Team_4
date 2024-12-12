@@ -94,16 +94,33 @@ const Blog = () => {
   };
 
   return (
-    <div ref={topRef}>
-      {selectedBlog ? (
-        <FullBlogPost blog={selectedBlog} onShowLess={handleShowLess} />
-      ) : blogs.length > 0 ? (
-        blogs.map((blog) => (
-          <BlogPost key={blog.id} blog={blog} onReadMore={handleReadMore} />
-        ))
-      ) : (
-        <p>Loading...</p>
-      )}
+    <div className="container mx-auto px-4">
+      <div className="text-center py-10">
+        <h1 className="text-5xl mb-4">Blog</h1>
+        <h2 className="text-2xl text-gray-600 m-3 p-3 text-center">
+          Writings on and off topic – about our everyday life, culture, and the
+          world of software development
+        </h2>
+      </div>
+      <div ref={topRef}>
+        {selectedBlog ? (
+          <FullBlogPost blog={selectedBlog} onShowLess={handleShowLess} />
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {blogs.length > 0 ? (
+              blogs.map((blog) => (
+                <BlogPost
+                  key={blog.id}
+                  blog={blog}
+                  onReadMore={handleReadMore}
+                />
+              ))
+            ) : (
+              <p className="col-span-full text-center">Loading...</p>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
@@ -111,24 +128,30 @@ const Blog = () => {
 const BlogPost = ({ blog, onReadMore }) => {
   return (
     <Section>
-      <div>
-        <SectionHeading>{blog.title}</SectionHeading>
-
+      <div className="bg-white shadow-lg p-5 flex flex-col rounded-lg border-2 border-gray-100">
         {blog.mediaUrl && (
-          <HeroImage src={blog.mediaUrl} altText={blog.mediaAltText} />
+          <HeroImage
+            src={blog.mediaUrl}
+            altText={blog.mediaAltText}
+            className="mb-4 rounded-t-md"
+          />
         )}
-        <p className="text-gray-500 text-sm">
-          <strong>Author:</strong> {blog.authorName}
-        </p>
-        <p className="text-sm text-gray-500">
-          <strong>Date:</strong> {new Date(blog.date).toLocaleDateString()}
-        </p>
+        <div className="flex-grow">
+          <h3 className="text-xl font-bold mb-2">{blog.title}</h3>
+          <p className="text-gray-500 text-sm mb-2">
+            <strong>Author:</strong> {blog.authorName}
+          </p>
+          <p className="text-sm text-gray-500">
+            <strong>Date:</strong> {new Date(blog.date).toLocaleDateString()}
+          </p>
+        </div>
         <ProseWrapper>
-          <p>{blog.shortText}</p>
+          <p className="text-gray-700">{blog.shortText}</p>
         </ProseWrapper>
+
         <span
           onClick={() => onReadMore(blog)}
-          className="text-orange-600 cursor-pointer hover:text-gray-800 font-semibold"
+          className="cursor-pointer font-semibold text-orange-400 hover:text-orange-700 text-center block m-2 p-2 border-2 border-orange-400 rounded-lg shadow-md"
         >
           Read More
         </span>
@@ -144,11 +167,15 @@ const FullBlogPost = ({ blog, onShowLess }) => {
 
   return (
     <Section>
-      <div>
+      <div className="max-w-4xl mx-auto">
         {blog.mediaUrl && (
-          <HeroImage src={blog.mediaUrl} altText={blog.mediaAltText} />
+          <HeroImage
+            src={blog.mediaUrl}
+            altText={blog.mediaAltText}
+            className="mb-6 rounded-md"
+          />
         )}
-        <SectionHeading>{blog.title}</SectionHeading>
+        <h3 className="text-2xl text-left mb-2">{blog.title}</h3>
         <p className="text-sm text-gray-500">
           <strong>Author:</strong> {blog.authorName}
         </p>
