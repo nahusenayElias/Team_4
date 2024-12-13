@@ -6,6 +6,7 @@ import ProseWrapper from "../components/ProseWrapper";
 import DOMPurify from "dompurify";
 import MauticContactForm from "../components/MauticContactForm";
 import HeroHeader from "../components/HeroHeader";
+import { useNavigate } from "react-router-dom";
 
 const Contact = () => {
   const [content, setContent] = useState(null);
@@ -14,6 +15,7 @@ const Contact = () => {
   const [error, setError] = useState(null);
   const [sanitizedDrupalContent, setSanitizedDrupalContent] = useState(null);
   const [formId, setFormId] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -76,7 +78,10 @@ const Contact = () => {
       <HeroHeader imageUrl={imageUrl} content={content} />
       <Section>
         <div className="flex items-center justify-center">
-          <button className="flex justify-center items-center bg-orange-600 text-white text-xl hover:bg-orange-900 text-center rounded-full shadow-md w-48 p-2 m-5">
+          <button
+            className="flex justify-center items-center bg-orange-600 text-white text-xl hover:bg-orange-900 text-center rounded-full shadow-md w-48 p-2 m-5"
+            onClick={() => navigate("/about")}
+          >
             Get to know us
           </button>
         </div>

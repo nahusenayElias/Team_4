@@ -7,6 +7,7 @@ import ProjectContainer from "../components/ProjectContainer";
 import HeroHeader from "../components/HeroHeader";
 import groupPicture from "../assets/images/group-picture.png";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 const FrontPage = () => {
   const [frontPageData, setFrontPageData] = useState(null);
@@ -15,6 +16,7 @@ const FrontPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [included, setIncluded] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchFrontPageData = async () => {
@@ -130,8 +132,11 @@ const FrontPage = () => {
             )}
             <div className="flex justify-center items-center">
               <a href="/jobs">
-                <button className="bg-orange-600 text-white text-xl hover:bg-orange-900 text-center rounded-full shadow-md w-48 p-2 m-5">
-                  Join Druid!
+                <button
+                  className="bg-orange-600 text-white text-xl hover:bg-orange-900 text-center rounded-full shadow-md w-48 p-2 m-5"
+                  onClick={() => navigate("/jobs")}
+                >
+                  Join Druid
                 </button>
               </a>
             </div>
