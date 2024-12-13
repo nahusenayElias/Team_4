@@ -5,6 +5,7 @@ import ProseWrapper from "../components/ProseWrapper";
 import ParagraphRenderer from "../components/ParagraphRenderer";
 import ProjectContainer from "../components/ProjectContainer";
 import HeroHeader from "../components/HeroHeader";
+import groupPicture from "../assets/images/group-picture.png";
 
 const FrontPage = () => {
   const [frontPageData, setFrontPageData] = useState(null);
@@ -23,6 +24,7 @@ const FrontPage = () => {
           "field_content",
           "field_content.field_image",
           "field_content.field_image.field_media_image",
+          "field_media",
           "field_media.field_media_image",
         ].join(",");
 
@@ -111,8 +113,8 @@ const FrontPage = () => {
         <div className="flex">
           <ProseWrapper>
             {frontPageData.attributes.body && (
-              <div className="rounded-lg">
-                <div className="flex flex-col items-center justify-center w-full text-white bg-black p-4">
+              <div>
+                <div className="flex flex-col items-center justify-center w-full bg-gray-100 rounded-lg p-4">
                   <div
                     className=""
                     dangerouslySetInnerHTML={{
@@ -129,7 +131,11 @@ const FrontPage = () => {
               </div>
             )}
           </ProseWrapper>
-          <img src={heroImageUrl} className="w-1/2"></img>
+          <img
+            src={groupPicture}
+            alt="Druid's founders Samuli, Tero, Arto and Roni with our Production Director Pasi"
+            className="w-1/2"
+          ></img>
         </div>
 
         <div className="front-page-content">
