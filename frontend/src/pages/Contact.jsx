@@ -75,9 +75,11 @@ const Contact = () => {
     <>
       <HeroHeader imageUrl={imageUrl} content={content} />
       <Section>
-        <button className="flex justify-center items-center bg-orange-600 text-white text-xl hover:bg-orange-900 text-center rounded-full shadow-md w-48 p-2 m-5">
-          Get to know us
-        </button>
+        <div className="flex items-center justify-center">
+          <button className="flex justify-center items-center bg-orange-600 text-white text-xl hover:bg-orange-900 text-center rounded-full shadow-md w-48 p-2 m-5">
+            Get to know us
+          </button>
+        </div>
         <div className="flex items-center justify-center">
           <ProseWrapper>
             <div className="w-3/4 p-3 m-3 text-xl bg-gray-100 rounded-lg">

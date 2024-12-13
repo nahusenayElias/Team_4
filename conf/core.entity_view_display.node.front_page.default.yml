@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.front_page.field_content
     - field.field.node.front_page.field_description
     - field.field.node.front_page.field_heroimg
+    - field.field.node.front_page.field_media
     - node.type.front_page
   module:
     - entity_reference_revisions
@@ -52,6 +53,15 @@ content:
         attribute: lazy
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_media:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 104
     region: content
   links:
     settings: {  }

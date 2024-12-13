@@ -6,6 +6,7 @@ import HeroImage from "../components/HeroImage";
 import SectionHeading from "../components/SectionHeading";
 import Section from "../components/Section";
 import ProseWrapper from "../components/ProseWrapper";
+import { FaArrowLeft } from "react-icons/fa6";
 
 const API_BASE_URL = `${drupalLocalhostAddress}`;
 
@@ -46,13 +47,13 @@ const ServiceDetail = () => {
   );
 
   return (
-    <div className="service-detail flex justify-center items-center">
+    <div className="service-detail flex justify-center items-center pt-10">
       <Section>
         <button
-          className="flex justify-center items-center bg-orange-600 text-white text-xl hover:bg-orange-900 text-center block rounded-full shadow-md w-48 p-2 m-5"
+          className="flex justify-center items-center bg-orange-600 text-white text-xl hover:bg-orange-900 text-center block rounded-full shadow-md w-64 p-2 m-5"
           onClick={() => navigate(-1)}
         >
-          {"<"} Back to Services
+          <FaArrowLeft className="mr-4" /> Back to Services
         </button>
         {getHeroImageUrl(data) && (
           <HeroImage

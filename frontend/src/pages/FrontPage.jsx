@@ -6,6 +6,7 @@ import ParagraphRenderer from "../components/ParagraphRenderer";
 import ProjectContainer from "../components/ProjectContainer";
 import HeroHeader from "../components/HeroHeader";
 import groupPicture from "../assets/images/group-picture.png";
+import { FaArrowRightLong } from "react-icons/fa6";
 
 const FrontPage = () => {
   const [frontPageData, setFrontPageData] = useState(null);
@@ -102,43 +103,43 @@ const FrontPage = () => {
   return (
     <>
       <HeroHeader imageUrl={heroImageUrl} content={frontPageData} />
-      <Section className="flex flex-col items-center justify-center">
-        <div className="w-2/3 text-center p-5 mx-auto">
+      <Section>
+        <div className="w-3/4 text-center p-10 mx-auto mb-5">
           {frontPageData.attributes.field_description && (
-            <p className="short-description text-3xl mb-5">
+            <p className="short-description text-4xl p-10">
               {frontPageData.attributes.field_description}
             </p>
           )}
         </div>
-        <div className="flex">
-          <ProseWrapper>
-            {frontPageData.attributes.body && (
-              <div>
-                <div className="flex flex-col items-center justify-center w-full bg-gray-100 rounded-lg p-4">
-                  <div
-                    className=""
-                    dangerouslySetInnerHTML={{
-                      __html: frontPageData.attributes.body.processed,
-                    }}
-                  />
-                  <a href="/jobs">
-                    <button className="bg-orange-600 text-white text-xl hover:bg-orange-900 text-center rounded-full shadow-md w-48 p-2 m-5">
-                      Join Druid!
-                    </button>
-                  </a>
-                </div>
-                <div></div>
-              </div>
-            )}
-          </ProseWrapper>
+        <div className="flex w-full justify-center mt-6">
+          {/* added the picture directly here because I couldn't figure out how to do it from drupal */}
           <img
             src={groupPicture}
             alt="Druid's founders Samuli, Tero, Arto and Roni with our Production Director Pasi"
-            className="w-1/2"
+            className="w-1/2 h-full rounded-lg shadow-md"
           ></img>
-        </div>
 
-        <div className="front-page-content">
+          <ProseWrapper className="w-3/4">
+            {frontPageData.attributes.body && (
+              <div
+                className="text-xl mx-10"
+                dangerouslySetInnerHTML={{
+                  __html: frontPageData.attributes.body.processed,
+                }}
+              />
+            )}
+            <div className="flex justify-center items-center">
+              <a href="/jobs">
+                <button className="bg-orange-600 text-white text-xl hover:bg-orange-900 text-center rounded-full shadow-md w-48 p-2 m-5">
+                  Join Druid!
+                </button>
+              </a>
+            </div>
+          </ProseWrapper>
+        </div>
+      </Section>
+      <Section>
+        <div className="front-page-content flex flex-col items-center">
           {frontPageData.paragraphs &&
             frontPageData.paragraphs.map((paragraph, index) => (
               <ParagraphRenderer
@@ -148,7 +149,6 @@ const FrontPage = () => {
               />
             ))}
         </div>
-
         <ProjectContainer />
       </Section>
     </>

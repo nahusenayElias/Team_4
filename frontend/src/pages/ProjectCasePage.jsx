@@ -120,7 +120,6 @@ const ProjectCasePage = () => {
 
   return (
     <Section>
-      {" "}
       {project.heroImageUrl && (
         <HeroImage
           src={project.heroImageUrl}
