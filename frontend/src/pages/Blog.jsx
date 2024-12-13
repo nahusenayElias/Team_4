@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { drupalLocalhostAddress } from "../services/api";
-import DOMPurify from "dompurify";
 import Section from "../components/Section";
 import HeroImage from "../components/HeroImage";
 import SectionHeading from "../components/SectionHeading";
 import ProseWrapper from "../components/ProseWrapper";
+import { Link } from "react-router-dom";
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
   const [selectedBlog, setSelectedBlog] = useState(null);
-  const topRef = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -84,15 +83,6 @@ const Blog = () => {
     fetchData();
   }, []);
 
-  const handleReadMore = (blog) => {
-    setSelectedBlog(blog);
-    topRef.current.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const handleShowLess = () => {
-    setSelectedBlog(null);
-  };
-
   return (
     <div className="container mx-auto px-4">
       <div className="text-center py-10">
@@ -102,30 +92,18 @@ const Blog = () => {
           world of software development
         </h2>
       </div>
-      <div ref={topRef}>
-        {selectedBlog ? (
-          <FullBlogPost blog={selectedBlog} onShowLess={handleShowLess} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {blogs.length > 0 ? (
+          blogs.map((blog) => <BlogPost key={blog.id} blog={blog} />)
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {blogs.length > 0 ? (
-              blogs.map((blog) => (
-                <BlogPost
-                  key={blog.id}
-                  blog={blog}
-                  onReadMore={handleReadMore}
-                />
-              ))
-            ) : (
-              <p className="col-span-full text-center">Loading...</p>
-            )}
-          </div>
+          <p className="col-span-full text-center">Loading...</p>
         )}
       </div>
     </div>
   );
 };
 
-const BlogPost = ({ blog, onReadMore }) => {
+const BlogPost = ({ blog }) => {
   return (
     <Section>
       <div className="h-full bg-white shadow-lg p-5 flex flex-col rounded-lg border-2 border-gray-100">
@@ -149,48 +127,11 @@ const BlogPost = ({ blog, onReadMore }) => {
           <p className="text-gray-700">{blog.shortText}</p>
         </ProseWrapper>
 
-        <span
-          onClick={() => onReadMore(blog)}
-          className="cursor-pointer font-semibold text-orange-400 hover:text-orange-700 text-center block m-2 p-2 border-2 border-orange-400 rounded-lg shadow-md"
-        >
-          Read More
-        </span>
-      </div>
-    </Section>
-  );
-};
-
-const FullBlogPost = ({ blog, onShowLess }) => {
-  const sanitizeHTML = (html) => {
-    return { __html: DOMPurify.sanitize(html) };
-  };
-
-  return (
-    <Section>
-      <div className="max-w-4xl mx-auto">
-        {blog.mediaUrl && (
-          <HeroImage
-            src={blog.mediaUrl}
-            altText={blog.mediaAltText}
-            className="mb-6 rounded-md"
-          />
-        )}
-        <h3 className="text-2xl text-left mb-2">{blog.title}</h3>
-        <p className="text-sm text-gray-500">
-          <strong>Author:</strong> {blog.authorName}
-        </p>
-        <p className="text-sm text-gray-500">
-          <strong>Date:</strong> {new Date(blog.date).toLocaleDateString()}
-        </p>
-        <ProseWrapper>
-          <div dangerouslySetInnerHTML={sanitizeHTML(blog.body)} />
-        </ProseWrapper>
-        <span
-          onClick={onShowLess}
-          className="text-orange-600 cursor-pointer hover:text-gray-800 font-semibold"
-        >
-          Show Less
-        </span>
+        <Link to={`/blog/${blog.id}`} state={{ blog }}>
+          <span className="cursor-pointer font-semibold text-orange-400 hover:text-orange-700 text-center block m-2 p-2 border-2 border-orange-400 rounded-lg shadow-md">
+            Read More
+          </span>
+        </Link>
       </div>
     </Section>
   );
