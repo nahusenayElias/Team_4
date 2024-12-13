@@ -26,7 +26,7 @@ const TextWithImageParagraph = ({ paragraph, included }) => {
         )}
         <div className="md:w-1/2">
           <div
-            className="prose"
+            className="w-full prose text-2xl text-left mr-10 p-5"
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(paragraph.attributes?.field_long_text),
             }}

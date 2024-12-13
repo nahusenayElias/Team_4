@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.front_page.field_content
     - field.field.node.front_page.field_description
     - field.field.node.front_page.field_heroimg
+    - field.field.node.front_page.field_media
     - node.type.front_page
   module:
     - text
@@ -34,3 +35,4 @@ hidden:
   field_content: true
   field_description: true
   field_heroimg: true
+  field_media: true

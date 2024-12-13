@@ -102,7 +102,7 @@ const ParagraphRenderer = ({ paragraph, included }) => {
   }
 
   return (
-    <div className="mt-8 paragraph">
+    <div className="mt-8 paragraph text-center">
       <Component paragraph={paragraph} included={included} />
     </div>
   );

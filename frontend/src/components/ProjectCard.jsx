@@ -24,7 +24,7 @@ const ProjectCard = ({ project }) => {
         <p className="text-gray-500 text-sm line-clamp-3">{description}</p>
         <Link
           to={`/projects/${companyName}`} // Link to the detailed page using company name
-          className="text-blue-500 hover:text-blue-700 mt-4 block text-sm font-semibold"
+          className="text-orange-500 hover:text-orange-700 mt-4 block text-sm font-semibold"
         >
           Read More{" "}
         </Link>

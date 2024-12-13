@@ -47,13 +47,15 @@ const ServiceDetail = () => {
   );
 
   return (
-    <div className="service-detail flex justify-center items-center">
+    <div className="service-detail flex justify-center items-center pt-10">
       <Section>
         <button
+
           className="flex justify-center items-center bg-orange-600 text-white text-xl hover:bg-orange-900 text-center rounded-full shadow-md w-56 p-2 m-5"
           onClick={() => navigate(-1)}
         >
           <FaArrowLeftLong className="mr-4" /> Back to Services
+
         </button>
         {getHeroImageUrl(data) && (
           <HeroImage
