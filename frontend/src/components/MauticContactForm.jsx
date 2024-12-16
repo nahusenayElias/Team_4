@@ -18,7 +18,7 @@ const MauticContactForm = () => {
       }
       const mauticFormId =
         formData.data[0]?.attributes?.field_mautic_block_formid;
-      console.log("Mautic Form ID:", mauticFormId);
+      // console.log("Mautic Form ID:", mauticFormId);
       setFormId(mauticFormId);
     };
 
@@ -38,7 +38,7 @@ const MauticContactForm = () => {
       script.src = `${mauticUrl}/form/generate.js?id=${formId}`;
       script.async = true;
       script.onload = () => {
-        console.log("Mautic form script loaded successfully.");
+        // console.log("Mautic form script loaded successfully.");
         const formElement = formContainerRef.current.querySelector("form");
         if (formElement) {
           formElement.action = `${mauticUrl}/form/submit?formId=${formId}`;

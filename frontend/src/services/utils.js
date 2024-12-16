@@ -18,7 +18,7 @@ export const findImageUrl = (fieldImage, included) => {
   if (!mediaEntity) {
     return { imageUrl: null, altText: "n/a" };
   }
-  console.log("mediaEntity log", mediaEntity);
+  // console.log("mediaEntity log", mediaEntity);
 
   const altText = mediaEntity.relationships?.field_media_image?.data?.meta?.alt || "n/a";
 
@@ -37,7 +37,7 @@ export const findImageUrl = (fieldImage, included) => {
   const imageUrl = fileEntity?.attributes?.uri?.url
     ? `${drupalLocalhostAddress}${fileEntity.attributes.uri.url}`
     : null;
-    console.log({ imageUrl, altText });
+    // console.log({ imageUrl, altText });
 
     return {
       imageUrl,

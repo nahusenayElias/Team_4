@@ -24,7 +24,7 @@ export const fetchContactSegments = async () => {
       `${drupalLocalhostAddress}/api/mautic/contact/${contactId}`
     );
 
-    console.log("Full Segments Response:", response.data);
+    // console.log("Full Segments Response:", response.data);
 
     // Ensure the response has a segments property
     if (!response.data.segments) {

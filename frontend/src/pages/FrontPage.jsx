@@ -61,7 +61,7 @@ const FrontPage = () => {
               frontPage.relationships.field_heroimg.data.meta?.alt ||
                 "Hero image"
             );
-            console.log("Hero image URL:", fullHeroImageUrl);
+            // console.log("Hero image URL:", fullHeroImageUrl);
           }
 
           // Extract paragraphs
