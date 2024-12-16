@@ -114,13 +114,6 @@ const FrontPage = () => {
           )}
         </div>
         <div className="flex w-full justify-center mt-6">
-          {/* added the picture directly here because I couldn't figure out how to do it from drupal */}
-          <img
-            src={groupPicture}
-            alt="Druid's founders Samuli, Tero, Arto and Roni with our Production Director Pasi"
-            className="w-1/2 h-full rounded-lg shadow-md"
-          ></img>
-
           <ProseWrapper className="w-3/4">
             {frontPageData.attributes.body && (
               <div
