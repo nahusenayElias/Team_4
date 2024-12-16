@@ -61,7 +61,7 @@ const TextParagraph = ({ paragraph }) => {
       {/* Render the remaining content */}
       {!twoColumnLayout ? (
         <div
-          className="text-2xl prose flex flex-col items-center justify-center text-center mx-auto my-0 w-full"
+          className="text-2xl prose flex flex-col items-center justify-center my-0 mx-auto w-full max-w-full"
           dangerouslySetInnerHTML={{
             __html: parsedHtml.body.innerHTML, // Render the original HTML without the heading
           }}

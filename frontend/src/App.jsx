@@ -14,6 +14,7 @@ import { capitalizeFirstLetter } from "./services/utils";
 import { useDispatch } from "react-redux";
 import { fetchSegments } from "./store/visitorSegmentsSlice";
 import FullBlogPost from "./pages/FullBlogPost";
+import ProjectContainer from "./components/ProjectContainer";
 
 const App = () => {
   const location = useLocation();
@@ -33,6 +34,7 @@ const App = () => {
       "/about": "About Us | Druid Team 4",
       "/blog": "Blog | Druid Team 4",
       "/jobs": "Jobs | Druid Team 4",
+      "/projects": "Projects | Druid Team 4",
     };
 
     // Handle dynamic routes
@@ -68,6 +70,7 @@ const App = () => {
         <Route index element={<FrontPage />} />
         <Route path="/services" element={<OurServices />} />
         <Route path="/services/:serviceType" element={<ServiceDetail />} />
+        <Route path="/projects" element={<ProjectContainer />} />
         <Route path="/projects/:companyName" element={<ProjectCasePage />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />

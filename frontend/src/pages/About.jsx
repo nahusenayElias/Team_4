@@ -4,6 +4,8 @@ import Section from "../components/Section";
 import ParagraphRenderer from "../components/ParagraphRenderer";
 import "../css/AboutCards.css";
 import HeroHeader from "../components/HeroHeader";
+import { FaArrowRightLong } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 const About = () => {
   const [aboutData, setAboutData] = useState(null);
@@ -11,6 +13,7 @@ const About = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [included, setIncluded] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAboutData = async () => {
@@ -102,12 +105,22 @@ const About = () => {
       <HeroHeader imageUrl={imageUrl} content={aboutData} />
       <Section>
         <div
-          className="mx-auto my-8 prose"
+          className="w-full mx-auto my-8 prose lg:text-4xl md:text-3xl sm:text-2xl text-center max-w-4xl"
           dangerouslySetInnerHTML={{
             __html: aboutData.attributes.field_about_body.processed,
           }}
         />
-        <div className="about-cards">
+        <div className="flex justify-center items-center">
+          <button
+            className="flex justify-center items-center bg-orange-600 text-white text-xl hover:bg-orange-900 text-center rounded-full shadow-md w-72 p-3 m-5"
+            onClick={() => navigate("/services")}
+          >
+            Check out our services <FaArrowRightLong className="ml-4" />
+          </button>
+        </div>
+      </Section>
+      <Section>
+        <div className="about-cards mx-auto w-full">
           {aboutData.paragraphs &&
             aboutData.paragraphs.map((paragraph, index) => (
               <ParagraphRenderer
@@ -117,28 +130,46 @@ const About = () => {
               />
             ))}
         </div>
+        <div className="flex justify-center items-center">
+          <button
+            className="flex justify-center items-center bg-orange-600 text-white text-xl hover:bg-orange-900 text-center rounded-full shadow-md w-72 p-3 m-5"
+            onClick={() => navigate("/projects")}
+          >
+            Check out our projects <FaArrowRightLong className="ml-4" />
+          </button>
+        </div>
 
-        <h2 className="section-title">Druid in numbers</h2>
-        <div className="info-cards">
-          <div className="card">
-            <h3 className="card-value">
-              {aboutData.attributes.field_annual_turnover}
-            </h3>
-            <p className="card-label">Annual Turnover</p>
-          </div>
+        <h2 className="section-title text-center">Druid in numbers</h2>
+        <div className="flex justify-center items-center">
+          <div className="info-cards">
+            <div className="card">
+              <h3 className="card-value">
+                {aboutData.attributes.field_annual_turnover}
+              </h3>
+              <p className="card-label text-2xl">Annual Turnover</p>
+            </div>
 
-          <div className="card">
-            <h3 className="card-value">
-              {aboutData.attributes.field_employees}
-            </h3>
-            <p className="card-label">Employees</p>
+            <div className="card">
+              <h3 className="card-value">
+                {aboutData.attributes.field_employees}
+              </h3>
+              <p className="card-label text-2xl">Employees</p>
+            </div>
+            <div className="card">
+              <h3 className="card-value">
+                {aboutData.attributes.field_completed_projects}
+              </h3>
+              <p className="card-label text-2xl">Completed Projects</p>
+            </div>
           </div>
-          <div className="card">
-            <h3 className="card-value">
-              {aboutData.attributes.field_completed_projects}
-            </h3>
-            <p className="card-label">Completed Projects</p>
-          </div>
+        </div>
+        <div className="flex justify-center items-center">
+          <button
+            className="flex justify-center items-center bg-orange-600 text-white text-xl hover:bg-orange-900 text-center rounded-full shadow-md w-48 p-2 m-5"
+            onClick={() => navigate("/contact")}
+          >
+            Contact us <FaArrowRightLong className="ml-4" />
+          </button>
         </div>
       </Section>
     </>
