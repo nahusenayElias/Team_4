@@ -8,9 +8,9 @@ import useVisitorSegmentState from "../hooks/useVisitorSegmentState";
 // Function to fetch segment details using the provided link
 const fetchSegmentDetails = async (segmentLink) => {
   try {
-    console.log("Attempting to fetch segment details from:", segmentLink);
+    // console.log("Attempting to fetch segment details from:", segmentLink);
     const response = await axios.get(segmentLink);
-    console.log("Full Segment Response:", response.data);
+    // console.log("Full Segment Response:", response.data);
     return response.data;
   } catch (error) {
     console.error("Detailed Error Fetching Segment Details:", {
@@ -36,16 +36,16 @@ const ParagraphRenderer = ({ paragraph, included }) => {
   const [paragraphSegmentsLoading, setParagraphSegmentsLoading] =
     useState(true);
 
-  console.log("Paragraph Rendering Debug:", {
-    paragraphType: paragraph.type,
-    visitorSegments,
-    isLoading: visitorSegmentsLoading,
-  });
+  // console.log("Paragraph Rendering Debug:", {
+  //   paragraphType: paragraph.type,
+  //   visitorSegments,
+  //   isLoading: visitorSegmentsLoading,
+  // });
 
-  console.log("Visitor Segments State:", {
-    segments: visitorSegments,
-    isLoading: visitorSegmentsLoading,
-  });
+  // console.log("Visitor Segments State:", {
+  //   segments: visitorSegments,
+  //   isLoading: visitorSegmentsLoading,
+  // });
 
   // Lookup table to select which component should be rendered by ParagraphRenderer
   const paragraphComponents = {
@@ -79,8 +79,8 @@ const ParagraphRenderer = ({ paragraph, included }) => {
     fetchData();
   }, [segmentLink]);
 
-  console.log("Visitor Segments:", visitorSegments);
-  console.log("Paragraph Segments:", paragraphSegments);
+  // console.log("Visitor Segments:", visitorSegments);
+  // console.log("Paragraph Segments:", paragraphSegments);
 
   // Check if both visitor and paragraph segments are loaded
   if (visitorSegmentsLoading || paragraphSegmentsLoading) {
@@ -97,7 +97,7 @@ const ParagraphRenderer = ({ paragraph, included }) => {
     isVisitorInSegment(visitorSegments, paragraphSegments);
 
   if (!shouldRenderParagraph) {
-    console.log(`Paragraph hidden, visitor not in a qualifying segment.`);
+    // console.log(`Paragraph hidden, visitor not in a qualifying segment.`);
     return null;
   }
 

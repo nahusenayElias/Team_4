@@ -37,7 +37,7 @@ const Contact = () => {
 
         const mauticFormId =
           formData.data[0]?.attributes?.field_mautic_block_formid;
-        console.log("Mautic Form ID:", mauticFormId);
+        // console.log("Mautic Form ID:", mauticFormId);
         setFormId(mauticFormId);
       } catch (error) {
         console.error("Error fetching content:", error);

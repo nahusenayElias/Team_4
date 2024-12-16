@@ -71,8 +71,8 @@ const Blog = () => {
           };
         });
 
-        console.log("Fetched data:", data);
-        console.log("Mapped blog data:", blogData);
+        // console.log("Fetched data:", data);
+        // console.log("Mapped blog data:", blogData);
 
         setBlogs(blogData);
       } catch (error) {
