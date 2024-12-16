@@ -8,7 +8,6 @@ import DOMPurify from "dompurify";
 import { FaArrowRightLong } from "react-icons/fa6";
 import HeroHeader from "../components/HeroHeader";
 
-
 const Jobs = () => {
   const [content, setContent] = useState(null);
   const [included, setIncluded] = useState(null);
@@ -78,11 +77,9 @@ const Jobs = () => {
             )}
           </ProseWrapper>
           {included[1] && included[1].attributes ? (
-            <div className="w-full flex items-center justify-center bg-gray-100 p-3 m-3 rounded-md">
+            <div className="w-full flex flex-col items-center justify-center bg-gray-100 p-3 m-3 rounded-md">
               <SectionHeading>
-                <span className="m-5 p-2">
-                  {included[1].attributes.field_about_title}
-                </span>
+                {included[1].attributes.field_about_title}
               </SectionHeading>
               <ProseWrapper>
                 <div className="m-2 p-2">
