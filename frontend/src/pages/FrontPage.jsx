@@ -106,9 +106,9 @@ const FrontPage = () => {
     <>
       <HeroHeader imageUrl={heroImageUrl} content={frontPageData} />
       <Section>
-        <div className="w-3/4 text-center p-10 mx-auto mb-5">
+        <div className="text-center p-5 m-5">
           {frontPageData.attributes.field_description && (
-            <p className="short-description lg:text-4xl md:text-3xl sm:text-xl p-10">
+            <p className="short-description lg:text-4xl md:text-3xl sm:text-2xl p-10">
               {frontPageData.attributes.field_description}
             </p>
           )}
