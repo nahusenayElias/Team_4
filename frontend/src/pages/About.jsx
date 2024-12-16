@@ -105,14 +105,14 @@ const About = () => {
       <HeroHeader imageUrl={imageUrl} content={aboutData} />
       <Section>
         <div
-          className="mx-10 my-8 prose lg:text-4xl md:text-3xl sm:text-2xl text-center"
+          className="mx-auto my-8 prose lg:text-4xl md:text-3xl sm:text-2xl text-center"
           dangerouslySetInnerHTML={{
             __html: aboutData.attributes.field_about_body.processed,
           }}
         />
         <div className="flex justify-center items-center">
           <button
-            className="flex justify-center items-center bg-orange-600 text-white text-xl hover:bg-orange-900 text-center rounded-full shadow-md w-72 p-2 m-5"
+            className="flex justify-center items-center bg-orange-600 text-white text-xl hover:bg-orange-900 text-center rounded-full shadow-md w-72 p-3 m-5"
             onClick={() => navigate("/services")}
           >
             Check out our services <FaArrowRightLong className="ml-4" />
@@ -129,6 +129,14 @@ const About = () => {
                 included={included}
               />
             ))}
+        </div>
+        <div className="flex justify-center items-center">
+          <button
+            className="flex justify-center items-center bg-orange-600 text-white text-xl hover:bg-orange-900 text-center rounded-full shadow-md w-64 p-3 m-5"
+            onClick={() => navigate("/projects")}
+          >
+            Check out our projects <FaArrowRightLong className="ml-4" />
+          </button>
         </div>
 
         <h2 className="section-title text-center">Druid in numbers</h2>

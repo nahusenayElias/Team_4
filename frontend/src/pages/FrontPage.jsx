@@ -5,7 +5,6 @@ import ProseWrapper from "../components/ProseWrapper";
 import ParagraphRenderer from "../components/ParagraphRenderer";
 import ProjectContainer from "../components/ProjectContainer";
 import HeroHeader from "../components/HeroHeader";
-import groupPicture from "../assets/images/group-picture.png";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 
