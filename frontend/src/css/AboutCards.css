@@ -63,7 +63,7 @@
 
   /* Info Cards Layout */
   .info-cards {
-    @apply grid grid-cols-3 gap-4 mt-8 mb-10;
+    @apply grid grid-cols-3 gap-20 mt-8 mb-10;
   }
 
   /* Individual Card Styles for Info Cards */
@@ -90,6 +90,6 @@
 
   /* Section Title Styling */
   .section-title {
-    @apply text-2xl font-bold text-center mt-14 mb-8 font-sans;
+    @apply text-3xl font-bold text-center mt-14 mb-8 font-sans;
   }
 }

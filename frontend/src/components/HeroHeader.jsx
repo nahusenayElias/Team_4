@@ -8,7 +8,7 @@ const HeroHeader = ({ imageUrl, content }) => {
     >
       <div className="flex flex-col justify-center items-center p-4">
         {content?.attributes?.title && (
-          <h1 className="text-5xl font-sans font-semibold text-white text-center max-w-3xl leading-tight">
+          <h1 className="lg:text-5xl md:text-4xl sm:text-3xl font-sans font-semibold text-white text-center max-w-3xl leading-tight">
             {content.attributes.title}
           </h1>
         )}
