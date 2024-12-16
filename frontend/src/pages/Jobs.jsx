@@ -77,21 +77,19 @@ const Jobs = () => {
             )}
           </ProseWrapper>
           {included[1] && included[1].attributes ? (
-            <>
-              <div className="w-full flex flex-col items-center justify-center bg-gray-100 p-3 m-3 rounded-md">
-                <SectionHeading>
-                  {included[1].attributes.field_about_title}
-                </SectionHeading>
-                <ProseWrapper>
-                  <div className="m-2 p-2">
-                    {included[1].attributes.field_about_body.value}
-                  </div>
-                  <div className="m-2 p-2">
-                    {included[2].attributes.field_about_body.value}
-                  </div>
-                </ProseWrapper>
-              </div>
-            </>
+            <div className="w-full flex flex-col items-center justify-center bg-gray-100 p-3 m-3 rounded-md">
+              <SectionHeading>
+                {included[1].attributes.field_about_title}
+              </SectionHeading>
+              <ProseWrapper>
+                <div className="m-2 p-2">
+                  {included[1].attributes.field_about_body.value}
+                </div>
+                <div className="m-2 p-2">
+                  {included[2].attributes.field_about_body.value}
+                </div>
+              </ProseWrapper>
+            </div>
           ) : (
             ""
           )}
