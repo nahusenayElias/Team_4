@@ -18,6 +18,10 @@ Will be added later.
 - React
 - Tailwind CSS
 
+## Data Flow Diagram
+
+![team4_chart_v2](https://github.com/user-attachments/assets/1ef100df-1d86-4ec9-96ae-bc772b399b8a)
+
 ## Setup for Local Testing
 
 1. Clone the repository: `git clone https://github.com/nahusenayElias/Team_4.git`
