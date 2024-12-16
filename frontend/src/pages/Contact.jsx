@@ -85,9 +85,9 @@ const Contact = () => {
             Get to know us
           </button>
         </div>
-        <div className="flex items-center justify-center">
+        <div className="flex flex-col lg:flex-row justify-center items-center">
           <ProseWrapper>
-            <div className="w-3/4 p-3 m-3 text-xl bg-gray-100 rounded-lg">
+            <div className="w-full lg:w-5/6 p-3 text-xl bg-gray-100 rounded-lg m-3 mx-auto">
               {sanitizedDrupalContent ? (
                 <div
                   dangerouslySetInnerHTML={{
@@ -103,7 +103,7 @@ const Contact = () => {
           </ProseWrapper>
 
           {formId ? (
-            <div>
+            <div className="w-full lg:w-1/2 p-3 mx-auto">
               <SectionHeading>Contact Us</SectionHeading>
               <MauticContactForm formId={formId} />
             </div>
