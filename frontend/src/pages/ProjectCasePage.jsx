@@ -119,31 +119,33 @@ const ProjectCasePage = () => {
   }
 
   return (
-    <Section>
+    <>
       {project.heroImageUrl && (
         <HeroImage
           src={project.heroImageUrl}
           altText={project.heroImageAltText}
         />
       )}
-      <header className="mb-8">
-        <SectionHeading>{project.customer}</SectionHeading>
-        <h2 className="text-xl font-semibold">{project.title}</h2>
+      <Section>
+        <header className="mb-8">
+          <SectionHeading>{project.customer}</SectionHeading>
+          <h2 className="text-xl font-semibold">{project.title}</h2>
 
-        <p className="mt-4 text-gray-700 leading-relaxed">
-          {project.description}
-        </p>
-      </header>
-      <div className="space-y-8">
-        {project.paragraphs?.map((paragraph, index) => (
-          <ParagraphRenderer
-            key={`${paragraph.type}-${index}`}
-            paragraph={paragraph}
-            included={included}
-          />
-        ))}
-      </div>
-    </Section>
+          <p className="mt-4 text-gray-700 leading-relaxed">
+            {project.description}
+          </p>
+        </header>
+        <div className="space-y-8">
+          {project.paragraphs?.map((paragraph, index) => (
+            <ParagraphRenderer
+              key={`${paragraph.type}-${index}`}
+              paragraph={paragraph}
+              included={included}
+            />
+          ))}
+        </div>
+      </Section>
+    </>
   );
 };
 
