@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { drupalLocalhostAddress } from "../services/api";
 import Section from "../components/Section";
 import ProseWrapper from "../components/ProseWrapper";
 import ParagraphRenderer from "../components/ParagraphRenderer";
 import ProjectContainer from "../components/ProjectContainer";
 import HeroHeader from "../components/HeroHeader";
-import { FaArrowRightLong } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 
 const FrontPage = () => {
   const [frontPageData, setFrontPageData] = useState(null);
   const [heroImageUrl, setHeroImageUrl] = useState(null);
-  const [heroImageAltText, setHeroImageAltText] = useState("Hero image");
+  // const [heroImageAltText, setHeroImageAltText] = useState("Hero image");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [included, setIncluded] = useState([]);
@@ -56,10 +55,10 @@ const FrontPage = () => {
               : imageUri;
 
             setHeroImageUrl(fullHeroImageUrl);
-            setHeroImageAltText(
-              frontPage.relationships.field_heroimg.data.meta?.alt ||
-                "Hero image"
-            );
+            // setHeroImageAltText(
+            //   frontPage.relationships.field_heroimg.data.meta?.alt ||
+            //     "Hero image"
+            // );
             // console.log("Hero image URL:", fullHeroImageUrl);
           }
 
