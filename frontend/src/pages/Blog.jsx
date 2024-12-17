@@ -84,14 +84,12 @@ const Blog = () => {
   }, []);
 
   return (
-    <div className="container mx-auto px-4">
-      <div className="text-center py-10">
-        <h1 className="text-5xl mb-4 mt-10">Blog</h1>
-        <h2 className="text-2xl text-gray-600 m-3 p-3 text-center">
-          Writings on and off topic – about our everyday life, culture, and the
-          world of software development
-        </h2>
-      </div>
+    <Section>
+      <SectionHeading>Blog</SectionHeading>
+      <h2 className="text-2xl text-gray-600 m-3 p-3 text-center">
+        Writings on and off topic – about our everyday life, culture, and the
+        world of software development
+      </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {blogs.length > 0 ? (
           blogs.map((blog) => <BlogPost key={blog.id} blog={blog} />)
@@ -99,7 +97,7 @@ const Blog = () => {
           <p className="col-span-full text-center">Loading...</p>
         )}
       </div>
-    </div>
+    </Section>
   );
 };
 
