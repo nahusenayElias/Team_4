@@ -61,6 +61,7 @@ const OurServices = () => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetchContent("project");
     fetchContent("maintenance");
     fetchContent("consultation");
