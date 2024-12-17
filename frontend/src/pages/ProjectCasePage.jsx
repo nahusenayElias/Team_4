@@ -136,7 +136,7 @@ const ProjectCasePage = () => {
           <SectionHeading>{project.customer}</SectionHeading>
           <h2 className="text-xl font-semibold">{project.title}</h2>
 
-          <p className="w-3/4 bg-gray-100 p-4 rounded-md mt-4 text-2xl text-gray-700 leading-relaxed">
+          <p className="w-3/4 bg-gray-100 p-4 rounded-md mt-4 lg:text-2xl md:text-xl sm:text-lg text-gray-700 leading-relaxed">
             {project.description}
           </p>
         </header>
