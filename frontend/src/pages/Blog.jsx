@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { drupalLocalhostAddress } from "../services/api";
 import Section from "../components/Section";
-import HeroImage from "../components/HeroImage";
 import ProseWrapper from "../components/ProseWrapper";
 import { Link } from "react-router-dom";
 import SectionHeading from "../components/SectionHeading";
@@ -11,6 +10,7 @@ const Blog = () => {
   // const [selectedBlog, setSelectedBlog] = useState(null);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchData = async () => {
       try {
         const response = await fetch(
