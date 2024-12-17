@@ -4,6 +4,7 @@ import Section from "../components/Section";
 import HeroImage from "../components/HeroImage";
 import ProseWrapper from "../components/ProseWrapper";
 import { Link } from "react-router-dom";
+import SectionHeading from "../components/SectionHeading";
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
