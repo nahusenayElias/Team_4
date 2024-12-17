@@ -1,14 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { drupalLocalhostAddress } from "../services/api";
 import Section from "../components/Section";
 import HeroImage from "../components/HeroImage";
-import SectionHeading from "../components/SectionHeading";
 import ProseWrapper from "../components/ProseWrapper";
 import { Link } from "react-router-dom";
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
-  const [selectedBlog, setSelectedBlog] = useState(null);
+  // const [selectedBlog, setSelectedBlog] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
