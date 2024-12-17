@@ -128,12 +128,12 @@ const ProjectCasePage = () => {
           altText={project.heroImageAltText}
         />
       )}
-      <Section className="w-full">
-        <header className="w-full mb-8 flex flex-col items-center justify-center">
+      <Section>
+        <header className="mb-8 flex flex-col items-center justify-center">
           <SectionHeading>{project.customer}</SectionHeading>
           <h2 className="text-xl font-semibold">{project.title}</h2>
 
-          <p className="bg-gray-100 p-4 rounded-md mt-4 text-2xl text-gray-700 w-full leading-relaxed">
+          <p className="w-3/4 bg-gray-100 p-4 rounded-md mt-4 text-2xl text-gray-700 leading-relaxed">
             {project.description}
           </p>
         </header>
@@ -148,7 +148,7 @@ const ProjectCasePage = () => {
         </div>
         <div className="flex justify-center items-center">
           <button
-            className="flex justify-center items-center bg-orange-600 text-white text-xl hover:bg-orange-900 text-center rounded-full shadow-md w-32 py-2 my-5"
+            className="flex justify-center items-center bg-orange-600 text-white text-xl hover:bg-orange-900 text-center rounded-full shadow-md w-64 py-2 my-5"
             onClick={() => navigate(-1)}
           >
             <FaArrowLeftLong className="mr-4" /> Back
