@@ -1,10 +1,11 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { drupalLocalhostAddress } from "../services/api";
 import ParagraphRenderer from "../components/ParagraphRenderer";
 import Section from "../components/Section";
 import HeroImage from "../components/HeroImage";
 import SectionHeading from "../components/SectionHeading";
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 const ProjectCasePage = () => {
   // companyName is used as the path to individual project
@@ -13,8 +14,10 @@ const ProjectCasePage = () => {
   const [included, setIncluded] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchProjectDetail = async () => {
       try {
         setLoading(true);
@@ -120,22 +123,24 @@ const ProjectCasePage = () => {
 
   return (
     <>
-      {project.heroImageUrl && (
-        <HeroImage
-          src={project.heroImageUrl}
-          altText={project.heroImageAltText}
-        />
-      )}
+      <div className="mt-16">
+        {project.heroImageUrl && (
+          <HeroImage
+            src={project.heroImageUrl}
+            altText={project.heroImageAltText}
+          />
+        )}
+      </div>
       <Section>
-        <header className="mb-8">
+        <header className="mb-8 flex flex-col items-center justify-center">
           <SectionHeading>{project.customer}</SectionHeading>
           <h2 className="text-xl font-semibold">{project.title}</h2>
 
-          <p className="mt-4 text-gray-700 leading-relaxed">
+          <p className="w-3/4 bg-gray-100 p-4 rounded-md mt-4 text-2xl text-gray-700 leading-relaxed">
             {project.description}
           </p>
         </header>
-        <div className="space-y-8">
+        <div className="space-y-8 flex flex-col items-center justify-center">
           {project.paragraphs?.map((paragraph, index) => (
             <ParagraphRenderer
               key={`${paragraph.type}-${index}`}
@@ -143,6 +148,14 @@ const ProjectCasePage = () => {
               included={included}
             />
           ))}
+        </div>
+        <div className="flex justify-center items-center">
+          <button
+            className="flex justify-center items-center bg-orange-600 text-white text-xl hover:bg-orange-900 text-center rounded-full shadow-md w-64 py-2 my-5"
+            onClick={() => navigate(-1)}
+          >
+            <FaArrowLeftLong className="mr-4" /> Back
+          </button>
         </div>
       </Section>
     </>

@@ -47,32 +47,32 @@ const ServiceDetail = () => {
   );
 
   return (
-    <div className="service-detail flex justify-center items-center pt-10">
+    <div className="service-detail flex flex-col justify-center items-center pt-10">
       <Section>
         <button
-
           className="flex justify-center items-center bg-orange-600 text-white text-xl hover:bg-orange-900 text-center rounded-full shadow-md w-56 p-2 m-5"
           onClick={() => navigate(-1)}
         >
           <FaArrowLeftLong className="mr-4" /> Back to Services
-
         </button>
-        {getHeroImageUrl(data) && (
-          <HeroImage
-            src={getHeroImageUrl(data)}
-            altText={service.relationships?.field_hero_image?.data?.meta?.alt}
-            className="hero-image"
-          />
-        )}
-        <SectionHeading className="text-2xl font-bold">
-          {service.attributes.title}
-        </SectionHeading>
-        <ProseWrapper>
-          <div
-            className="text-left"
-            dangerouslySetInnerHTML={{ __html: sanitizedLongDescContent }}
-          ></div>
-        </ProseWrapper>
+        <div className="flex flex-col justify-center items-center">
+          {getHeroImageUrl(data) && (
+            <HeroImage
+              src={getHeroImageUrl(data)}
+              altText={service.relationships?.field_hero_image?.data?.meta?.alt}
+              className="hero-image"
+            />
+          )}
+          <SectionHeading className="text-2xl font-bold">
+            {service.attributes.title}
+          </SectionHeading>
+          <ProseWrapper>
+            <div
+              className="text-left"
+              dangerouslySetInnerHTML={{ __html: sanitizedLongDescContent }}
+            ></div>
+          </ProseWrapper>
+        </div>
       </Section>
     </div>
   );
