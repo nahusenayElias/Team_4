@@ -58,14 +58,14 @@ This repository contains a complete setup for a headless Drupal 10 backend, inte
 15. Rename `.env example` to `.env` and insert localhost addresses
 16. Run frontend: `npm run dev`
 
-### Areas of Improvement
+## Areas of Improvement
 
 - More cohesive frontend styling
 - Performance improvements (less fetching, improving ParagraphRenderer component)
 - Dark mode
 - Adding support for multiple languages
 
-### Team 4 Members
+## Team 4 Members
 
 - [Dana Popa](https://github.com/popadana10)
 - [Elias Hagos](https://github.com/nahusenayElias)
