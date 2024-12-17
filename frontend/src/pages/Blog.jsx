@@ -90,7 +90,7 @@ const Blog = () => {
         Writings on and off topic – about our everyday life, culture, and the
         world of software development
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-24">
         {blogs.length > 0 ? (
           blogs.map((blog) => <BlogPost key={blog.id} blog={blog} />)
         ) : (
@@ -103,35 +103,35 @@ const Blog = () => {
 
 const BlogPost = ({ blog }) => {
   return (
-    <Section>
-      <div className="h-full bg-white shadow-lg p-5 flex flex-col rounded-lg border-2 border-gray-100">
-        {blog.mediaUrl && (
-          <HeroImage
-            src={blog.mediaUrl}
-            altText={blog.mediaAltText}
-            className="mb-4 rounded-t-md"
-          />
-        )}
-        <div className="flex-grow">
-          <h3 className="text-xl font-bold mb-2">{blog.title}</h3>
-          <p className="text-gray-500 text-sm mb-2">
-            <strong>Author:</strong> {blog.authorName}
-          </p>
-          <p className="text-sm text-gray-500">
-            <strong>Date:</strong> {new Date(blog.date).toLocaleDateString()}
-          </p>
-        </div>
-        <ProseWrapper>
-          <p className="text-gray-700">{blog.shortText}</p>
-        </ProseWrapper>
-
-        <Link to={`/blog/${blog.id}`} state={{ blog }}>
-          <span className="cursor-pointer font-semibold text-orange-400 hover:text-orange-700 text-center block m-2 p-2 border-2 border-orange-400 rounded-lg shadow-md">
-            Read More
-          </span>
-        </Link>
+    <div className="h-full bg-white shadow-lg p-4 md:p-5 flex flex-col rounded-lg border-2 border-gray-100">
+      {blog.mediaUrl && (
+        <img
+          src={blog.mediaUrl}
+          alt={blog.mediaAltText}
+          className="mb-4 rounded-md w-full h-52 md:h-80 object-cover"
+        />
+      )}
+      <div>
+        <h3 className="text-lg md:text-xl font-bold mb-2">{blog.title}</h3>
+        <p className="text-gray-500 text-xs md:text-sm mb-2">
+          <strong>Author:</strong> {blog.authorName}
+        </p>
+        <p className="text-xs md:text-sm text-gray-500">
+          <strong>Date:</strong> {new Date(blog.date).toLocaleDateString()}
+        </p>
       </div>
-    </Section>
+      <ProseWrapper>
+        <p className="text-gray-700 text-sm md:text-base flex-grow my-4">
+          {blog.shortText}
+        </p>
+      </ProseWrapper>
+
+      <Link to={`/blog/${blog.id}`} state={{ blog }} className="mt-auto">
+        <span className="cursor-pointer font-semibold text-orange-400 hover:text-orange-700 text-center block m-2 p-2 border-2 border-orange-400 rounded-lg shadow-md">
+          Read More
+        </span>
+      </Link>
+    </div>
   );
 };
 
