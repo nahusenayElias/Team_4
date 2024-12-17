@@ -4,7 +4,7 @@ This repository contains a complete setup for a headless Drupal 10 backend, inte
 
 ## Screenshot
 
-Will be added later.
+![front_page_screenshot](https://github.com/user-attachments/assets/225fd0e6-7093-484b-8daf-53ff1ff0baf5)
 
 ## Technologies
 
@@ -16,7 +16,15 @@ Will be added later.
 ### Frontend
 
 - React
+  - axios
+  - react-router-dom
+  - react-redux
+  - reduxjs/toolkit
+  - mautic-tracking
+  - dompurify
+  - react-icons
 - Tailwind CSS
+  - prose
 
 ## Data Flow Diagram
 
@@ -49,6 +57,13 @@ Will be added later.
 14. run `npm install` to install dependencies
 15. Rename `.env example` to `.env` and insert localhost addresses
 16. Run frontend: `npm run dev`
+
+### Areas of Improvement
+
+- More cohesive frontend styling
+- Performance improvements (less fetching, improving ParagraphRenderer component)
+- Dark mode
+- Adding support for multiple languages
 
 ### Team 4 Members
 
