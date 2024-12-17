@@ -37,7 +37,7 @@ const TextParagraph = ({ paragraph }) => {
   let twoColumnLayout = null;
   if (isTwoColumns && paragraphElements.length > 1) {
     twoColumnLayout = (
-      <div className="text-left mx-auto w-4/5 md:grid md:grid-cols-2 md:gap-10 text-2xl">
+      <div className="text-left mx-auto w-4/5 md:grid md:grid-cols-2 md:gap-10 lg:text-2xl md:text-xl sm:text-lg">
         <div>
           {React.createElement("div", {}, paragraphElements[0].innerHTML)}
         </div>
@@ -61,7 +61,7 @@ const TextParagraph = ({ paragraph }) => {
       {/* Render the remaining content */}
       {!twoColumnLayout ? (
         <div
-          className="text-2xl text-left prose flex flex-col items-center justify-center my-0 mx-auto w-full"
+          className="lg:text-2xl md:text-xl sm:text-lg text-left prose flex flex-col items-center justify-center my-0 mx-auto w-full"
           dangerouslySetInnerHTML={{
             __html: parsedHtml.body.innerHTML, // Render the original HTML without the heading
           }}

@@ -17,6 +17,7 @@ const ProjectCasePage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchProjectDetail = async () => {
       try {
         setLoading(true);
@@ -122,12 +123,14 @@ const ProjectCasePage = () => {
 
   return (
     <>
-      {project.heroImageUrl && (
-        <HeroImage
-          src={project.heroImageUrl}
-          altText={project.heroImageAltText}
-        />
-      )}
+      <div className="mt-16">
+        {project.heroImageUrl && (
+          <HeroImage
+            src={project.heroImageUrl}
+            altText={project.heroImageAltText}
+          />
+        )}
+      </div>
       <Section>
         <header className="mb-8 flex flex-col items-center justify-center">
           <SectionHeading>{project.customer}</SectionHeading>
