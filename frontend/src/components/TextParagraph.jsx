@@ -37,7 +37,7 @@ const TextParagraph = ({ paragraph }) => {
   let twoColumnLayout = null;
   if (isTwoColumns && paragraphElements.length > 1) {
     twoColumnLayout = (
-      <div className="text-left mx-auto w-full max-w-full md:grid md:grid-cols-2 md:gap-10 prose text-2xl lg:text-3xl sm:text-xl">
+      <div className="text-left mx-auto w-4/5 md:grid md:grid-cols-2 md:gap-10 text-2xl">
         <div>
           {React.createElement("div", {}, paragraphElements[0].innerHTML)}
         </div>
@@ -49,12 +49,12 @@ const TextParagraph = ({ paragraph }) => {
   }
 
   return (
-    <ProseWrapper>
+    <>
       {/* Render the heading if it exists */}
       {headingElement &&
         React.createElement(
           headingElement.nodeName.toLowerCase(),
-          { className: "font-semibold" },
+          { className: "font-semibold text-3xl mb-5" },
           headingElement.innerHTML
         )}
 
@@ -69,7 +69,7 @@ const TextParagraph = ({ paragraph }) => {
       ) : (
         twoColumnLayout // If two-column layout is active, render that
       )}
-    </ProseWrapper>
+    </>
   );
 };
 
