@@ -21,7 +21,9 @@ const ProjectCard = ({ project }) => {
       <div className="p-6">
         {/* <h2 className="text-xl font-semibold text-gray-800">{title}</h2> */}
         <h3 className="text-xl text-gray-600 mb-2">{customer}</h3>
-        <p className="text-gray-500 text-sm line-clamp-3">{description}</p>
+        <p className="text-gray-500 text-sm md:text-base line-clamp-3">
+          {description}
+        </p>
         <Link
           to={`/projects/${companyName}`} // Link to the detailed page using company name
           className="text-orange-500 hover:text-orange-700 mt-4 block text-sm font-semibold"

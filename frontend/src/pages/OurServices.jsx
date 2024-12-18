@@ -87,7 +87,10 @@ const OurServices = () => {
                 key={item.id}
                 className="service-item w-75 h-full mb-8 p-8 border-2 border-gray-100 rounded-lg shadow-md"
               >
-                <Link to={`/services/${serviceType}`} className="block">
+                <Link
+                  to={`/services/${serviceType}`}
+                  className="h-full flex flex-col"
+                >
                   {item.heroImageUrl && (
                     <div>
                       <HeroImage
@@ -101,11 +104,11 @@ const OurServices = () => {
                   )}
 
                   <ProseWrapper>
-                    <span className="text-gray-500">
+                    <span className="text-gray-500 flex-grow">
                       {item.attributes.field_short_description}
                     </span>
                   </ProseWrapper>
-                  <span className="text-orange-400 hover:text-orange-700 text-center block m-2 p-2 border-2 border-orange-400 rounded-lg shadow-md">
+                  <span className="text-orange-400 hover:text-orange-700 text-center block m-2 p-2 border-2 border-orange-400 rounded-lg shadow-md mt-auto">
                     Read more
                   </span>
                 </Link>
