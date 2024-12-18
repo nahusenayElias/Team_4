@@ -12,9 +12,9 @@ const TextWithImageParagraph = ({ paragraph, included }) => {
   const isImageFirst = paragraph.attributes?.field_image_first || false;
 
   return (
-    <>
+    <div className="mt-32 mb-20">
       <SectionHeading>{paragraph.attributes?.field_title || ""}</SectionHeading>
-      <div className="flex flex-col md:flex-row items-center gap-6">
+      <div className="flex flex-col md:flex-row items-center gap-6 mt-10">
         {isImageFirst && imageUrl && (
           <div className="md:w-1/2">
             <img
@@ -42,7 +42,7 @@ const TextWithImageParagraph = ({ paragraph, included }) => {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
