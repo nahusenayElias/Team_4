@@ -77,9 +77,9 @@ const ProjectContainer = () => {
   return (
     <div id="featuredCases" className="container mx-auto mt-10 p-6">
       <h1 className="text-center text-3xl m-5 p-5">Featured projects</h1>
-      <div className="flex flex-wrap justify-start gap-6">
+      <div className="flex flex-wrap justify-center gap-6">
         {projects.map((project) => (
-          <div className="flex-grow sm:w-1/2 md:w-1/3" key={project.id}>
+          <div className="w-full lg:w-[45%]" key={project.id}>
             <ProjectCard project={project} />
           </div>
         ))}
